@@ -17,6 +17,7 @@ from typing import Annotated
 from fastapi import Depends
 from strawberry.fastapi import BaseContext
 
+from agenttalks.content.eventbus.client import EventPublisher
 from agenttalks.content.persistence import (
     SubmissionsRepository,
     create_submissions_repository,
@@ -26,20 +27,28 @@ from agenttalks.content.persistence import (
 class ApplicationContext(BaseContext):
     """Application context for the GraphQL interface."""
 
-    def __init__(self, *, submissions_repository: SubmissionsRepository) -> None:
+    def __init__(
+        self,
+        *,
+        submissions_repository: SubmissionsRepository,
+        event_publisher: EventPublisher,
+    ) -> None:
         """Initialize the context.
 
         Parameters
         ----------
         submissions_repository : SubmissionsRepository
             The repository for submissions.
+        event_publisher : EventPublisher
+            The event publisher for publishing events.
         """
         super().__init__()
 
         self.submissions_repository = submissions_repository
+        self.event_publisher = event_publisher
 
 
-async def get_context(
+async def get_application_context(
     submissions_repository: Annotated[
         SubmissionsRepository, Depends(create_submissions_repository)
     ],
@@ -64,5 +73,5 @@ async def get_context(
         The context for the GraphQL interface.
     """
     return ApplicationContext(
-        submissions_repository=submissions_repository,
+        submissions_repository=submissions_repository, event_publisher=EventPublisher()
     )

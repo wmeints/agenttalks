@@ -64,6 +64,8 @@ class Mutation:
         info : strawberry.Info[ApplicationContext]
             The GraphQL info object.
         """
-        await info.context.submissions_repository.create_submission(
+        submission = await info.context.submissions_repository.create_submission(
             url=url, instructions=instructions, created_at=datetime.now(UTC)
         )
+
+        info.context.event_publisher.publish_content_submitted(submission)

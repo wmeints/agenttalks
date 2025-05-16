@@ -11,8 +11,12 @@ The GraphQL interface is defined in two parts:
 import strawberry
 from strawberry.fastapi import GraphQLRouter
 
+from agenttalks.content.graph.context import get_application_context
 from agenttalks.content.graph.mutation import Mutation
 from agenttalks.content.graph.query import Query
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
-router = GraphQLRouter(schema, prefix="/graphql")
+
+router = GraphQLRouter(
+    schema, prefix="/graphql", context_getter=get_application_context
+)
