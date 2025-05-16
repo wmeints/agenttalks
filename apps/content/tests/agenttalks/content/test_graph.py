@@ -1,9 +1,10 @@
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
 from agenttalks.content.graph import schema
 from agenttalks.content.graph.context import ApplicationContext
+from agenttalks.content.models import ContentSubmission
 
 
 @pytest.fixture
@@ -11,22 +12,29 @@ def mock_repository():
     mock_repo = AsyncMock()
 
     mock_repo.find_submissions.return_value = [
-        {
-            "_id": "1",
-            "url": "http://example.com",
-            "instructions": "Test instructions",
-            "status": "pending",
-            "created_at": "2023-10-01T00:00:00Z",
-            "updated_at": "2023-10-01T00:00:00Z",
-        }
+        ContentSubmission(
+            id="test",
+            url="http://example.com",
+            instructions="Test instructions",
+            status="pending",
+            created_at="2023-10-01T00:00:00Z",
+            updated_at="2023-10-01T00:00:00Z",
+        )
     ]
 
     return mock_repo
 
 
 @pytest.fixture
-def mock_app_context(mock_repository):
-    return ApplicationContext(submissions_repository=mock_repository)
+def mock_event_publisher():
+    return MagicMock()
+
+
+@pytest.fixture
+def mock_app_context(mock_repository, mock_event_publisher):
+    return ApplicationContext(
+        submissions_repository=mock_repository, event_publisher=mock_event_publisher
+    )
 
 
 @pytest.mark.asyncio
