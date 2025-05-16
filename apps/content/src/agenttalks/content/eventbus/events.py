@@ -2,10 +2,61 @@
 
 from dataclasses import dataclass
 from datetime import datetime
+from typing import TypeVar
+
+from pydantic import BaseModel
+
+TEvent = TypeVar("TEvent", bound="BaseModel")
+
+
+class CloudEventEnvelope[TEvent](BaseModel):
+    """Data structure for incoming events that are published as cloud events.
+
+    This data model is based on the cloudevents specification:
+    https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md
+
+    Attributes
+    ----------
+    data : T
+        The data payload of the event.
+    datacontenttype : str
+        The content type of the data.
+    id : str
+        The unique identifier for the event.
+    pubsubname : str
+        The name of the pub/sub system that published the event.
+    source : str
+        The source of the event.
+    specversion : str
+        The version of the CloudEvents specification.
+    topic : str
+        The topic of the event.
+    traceid : str
+        The trace ID for distributed tracing.
+    traceparent : str
+        The traceparent header for distributed tracing.
+    tracestate : str
+        The tracestate header for distributed tracing.
+    event_type : str
+        The type of the event.
+    """
+
+    data: TEvent
+    datacontenttype: str
+    id: str
+    pubsubname: str
+    source: str
+    specversion: str
+    time: datetime
+    topic: str
+    traceid: str
+    traceparent: str
+    tracestate: str
+    type: str
 
 
 @dataclass
-class ContentSubmittedEvent:
+class SubmissionCreatedEvent:
     """Event triggered when content is submitted.
 
     Attributes

@@ -11,6 +11,12 @@ members = [
 name = "agenttalks"
 version = "0.1.0"
 source = { virtual = "." }
+dependencies = [
+    { name = "cloudevents" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "cloudevents", specifier = ">=1.11.0" }]
 
 [[package]]
 name = "aiohappyeyeballs"
@@ -159,6 +165,7 @@ version = "0.1.0"
 source = { editable = "apps/content" }
 dependencies = [
     { name = "dapr" },
+    { name = "dapr-ext-fastapi" },
     { name = "dapr-ext-grpc" },
     { name = "fastapi" },
     { name = "pydantic" },
@@ -182,6 +189,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "dapr", specifier = ">=1.15.0" },
+    { name = "dapr-ext-fastapi", specifier = ">=1.15.0" },
     { name = "dapr-ext-grpc", specifier = ">=1.15.0" },
     { name = "fastapi", specifier = ">=0.115.12" },
     { name = "pydantic", specifier = ">=2.11.4" },
@@ -256,6 +264,20 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c6/55/ce908bb140a7ec3f32d2194b6a50b9f7a7fd88fca8c78701d60d3f7c16e3/dapr-1.15.0.tar.gz", hash = "sha256:6b2373084143f164cb00702758b17a14fc4442314a1f3e2be36ee008d486c47a", size = 99424 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/97/ad/6923177cfcd2a98f08dbd1c4a580e9fbac93b05798ded77314e848d6eef2/dapr-1.15.0-py3-none-any.whl", hash = "sha256:0093bf6df5eb9a14fbab60191a619438e0b6b336f60a7994e184276bcc35d5fb", size = 141392 },
+]
+
+[[package]]
+name = "dapr-ext-fastapi"
+version = "1.15.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "dapr" },
+    { name = "fastapi" },
+    { name = "uvicorn" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f8/0f/444659d65dfac7f605d559bb2922dd730d9fc241452a623457d12e0bcb3f/dapr-ext-fastapi-1.15.0.tar.gz", hash = "sha256:d5411d24c6dcc256041b29383caa95d6024e58ab094ad24f7e72b9396bc245b0", size = 8804 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cf/de/911243c8a430c0e539c0b7a7374733cad58f5a71527c56742da9a0f60d28/dapr_ext_fastapi-1.15.0-py3-none-any.whl", hash = "sha256:429f15345a4b2fb89586fe691d9c8addba0001246c54cf0fc7e5c7c3a6075c97", size = 10460 },
 ]
 
 [[package]]

@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "dapr-ext-fastapi>=1.15.0",
     "dapr-ext-grpc>=1.15.0",
     "dapr>=1.15.0",
     "fastapi>=0.115.12",

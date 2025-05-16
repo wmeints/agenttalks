@@ -4,7 +4,7 @@ import json
 
 from dapr.clients import DaprClient
 
-from agenttalks.content.eventbus.events import ContentSubmittedEvent
+from agenttalks.content.eventbus.events import SubmissionCreatedEvent
 from agenttalks.content.models import ContentSubmission
 
 
@@ -27,7 +27,7 @@ class EventPublisher:
         submission : ContentSubmission
             The content submission to publish.
         """
-        event_data = ContentSubmittedEvent(
+        event_data = SubmissionCreatedEvent(
             id=submission.id,
             url=submission.url,
             instructions=submission.instructions,
@@ -38,4 +38,5 @@ class EventPublisher:
             pubsub_name="eventbus",
             topic_name="content.submissions.created.v1",
             data=json.dumps(event_data.to_dict()),
+            data_content_type="application/json",
         )
