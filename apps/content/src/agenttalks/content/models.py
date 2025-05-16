@@ -16,6 +16,7 @@ class ContentSubmission(BaseModel):
         The additional instructions
     """
 
+    id: str
     url: str
     instructions: str | None = None
     status: str = "pending"
@@ -62,7 +63,7 @@ class ContentSubmission(BaseModel):
             The ContentSubmission instance.
         """
         return cls(
-            id=data["_id"],
+            id=str(data["_id"]),
             url=data["url"],
             instructions=data.get("instructions"),
             status=data["status"],
