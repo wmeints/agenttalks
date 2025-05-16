@@ -1,5 +1,5 @@
 ---
-trigger: manual
+trigger: always_on
 ---
 
 - The content API is used to store submitted content with related metadata and stored in `apps/content`
