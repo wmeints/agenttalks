@@ -15,11 +15,11 @@ class EventPublisher:
     The event bus is used to communicate with other services in the system.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, dapr_client: DaprClient | None = None) -> None:
         """Initialize the event publisher."""
-        self._client = DaprClient()
+        self._client = dapr_client or DaprClient()
 
-    def publish_content_submitted(self, submission: ContentSubmission) -> None:
+    def publish_submission_created(self, submission: ContentSubmission) -> None:
         """Publish a content submission event.
 
         Parameters
