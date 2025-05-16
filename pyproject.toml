@@ -3,6 +3,8 @@ name = "agenttalks"
 version = "0.1.0"
 dependencies = [
     "cloudevents>=1.11.0",
+    "dapr>=1.15.0",
+    "dapr-ext-grpc>=1.15.0",
 ]
 
 [tool.uv.workspace]

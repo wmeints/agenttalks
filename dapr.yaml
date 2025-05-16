@@ -5,4 +5,8 @@ apps:
     appPort: 3000
     daprHTTPPort: 3500
     command: ["uv","run","agenttalks-content"]
-    
+  - appID: reader
+    appDirPath: ./apps/reader
+    appPort: 3001
+    daprHTTPPort: 3501
+    command: ["uv","run","agenttalks-reader"]

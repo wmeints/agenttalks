@@ -1,0 +1,22 @@
+[project]
+name = "reader"
+version = "0.1.0"
+description = "Read and summarizes content for the agenttalks project"
+readme = "README.md"
+authors = [
+    { name = "Willem Meints", email = "1550763+wmeints@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "typer>=0.15.4",
+]
+
+[project.scripts]
+agenttalks-reader = "agenttalks.reader.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agenttalks"]
