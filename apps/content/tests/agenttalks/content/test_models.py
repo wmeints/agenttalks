@@ -8,6 +8,7 @@ def test_valid_status():
 
     for status in valid_statuses:
         submission = ContentSubmission(
+            id="test",
             url="http://localhost:3000",
             status=status,
             created_at="2023-10-01T00:00:00Z",
@@ -23,6 +24,7 @@ def test_invalid_status():
     for status in invalid_statuses:
         with pytest.raises(ValueError):  # noqa: PT011
             ContentSubmission(
+                id="test",
                 url="http://localhost:3000",
                 status=status,
                 created_at="2023-10-01T00:00:00Z",
