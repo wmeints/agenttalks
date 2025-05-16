@@ -1,0 +1,8 @@
+version: 1
+apps:
+  - appID: content
+    appDirPath: ./apps/content
+    appPort: 3000
+    daprHTTPPort: 3500
+    command: ["uv","run","agenttalks-content"]
+    
