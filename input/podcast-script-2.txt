@@ -1,0 +1,125 @@
+# DE ROBOCAST: OPENAI'S GPT-4.1 RELEASE
+
+**LET OP: Dit is een compleet door AI gegenereerd script op basis van informatie die Joop en Willem elkaar hebben gedeeld om elkaar op de hoogte te houden van nieuwe ontwikkelingen in AI.**
+
+---
+
+**Joop:** Hallo allemaal en welkom bij een gloednieuwe aflevering van De Robocast! Ik ben Joop, CTO bij Aigency, en samen met mijn collega Willem duiken we vandaag in de allernieuwste ontwikkelingen in AI-land. Willem, ben je er klaar voor?
+
+**Willem:** Helemaal klaar, Joop! Eh, ik heb mijn koffie, mijn notities en een hoofd vol ideeën over die enorme GPT-4.1 release van vorige week. En ik moet zeggen, mijn RSS-feed staat nog steeds in de brand sinds OpenAI die... die... die hele trein aan nieuwe modellen op het spoor heeft gezet.
+
+**Joop:** Voor onze luisteraars die misschien niet elk tech-nieuwtje volgen: OpenAI heeft vorige week plotseling drie nieuwe modellen tegelijk uitgebracht. En het is, eh, behoorlijk veel om te verwerken. We hebben een stapel artikelen doorgenomen en alles netjes in categorieën verdeeld om het behapbaar te houden.
+
+**Willem:** Precies! We gaan door negen... negen verschillende aspecten: van release-details tot prijsdalingen en van coding-scores tot die absurde namenparade waar niemand wijs uit wordt.
+
+**Joop:** Laten we maar meteen beginnen met de basics. Willem, wat zijn eigenlijk de kale feiten rond deze release?
+
+**Willem:** Nou, volgens Reuters rolden er op 14 april drie nieuwe modellen uit de oven: GPT-4.1, Mini en Nano. Ze scoren allemaal beter op benchmarks dan GPT-4o, zijn alleen via API beschikbaar, en hebben een verse knowledge cut-off van juni 2024.
+
+**Joop:** The Verge voegde daar nog wat sappige details aan toe. Deze modellen hebben contextvensters tot - hou je vast - één miljoen tokens. Dat is ongeveer 750.000 woorden! Je kunt letterlijk het boek 'Oorlog en Vrede' plus de epiloog in één keer in de prompt stoppen.
+
+**Willem:** Die miljoen tokens had wat mij betreft echt de headline moeten zijn. Het is... het is... het is krankzinnig! De OpenAI-blog legt uit dat je daarmee een hele monorepo kunt analyseren, inclusief die vergeten Docker-files uit 2016, en er gewoon een nette migratie-strategie naar Rust uit kunt laten rollen.
+
+**Joop:** Ter vergelijking: GPT-4o stopte bij 128.000 tokens. Dat voelt nu opeens als een ouderwetse floppydisk, haha!
+
+**Willem:** Ja, echt belachelijk hoe snel de ontwikkelingen gaan. En weet je wat nog gekker is? Er is ook een Nano-versie die zo compact is dat-ie bijna in een ESP-32 zou passen, maar dan wel met dezelfde architectuur als de grote jongens.
+
+**Joop:** Laten we even doorschakelen naar de coding-performance. Daar ben jij als developer vast het meest in geïnteresseerd, toch?
+
+**Willem:** Absoluut! Decrypt heeft een analyse gedaan van de SWE-Bench-cijfers. GPT-4.1 haalt 55 procent accuraatheid - een sprong van 22 punten vergeleken met 4o. Dat is, eh... dat is gewoon niet normaal.
+
+**Joop:** Het OpenAI-cookbook bevestigt 54,6 procent, goed voor 21 punt absolute verbetering over 4o en 26 punt over 4.5. Ik vind dat krankzinnig als je de prijsdaling erbij pakt.
+
+**Willem:** Absoluut! En wat deze cijfers betekenen in de praktijk? OpenAI demonstreerde live hoe GPT-4.1 een NASA-serverlog van 450.000 tokens analyseerde, anomalieën clusterde en vervolgens een complete webapp bouwde om die clusters te visualiseren. In één keer!
+
+**Joop:** Dat soort case-studies laat zien dat de model-architectuur niet implodeert bij ultralange input. Daar waren we in research lang bang voor, weet je nog?
+
+**Willem:** Zeker weten. Ik heb het zelf ook meteen getest met 200.000 logregels van onze eigen inference-cluster. Ik vroeg Mini om een samenvatting van alle waarschuwingen én om Prometheus-alerts te genereren. Voorheen moest ik dat in batches doen, maar nu ging het in één call en bleef de latency onder 30 seconden.
+
+**Joop:** Indrukwekkend! Die lange-context functionaliteit is echt een gamechanger. De OpenAI-blog laat zien dat de modellen op de Video-MME long-context-benchmark 8 procent hoger scoren dan 4o. Ze gebruiken die extra tokens dus echt effectief.
+
+**Willem:** Het Cookbook heeft daar trouwens een interessante tip over. Ze adviseren om hoofdstuk-headings te gebruiken als semantische ankers, zodat attention kan springen in plaats van lineair door alles heen te moeten scrollen. Een soort... eh... heruitvinding van documentstructuur, maar dan op token-niveau.
+
+**Joop:** Fascinerend! Maar laten we niet vergeten waar het veel gebruikers écht om gaat: geld. Arstechnica heeft de prijstabel gelekt. GPT-4.1 kost $2 voor input en $8 voor output per miljoen tokens. Mini is $0,40 - $1,60 en Nano slechts $0,10 - $0,40. Dat is 26 procent goedkoper dan 4o!
+
+**Willem:** VentureBeat noemt het 'de aanstichter van een prijs-oorlog'. Anthropic en Google verlaagden direct hun tarieven. Prijs en performance gaan nu echt hand in hand.
+
+**Joop:** Maar er is ook minder goed nieuws... De stekker gaat uit GPT-4.5. Reuters meldt dat het per 14 juli verdwijnt. Vind je dat niet... eh... nogal snel?
+
+**Willem:** Absoluut! TechCrunch herinnerde eraan dat 4.5 pas eind februari live ging - dat is een levensduur korter dan de meeste kantoorplanten!
+
+**Joop:** Kevin Weil zei letterlijk "we hebben die GPU's terug nodig". Een geforceerde upgrade dus, maar wel met betere prijs-prestatieverhouding.
+
+**Willem:** Ja, maar... maar... maar het roept wel vragen op over de naming convention, toch? Decrypt maakt er een grap over dat OpenAI telt als een dronken piraat: 5, 6, 4, 7...
+
+**Joop:** Haha, klopt! Business Insider citeert Altman die belooft de naamgeving deze zomer op te schonen. Hoog tijd ook!
+
+**Willem:** Arstechnica ontdekte zelfs interne codenamen zoals 'Omni-C' voor Mini en 'Omni-Lite' voor Nano. Nieuwe developers haken af door keuzestress. Het is een... een complete chaos!
+
+**Joop:** Laten we het hebben over de developer-impact. Analytics India Mag benadrukt dat 4.1's instructietrouw ervoor zorgt dat agents veel complexere taken kunnen afronden zonder menselijke hulp, zoals customer-tickets end-to-end oplossen.
+
+**Willem:** Absoluut! Het Cookbook laat zien hoe je een agent een dynamisch 'scratchpad' geeft in die miljoen tokens. Chain-of-thought wordt daarmee een permanente geheugenstructuur. Dat is... dat is... dat is echt een enorme stap voorwaarts.
+
+**Joop:** Maar er zijn ook zorgen, toch? TechCrunch merkt op dat er nog geen system-card is. Een groot contextvenster betekent een grotere attack-surface.
+
+**Willem:** Klopt, prompt-injection kan nu honderden pagina's verderop effect sorteren. Tot er een gedegen rapport is, zou ik persoonlijk geen high-stakes health-cases in productie zetten met deze modellen.
+
+**Joop:** Wijs advies. Laten we tot slot kijken naar de bredere marktimpact. TechRadar ziet GPT-4.1 als een strategische zet om Gemini en Claude voor te blijven. ChatGPT was in maart al de meest gedownloade app.
+
+**Willem:** Ja, en Techmeme toonde direct headlines over Gemini-kortingen. OpenAI dwingt de rest van de markt tot sprint-modus. Het tempo ligt ongelooflijk hoog.
+
+**Joop:** Als ik de rode draad van al deze ontwikkelingen moet samenvatten: snelheid, kosten en developer-experience staan centraal. En modellen verouderen tegenwoordig sneller dan bananen!
+
+**Willem:** En schaal! Een miljoen tokens vraagt om nieuwe tooling - diff-viewers, prompt-linting en context-maps. We moeten onze hele workflow heroverwegen.
+
+**Joop:** Bij Aigency zijn we daar al mee bezig. We gebruiken nu Nano voor linting-checks, Mini voor test-generatie en full 4.1 voor nachtelijke architectuur-reviews. We zien 30 procent minder regressies in één sprint.
+
+**Willem:** Indrukwekkend! Wij testen momenteel een pull-request-workflow met context-snapshots. Het voelt als pair-programmen met een compacte, goedkope maar eigenwijze senior-dev.
+
+**Joop:** Laten we wat quick-fire take-aways delen voor onze luisteraars. Check je client op 4.1-compatibiliteit... Zet het in je test-suite... Gebruik hoofdstuk-headers voor lange context...
+
+**Willem:** Herbereken je unit-economics... Migreer vóór 14 juli... Abstraheer modelnamen in environment variables...
+
+**Joop:** Lees het Cookbook... Filter en log alles voor safety... En verwacht verdere prijsdalingen in de komende weken.
+
+**Willem:** Het is interessant om te zien hoe OpenAI de focus splitst: 'o' voor reasoning, '4.1' voor text-en-code. Zonder safety-card kiest het bedrijf duidelijk voor snelheid boven zorgvuldigheid.
+
+**Joop:** Er is ook een filosofische verschuiving gaande. In plaats van 'denk dieper' zegt OpenAI nu 'lees meer'. Horizontale schaal met meer tokens blijkt productiever dan verticale schaal met ketenredenering.
+
+**Willem:** Maar prijs blijft de compute-ondergrens bepalen. Zelfs Nano op tien cent per miljoen tokens kan bij een miljoen tokens behoorlijk in de papieren lopen. Kies venstergrootte op behoefte, niet op wat technisch mogelijk is.
+
+**Joop:** Business Insider meldt trouwens dat Altman zelfs een Twitter-poll over nieuwe namen overweegt. Ik stem voor 'ChoGPT' - met chocolate-chip-cookie-kracht!
+
+**Willem:** Haha! Mijn favoriet zou 'GPT-4ever' zijn. Het is toch ironisch dat releases badge-nummers hebben alsof het Pokémon zijn?
+
+**Joop:** We hadden laatst een klant die 4.5 koos omdat het 'hogere nummer' betrouwbaarder klonk. Toen 4.1 goedkoper bleek, vroegen ze of we de CI konden pauzeren tot de versienummers stabiliseren!
+
+**Willem:** Daarom is een goede abstraction-layer zo belangrijk: pin de versie, test in staging en promote pas na regressie-checks. Dat is... dat is... dat is gewoon basis software engineering, maar nu nog belangrijker.
+
+**Joop:** Zonder modelcard behandel ik 4.1 als een ongetest medicijn: eerst in het lab, dan pas bij de patiënt.
+
+**Willem:** Dat schept ook kansen voor third-party audit-tools. Security-engineers moeten tokenizer-math net zo goed leren beheersen als SQL-injectie.
+
+**Joop:** Wat me ook opvalt: 4.1 vergt minder fallback-logica. Analytics India Mag stelt dat betere instruction-following de monitoring-loops reduceert.
+
+**Willem:** Klopt! In onze tests bleek 4.1 Mini JSON-schema's 100 procent te respecteren, waar 4o soms compleet sneuvelde.
+
+**Joop:** Een waarschuwing voor vendor-lock-in: die snelle deprecatie van 4.5 toont dat je drop-in-replacements klaar moet hebben. Je kunt niet blind vertrouwen op één model.
+
+**Willem:** Multi-model hygiene is de nieuwe poly-cloud: dezelfde prompt tegen Gemini en Llama-afgeleiden om je risico te spreiden. Dat is... dat is... dat is gewoon noodzakelijk in dit snelle landschap.
+
+**Joop:** Mijn slot-takeaway: enorme contextvensters dwingen tot 'tekstuele architectuur'. Misschien heb je straks een information architect per prompt nodig!
+
+**Willem:** En snelheid is alles: als je niet continu migreert, loop je twee versies achter en val je buiten de performance-curve. De trein wacht niet.
+
+**Joop:** Mijn advies aan iedereen die luistert: pak één categorie en experimenteer. Doe een PoC met Nano, of herschrijf je prompts volgens het Cookbook. Kleine stappen leveren compound interest wanneer OpenAI weer het volgende getalletje uit de hoed tovert.
+
+**Willem:** Blijf vooral kritisch - check safety, log alles en bouw abstraheringslagen. Zo blijft innovatie leuk en niet zenuwslopend.
+
+**Joop:** We posten show-notes met alle links en een voorbeeldprompt voor million-token code-review op robocast.dev. Check het, inclusief een script dat tokens telt per bestand zodat je niet je API-budget verbrandt in de eerste vijf minuten.
+
+**Willem:** Dat was het weer voor deze aflevering van De Robocast! Vond je deze deep-dive nuttig? Laat dan een review achter, deel de aflevering met je dev-team en kom volgende week terug voor meer AI-nieuws en -inzichten.
+
+**Joop:** Bedankt voor het luisteren, en tot de volgende keer!
+
+**Willem:** Tot dan, en code responsibly!

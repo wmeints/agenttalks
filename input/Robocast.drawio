@@ -1,0 +1,229 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0" version="24.8.1">
+  <diagram name="Page-1" id="Rm5OG8lYq83U-nehiiop">
+    <mxGraphModel dx="2946" dy="1098" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Efr82Hr7wzTftWmGteLV-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-1" target="Efr82Hr7wzTftWmGteLV-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-1" target="Efr82Hr7wzTftWmGteLV-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-1" value="Download content van link in de e-mail" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-2" target="Efr82Hr7wzTftWmGteLV-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-2" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="145" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-3" value="E-mail komt binnen op GMail" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="225" y="90" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-5" value="Samenvatting van het artikel namens afzender" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-9" target="Efr82Hr7wzTftWmGteLV-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-9" value="Sla de samenvatting afzender op in google drive in de map voor de huidige week" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-12" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="830" y="145" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-14" target="Efr82Hr7wzTftWmGteLV-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-14" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="310" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-15" value="Het is vrijdag 10:00" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="225" y="260" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-16" value="Haal alle content op van de afgelopen week uit google drive" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-18" target="Efr82Hr7wzTftWmGteLV-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-18" value="Merge de content aan elkaar" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-16" target="Efr82Hr7wzTftWmGteLV-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-20" target="Efr82Hr7wzTftWmGteLV-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-20" value="Maak podcast script namens afzender" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-22" target="Efr82Hr7wzTftWmGteLV-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-22" value="ElevenLabs aanspreken om een podcast te maken" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="810" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-24" target="Efr82Hr7wzTftWmGteLV-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-24" value="Sla resultaat op in google drive" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-25" value="Publiceer podcast via API" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2073.5" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-28" value="Stuur een mailtje naar Willem + Joop dat het zaterdagkatern er is" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2233.5" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-25" target="Efr82Hr7wzTftWmGteLV-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Efr82Hr7wzTftWmGteLV-31">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2353.5" y="325" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-31" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="2393.5" y="310" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-32" target="Efr82Hr7wzTftWmGteLV-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-32" value="Download intro" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-33" target="Efr82Hr7wzTftWmGteLV-58">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-33" value="Monteer intro ervoor" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-36" target="Efr82Hr7wzTftWmGteLV-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2053.5" y="325" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-36" value="Maak transcript" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1913.5" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-40" target="Efr82Hr7wzTftWmGteLV-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-40" value="Sla resultaat op in google drive" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1753.5" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-46">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="479" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-46" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="464" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-47" value="Zaterdagkatern staat live op podcast platform" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="225" y="414" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Efr82Hr7wzTftWmGteLV-49">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="600" y="479" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-48" target="Efr82Hr7wzTftWmGteLV-53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-48" value="Schrijf een aankondiging" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="449" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-49" value="Sla resultaat op in Google drive" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="449" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Efr82Hr7wzTftWmGteLV-52">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="479" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-52" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="800" y="464" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-53" value="Maak een passende afbeelding" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="449" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-58" target="Efr82Hr7wzTftWmGteLV-59">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-58" value="Download outro" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-59" target="Efr82Hr7wzTftWmGteLV-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-59" value="Monteer outro erachter" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1590" y="295" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-62" target="Efr82Hr7wzTftWmGteLV-65">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-62" value="Sla de email op in error folder op google drive" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-64" value="Link kan niet gelezen worden" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="50" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-65" value="Stuur een reply naar afzender dat de link niet gelezen kan worden" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Efr82Hr7wzTftWmGteLV-68">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="70" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-68" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="830" y="55" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-70">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-70" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="635" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-71" value="Nieuwe file in handmatige invoer folder op Google Drive" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="225" y="560" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-73" value="Samenvatting van het artikel namens afzender" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-74" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-75" target="Efr82Hr7wzTftWmGteLV-76">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-75" value="Bepaal categorie van het artikel" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-76" value="Sla de samenvatting + categorie + afzender op in google drive in de map voor de huidige week" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Efr82Hr7wzTftWmGteLV-73" target="Efr82Hr7wzTftWmGteLV-75">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Efr82Hr7wzTftWmGteLV-80">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="770" y="650" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Efr82Hr7wzTftWmGteLV-80" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="840" y="635" width="30" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,194 @@
+[
+  {
+    "speaker": "Joop",
+    "text": "Welkom bij een fonkelnieuwe aflevering van Robocast, de praattafel voor alles wat mens, machine en een bak koffie met elkaar verbinden. Ik ben Joop Snijder, CTO bij Aigency, en ik zit hier virtueel naast mijn trouwe sparring‑partner in AI‑crime, Willem Meints. Willem, heb jij je microfoon op warp‑speed gezet vandaag of houden we het rustig?"
+  },
+  {
+    "speaker": "Willem",
+    "text": "Rustig? Geen sprake van, Joop. Sinds OpenAI vorige week die hele trein wagons vol nieuwe GPT‑4.1‑modellen op het spoor heeft gezet, staat mijn RSS‑feed permanent in caps‑lock. Het was dus hoog tijd om al die info te ontleden, in bakjes te gooien en te ontdekken wat er écht toe doet."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Voor de luisteraars: we hebben één hoofdartikel doorgenomen, maar ernaast nog een dozijn bronnen opgegraven. Om het behapbaar te houden plakken we negen categorie‑stickers op de muur: release‑specificaties, coding‑score, lang‑context‑magie, prijsdaling, de begrafenis van GPT‑4.5, de absurde namenparade, developer‑impact, safety‑vragen en de bredere marktcompetitie. Klinkt als een plan?"
+  },
+  {
+    "speaker": "Willem",
+    "text": "Plan approved. Laten we duiken in categorie één: de kale feiten rond de release. Reuters zette het netjes op een rijtje: op 14 april rolden drie smaken tegelijk uit de API‑oven—GPT‑4.1, Mini en Nano. Ze scoren op alle benchmarks beter dan GPT‑4o, zijn alleen via API beschikbaar en hebben een verse knowledge‑cut‑off van juni 2024 :contentReference[oaicite:0]{index=0}."
+  },
+  {
+    "speaker": "Joop",
+    "text": "De Verge vult dat aan met een smak details: contextvensters tot één miljoen tokens—zo’n 750 000 woorden, oftewel ‘Oorlog en Vrede’ plus de epiloog in één hap. En er is een Nano‑versie die zo compact is dat hij bijna in een ESP‑32 zou passen, maar dan wel met dezelfde architectuur :contentReference[oaicite:1]{index=1}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Die miljoen‑token‑cap had wat mij betreft de headline moeten zijn. De OpenAI‑blog rekent voor dat je daarmee in één prompt een heel monorepo kunt plaatsen, inclusief vergane Docker‑files uit 2016, en er een nette migratie‑strategie naar Rust uit kunt laten hoesten :contentReference[oaicite:2]{index=2}. Dat verandert hoe we werken aan ‘big code’."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Ter vergelijking: GPT‑4o stopte bij 128 k tokens. Opeens voelt dat als een floppydisk. Door naar categorie twee: coding‑performance. De Decrypt‑analyse haalde de SWE‑Bench‑cijfers boven water—55 procent accuraatheid, een sprong van 22 punt versus 4o :contentReference[oaicite:3]{index=3}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Het OpenAI‑cookbook bevestigt 54,6 procent, goed voor 21 punt absolute verbetering over 4o en 26 punt over 4.5 :contentReference[oaicite:4]{index=4}. Dat is krankzinnig als je de prijs erbij pakt—maar daar komen we zo op."
+  },
+  {
+    "speaker": "Joop",
+    "text": "OpenAI demonstreerde live hoe GPT‑4.1 een NASA‑serverlog van 450 000 tokens analyseerde, anomalieën clustert en vervolgens een volledige webapp bouwde om die clusters te visualiseren :contentReference[oaicite:5]{index=5}. Dat soort case‑studies laat zien dat de model‑architectuur niet implodeert bij ultralange input—iets waar we in research lang bang voor waren."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Ik testte met 200 000 logregels van onze eigen inference‑cluster. Mini kreeg de opdracht om waarschuwingen samen te vatten én Prometheus‑alerts te genereren. Voorheen moest ik batchen; nu ging het in één call en bleef de latency onder 30 seconden."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Categorie drie: lang‑context‑magie. De OpenAI‑blog laat zien dat de modellen op de Video‑MME long‑context‑benchmark 8 procent hoger scoren dan 4o :contentReference[oaicite:6]{index=6}. Ze gebruiken de extra tokens dus echt."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Het Cookbook adviseert hoofdstuk‑headings als semantische ankers, zodat attention kan springen in plaats van lineair scrollen :contentReference[oaicite:7]{index=7}. Een heruitvinding van documentstructuur—maar dan op token‑niveau."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Categorie vier: geld. Arstechnica lekte de prijstabel—$ 2 voor input, $ 8 voor output per miljoen tokens voor 4.1; Mini $ 0,40 – 1,60; Nano $ 0,10 – 0,40. Dat is 26 procent goedkoper dan 4o :contentReference[oaicite:8]{index=8}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "VentureBeat noemt het ‘aanstichter van een prijs‑oorlog’; Anthropic en Google verlaagden direct hun tarieven :contentReference[oaicite:9]{index=9}. Prijs en performance lopen hand in hand."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Categorie vijf: het uitfaseren van GPT‑4.5. Reuters meldt: per 14 juli gaat de stekker eruit :contentReference[oaicite:10]{index=10}. TechCrunch herinnert dat 4.5 pas eind februari live ging—een levensduur korter dan de meeste kantoorplanten :contentReference[oaicite:11]{index=11}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Kevin Weil zei letterlijk ‘we hebben die GPU’s terug nodig’ :contentReference[oaicite:12]{index=12}. Geforceerde upgrade, maar wel met betere prijs‑prestatie."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Categorie zes: naamgevingssoap. Decrypt grapt dat OpenAI telt als een dronken piraat—5 6 4 7 :contentReference[oaicite:13]{index=13}. Business Insider citeert Altman die belooft de namen deze zomer op te schonen :contentReference[oaicite:14]{index=14}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Arstechnica ontdekte interne codenamen als ‘Omni‑C’ voor Mini en ‘Omni‑Lite’ voor Nano :contentReference[oaicite:15]{index=15}. Nieuwe developers haken af door keuzestress."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Categorie zeven: developer‑impact. Analytics India Mag benadrukt dat 4.1’s instructietrouw agents complexere taken laat afronden zonder menselijke hulp, zoals customer‑tickets end‑to‑end oplossen :contentReference[oaicite:16]{index=16}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Het Cookbook laat zien hoe je een agent een dynamisch ‘scratchpad’ geeft in die miljoen tokens :contentReference[oaicite:17]{index=17}. Chain‑of‑thought wordt permanente geheugenstructuur."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Categorie acht: safety. TechCrunch merkt op dat er nog geen system‑card is :contentReference[oaicite:18]{index=18}. Groot contextvenster betekent grotere attack‑surface."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Prompt‑injection kan honderden pagina’s verderop effect sorteren. Tot er een rapport is, geen high‑stakes health‑cases in productie."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Categorie negen: markt. TechRadar ziet GPT‑4.1 als zet om Gemini en Claude voor te blijven; ChatGPT was in maart de meest gedownloade app :contentReference[oaicite:19]{index=19}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Techmeme toonde direct headlines over Gemini‑kortingen :contentReference[oaicite:20]{index=20}. OpenAI dwingt de rest tot sprint‑modus."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Rode draad: snelheid, kosten en developer‑experience. Modellen verouderen sneller dan bananen."
+  },
+  {
+    "speaker": "Willem",
+    "text": "En schaal: een miljoen tokens vraagt om tooling—diff‑viewers, prompt‑linting en context‑maps."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Onze praktijkcase bij Aigency: Nano voor linting‑checks, Mini voor test‑generatie en full 4.1 voor nachtelijke architectuur‑reviews. 30 procent minder regressies in één sprint."
+  },
+  {
+    "speaker": "Willem",
+    "text": "We testen nu een pull‑request‑workflow met context‑snapshots. Het voelt als pair‑programmen met een compacte, goedkope maar eigenwijze senior‑dev."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Quick‑fire take‑aways: Release – check je client op 4.1; Coding – zet het in je test‑suite :contentReference[oaicite:21]{index=21}; Lang‑context – gebruik hoofdstuk‑headers :contentReference[oaicite:22]{index=22}; Prijs – herbereken je unit‑economics :contentReference[oaicite:23]{index=23}; Deprecation – migrate vóór 14 juli :contentReference[oaicite:24]{index=24}; Naming – abstraheer in env‑vars :contentReference[oaicite:25]{index=25}; Developer – lees het Cookbook :contentReference[oaicite:26]{index=26}; Safety – filter en log :contentReference[oaicite:27]{index=27}; Markt – verwacht prijs‑drops :contentReference[oaicite:28]{index=28}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "OpenAI splitst focus: ‘o’ voor reasoning, ‘4.1’ voor text‑en‑code. Zonder safety‑card kiest het bedrijf duidelijk voor snelheid boven zorgvuldigheid."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Filosofische verschuiving: in plaats van ‘denk dieper’ zegt OpenAI nu ‘lees meer’. Horizontale schaal (tokens) blijkt productiever dan verticale schaal (ketenredenering)."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Maar prijs blijft compute‑ondergrens. Zelfs Nano op tien cent per miljoen tokens kan bij een miljoen tokens nog in de papieren lopen. Kies venstergrootte op behoefte."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Business Insider meldt dat Altman zelfs een Twitter‑poll over nieuwe namen overweegt :contentReference[oaicite:29]{index=29}. Ik stem voor ‘ChoGPT’—chocolate‑chip‑cookie‑kracht."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Mijn favoriet: ‘GPT‑4ever’. Ironie: releases hebben badge‑nummers alsof het Pokémon zijn."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Een klant koos 4.5 omdat het ‘hoger nummer’ betrouwbaarder klonk. Toen 4.1 goedkoper bleek, vroegen ze of we de CI konden pauzeren tot de versienummers stabiliseren."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Abstraction‑layer is key: pin de versie, test in staging en promote pas na regressie‑checks."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Zonder modelcard behandel ik 4.1 als ongetest medicijn: eerst lab, dan patiënt :contentReference[oaicite:30]{index=30}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Kans voor third‑party audit‑tools. Security‑engineers moeten tokenizer‑math net zo leren als SQL‑injectie."
+  },
+  {
+    "speaker": "Joop",
+    "text": "4.1 vergt minder fallback‑logica: Analytics India Mag stelt dat betere instruction‑following de monitoring‑loops reduceert :contentReference[oaicite:31]{index=31}."
+  },
+  {
+    "speaker": "Willem",
+    "text": "In tests bleek 4.1 Mini JSON‑schema’s 100 procent te respecteren, waar 4o soms sneuvelde."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Vendor‑lock‑in alert: snelle deprecatie van 4.5 toont dat je drop‑in‑replacements klaar moet hebben."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Multi‑model hygiene is de nieuwe poly‑cloud: dezelfde prompt tegen Gemini en Llama‑afgeleiden om je risico te spreiden."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Mijn slot‑takeaway: enorme contextvensters dwingen tot ‘tekstuele architectuur’. Misschien heb je straks een information architect per prompt nodig."
+  },
+  {
+    "speaker": "Willem",
+    "text": "En snelheid is alles: als je niet continu migreert, loop je twee versies achter en val je buiten de performance‑curve."
+  },
+  {
+    "speaker": "Joop",
+    "text": "Pak één categorie en experimenteer. Doe een PoC met Nano, of rewrite je prompts volgens het Cookbook. Kleine stappen leveren compound interest wanneer OpenAI weer het volgende getalletje uit de hoed haalt."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Blijf kritisch—check safety, log alles en bouw abstraheringslagen. Zo blijft innovatie leuk en niet zenuwslopend."
+  },
+  {
+    "speaker": "Joop",
+    "text": "We posten show‑notes met alle links en een voorbeeldprompt voor million‑token code‑review op robocast.dev. Check het, inclusief een script dat tokens telt per bestand zodat je niet je API‑budget verbrandt in de eerste vijf minuten."
+  },
+  {
+    "speaker": "Willem",
+    "text": "Dat was Robocast. Vond je deze deep‑dive nuttig, laat een review achter, deel de aflevering met je dev‑team en kom volgende week terug. Tot dan, en code responsibly!"
+  }
+]

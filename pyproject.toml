@@ -1,0 +1,6 @@
+[project]
+name = "agenttalks"
+version = "0.1.0"
+
+[tool.uv.workspace]
+members = ["apps/*"]

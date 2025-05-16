@@ -1,0 +1,50 @@
+name: Content CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/content/**'
+      - '.github/workflows/content-ci.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'apps/content/**'
+      - '.github/workflows/content-ci.yml'
+jobs:
+    build-and-test:
+        name: Build and test
+        runs-on: ubuntu-latest
+        container: ghcr.io/astral-sh/uv:debian-slim
+        permissions:
+            contents: read
+            pull-requests: write
+            id-token: write
+        steps:
+            - uses: actions/checkout@v4
+              name: Checkout sources
+
+            - name: Build packages
+              working-directory: apps/content
+              run: uv build --link-mode=copy --all
+
+            - name: Synchronize packages
+              working-directory: apps/content
+              run: uv sync --all-packages
+
+            - name: Lint with ruff
+              working-directory: apps/content
+              run: uv run ruff check .
+
+            - name: Run tests
+              working-directory: apps/content
+              run: uv run pytest --cov=reforge --cov-report xml:coverage.xml
+              continue-on-error: true
+
+            - name: Report coverage
+              uses: orgoro/coverage@v3.2
+              with:
+                coverageFile: apps/content/coverage.xml
+                token: ${{ secrets.GITHUB_TOKEN }}
