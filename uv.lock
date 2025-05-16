@@ -115,6 +115,12 @@ wheels = [
 ]
 
 [[package]]
+name = "callee"
+version = "0.3.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7c/a9/cc2ee5fb2686292610e743324854059a6da6780479fa38999d725bd729ab/callee-0.3.1.tar.gz", hash = "sha256:056f95d7760c87ce470aa4ab83bab5f9bdf090d4ecf77d52efe9c4559c0aefd3", size = 19824 }
+
+[[package]]
 name = "click"
 version = "8.1.8"
 source = { registry = "https://pypi.org/simple" }
@@ -165,6 +171,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "callee" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "pytest-cov" },
@@ -187,6 +194,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "callee", specifier = ">=0.3.1" },
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest-asyncio", specifier = ">=0.26.0" },
     { name = "pytest-cov", specifier = ">=6.1.1" },

@@ -68,4 +68,4 @@ class Mutation:
             url=url, instructions=instructions, created_at=datetime.now(UTC)
         )
 
-        info.context.event_publisher.publish_content_submitted(submission)
+        info.context.event_publisher.publish_submission_created(submission)

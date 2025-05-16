@@ -36,4 +36,5 @@ dev = [
     "pytest-cov>=6.1.1",
     "pytest-mock>=3.14.0",
     "ruff>=0.11.10",
+    "callee>=0.3.1",
 ]

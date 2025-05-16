@@ -36,6 +36,6 @@ class EventPublisher:
 
         self._client.publish_event(
             pubsub_name="eventbus",
-            topic_name="content-submitted",
+            topic_name="content.submissions.created.v1",
             data=json.dumps(event_data.to_dict()),
         )
