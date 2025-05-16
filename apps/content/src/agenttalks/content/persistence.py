@@ -38,14 +38,7 @@ class SubmissionsRepository:
         )
 
         return [
-            ContentSubmission(
-                id=submission["_id"],
-                url=submission["url"],
-                instructions=submission["instructions"],
-                status=submission["status"],
-                created_at=submission["created_at"],
-                updated_at=submission["updated_at"],
-            )
+            ContentSubmission.from_persistence(submission)
             for submission in content_submissions
         ]
 
@@ -72,7 +65,7 @@ class SubmissionsRepository:
 
         return await self._submissions.find_one({"_id": content_id})
 
-    def create_submission(
+    async def create_submission(
         self, url: str, instructions: str | None, created_at: str
     ) -> ContentSubmission:
         """Create a new submission.
@@ -98,8 +91,10 @@ class SubmissionsRepository:
             "created_at": created_at,
             "updated_at": created_at,
         }
-        result = self._submissions.insert_one(submission)
-        return ContentSubmission(**submission, id=result.inserted_id)
+        result = await self._submissions.insert_one(submission)
+        submission = await self._submissions.find_one({"_id": result.inserted_id})
+
+        return ContentSubmission.from_persistence(submission)
 
 
 def create_submissions_repository() -> SubmissionsRepository:
