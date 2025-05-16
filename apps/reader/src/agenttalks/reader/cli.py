@@ -1,6 +1,6 @@
-import uvicorn
 from typing import Annotated
 
+import uvicorn
 from agenttalks.reader.server import app as server_app
 from typer import Option, Typer
 
