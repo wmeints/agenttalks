@@ -41,7 +41,6 @@ jobs:
             - name: Run tests
               working-directory: apps/content
               run: uv run pytest --cov=reforge --cov-report xml:coverage.xml
-              continue-on-error: true
               env:
                 APP_DATABASE_URL: "NOT_SET"
 
