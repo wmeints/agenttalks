@@ -1,3 +1,4 @@
+import uvicorn
 from typing import Annotated
 
 from agenttalks.reader.server import app as server_app
@@ -11,4 +12,4 @@ def run_server(
     host: Annotated[str, Option(help="The host to bind to")] = "127.0.0.1",
     port: Annotated[int, Option(help="The port to bind to")] = 3001,
 ) -> None:
-    server_app.run(port, host)
+    uvicorn.run(server_app, host=host, port=port)
