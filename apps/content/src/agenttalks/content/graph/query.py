@@ -42,7 +42,4 @@ class Query:
         List[ContentSubmissionType]
             A list of all submissions.
         """
-        submissions = await info.context.submissions_repository.find_submissions()
-        return [
-            ContentSubmission.from_persistence(submission) for submission in submissions
-        ]
+        return await info.context.submissions_repository.find_submissions()
