@@ -43,6 +43,26 @@ class SubmissionsRepository:
             for submission in content_submissions
         ]
 
+    async def find_submission_by_id(self, content_id: str) -> ContentSubmission | None:
+        """Find a submission by its ID.
+
+        Parameters
+        ----------
+        content_id : str
+            The ID of the submission.
+
+        Returns
+        -------
+        ContentSubmission
+            The submission with the given ID.
+        """
+        data = await self._submissions.find_one({"_id": content_id})
+
+        if data is None:
+            return None
+
+        return ContentSubmission.from_persistence(data)
+
     async def update_submission_status(
         self, content_id: str, status: str
     ) -> ContentSubmission:
@@ -72,7 +92,7 @@ class SubmissionsRepository:
         return await self._submissions.find_one({"_id": content_id})
 
     async def create_submission(
-        self, url: str, instructions: str | None, created_at: str
+        self, url: str, instructions: str | None, created_at: datetime
     ) -> ContentSubmission:
         """Create a new submission.
 
@@ -82,7 +102,7 @@ class SubmissionsRepository:
             The URL of the submission.
         instructions : str | None
             The instructions for the submission.
-        created_at : str
+        created_at : datetime
             The creation date of the submission.
 
         Returns

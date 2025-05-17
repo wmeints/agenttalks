@@ -40,3 +40,8 @@ class EventPublisher:
             data=json.dumps(event_data.to_dict()),
             data_content_type="application/json",
         )
+
+
+def create_event_publisher() -> EventPublisher:
+    """Create an event publisher."""
+    return EventPublisher()

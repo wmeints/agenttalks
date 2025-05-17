@@ -21,7 +21,36 @@ class ContentSubmission(BaseModel):
     instructions: str | None = None
     status: str = "pending"
     created_at: datetime
-    updated_at: datetime
+    updated_at: datetime | None = None
+
+    def is_status_update_valid(self, new_status: str) -> bool:
+        """Validate if the new status is valid given the current status.
+
+        Parameters
+        ----------
+        new_status : str
+            The new status to validate.
+
+        Returns
+        -------
+        bool
+            True if the new status is valid, False otherwise.
+        """
+        valid_statuses = ["pending"]
+
+        if self.status == "summarizing":
+            valid_statuses = ["ready"]
+
+        if self.status == "ready":
+            valid_statuses = ["processed"]
+
+        if self.status == "pending":
+            valid_statuses = ["summarizing"]
+
+        if self.status == "processed":
+            valid_statuses = ["processed"]
+
+        return new_status in valid_statuses
 
     @field_validator("status")
     @classmethod
@@ -62,6 +91,8 @@ class ContentSubmission(BaseModel):
         ContentSubmission
             The ContentSubmission instance.
         """
+        print("date", type(data["created_at"]))
+
         return cls(
             id=str(data["_id"]),
             url=data["url"],
