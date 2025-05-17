@@ -6,6 +6,7 @@ an environment variable called `APP_DATABASE_URL`. You can also set the environm
 variable `APP_DATABASE_NAME` through the `.env` file.
 """
 
+from datetime import UTC, datetime
 from typing import List
 
 from pymongo import AsyncMongoClient
@@ -59,8 +60,13 @@ class SubmissionsRepository:
         ContentSubmission
             The updated submission.
         """
+        if status not in ["pending", "summarizing", "ready", "processed"]:
+            exc_message = "Invalid status"
+            raise ValueError(exc_message)
+
         await self._submissions.update_one(
-            {"_id": content_id}, {"$set": {"status": status}}
+            {"_id": content_id},
+            {"$set": {"status": status, "updated_at": datetime.now(UTC)}},
         )
 
         return await self._submissions.find_one({"_id": content_id})
@@ -89,12 +95,39 @@ class SubmissionsRepository:
             "instructions": instructions,
             "status": "pending",
             "created_at": created_at,
-            "updated_at": created_at,
+            "updated_at": None,
         }
+
         result = await self._submissions.insert_one(submission)
         submission = await self._submissions.find_one({"_id": result.inserted_id})
 
         return ContentSubmission.from_persistence(submission)
+
+    async def update_submission_summary(
+        self, content_id: str, summary: str
+    ) -> ContentSubmission:
+        """Update the summary of a submission.
+
+        Parameters
+        ----------
+        content_id : str
+            The ID of the submission.
+        summary : str
+            The summary to set.
+
+        Returns
+        -------
+        ContentSubmission
+            The updated submission.
+        """
+        await self._submissions.update_one(
+            {"_id": content_id},
+            {"$set": {"summary": summary, "updated_at": datetime.now(UTC)}},
+        )
+
+        return ContentSubmission.from_persistence(
+            await self._submissions.find_one({"_id": content_id})
+        )
 
 
 def create_submissions_repository() -> SubmissionsRepository:
