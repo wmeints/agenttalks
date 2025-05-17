@@ -1,4 +1,9 @@
-"""Workflow activities for the reader app."""
+"""Workflow activities for the reader app.
+
+The activities interact with other services and components to implement steps in the
+workflow. The workflow itself never interacts with external dependencies. It only
+builds a graph for the workflow runtime to execute.
+"""
 
 import json
 from dataclasses import dataclass
@@ -76,13 +81,29 @@ class UpdateSummaryActivityInput:
 def download_content_activity(
     _ctx: WorkflowActivityContext, input_data: DownloadContentActivityInput
 ) -> DownloadContentActivityResult:
-    """Download the content of the submission."""
+    """Download the content of the submission.
+
+    Parameters
+    ----------
+    _ctx : WorkflowActivityContext
+        The workflow activity context.
+    input_data : DownloadContentActivityInput
+        The input data for the activity.
+    """
     return DownloadContentActivityResult(content="")
 
 
 @wfr.activity(name="summarize_content")
 def summarize_content_activity(ctx: WorkflowActivityContext, input: int) -> any:
-    """Summarize the content of the submission."""
+    """Summarize the content of the submission.
+
+    Parameters
+    ----------
+    ctx : WorkflowActivityContext
+        The workflow activity context.
+    input : int
+        The input for the activity.
+    """
     pass
 
 
@@ -90,13 +111,20 @@ def summarize_content_activity(ctx: WorkflowActivityContext, input: int) -> any:
 def store_summary_activity(
     _ctx: WorkflowActivityContext, input_data: UpdateSummaryActivityInput
 ) -> None:
-    """Store the summary of the submission."""
+    """Store the summary of the submission.
+
+    Parameters
+    ----------
+    _ctx : WorkflowActivityContext
+        The workflow activity context.
+    input_data : UpdateSummaryActivityInput
+        The input data for the activity.
+    """
     with DaprClient() as dapr_client:
         dapr_client.invoke_method(
-            method_name="update_summary",
-            data=json.dumps(
-                {"content_id": input_data.content_id, "summary": input_data.summary}
-            ),
+            http_verb="put",
+            method_name=f"submissions/{input_data.content_id}/summary",
+            data=json.dumps({"summary": input_data.summary}),
             app_id="content",
         )
 
@@ -105,12 +133,19 @@ def store_summary_activity(
 def update_status_activity(
     _ctx: WorkflowActivityContext, input_data: UpdateStatusActivityInput
 ) -> None:
-    """Update the status of the submission."""
+    """Update the status of the submission.
+
+    Parameters
+    ----------
+    _ctx : WorkflowActivityContext
+        The workflow activity context.
+    input_data : UpdateStatusActivityInput
+        The input data for the activity.
+    """
     with DaprClient() as dapr_client:
         dapr_client.invoke_method(
-            method_name="update_status",
-            data=json.dumps(
-                {"content_id": input_data.content_id, "status": input_data.status}
-            ),
+            http_verb="put",
+            method_name=f"submissions/{input_data.content_id}/status",
+            data=json.dumps({"status": input_data.status}),
             app_id="content",
         )
