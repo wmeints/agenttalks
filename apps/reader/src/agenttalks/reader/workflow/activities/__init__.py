@@ -11,38 +11,16 @@ from dataclasses import dataclass
 from dapr.clients import DaprClient
 from dapr.ext.workflow import WorkflowActivityContext
 
+from agenttalks.reader.workflow.activities.download import (
+    DownloadContentActivityInput as DownloadContentActivityInput,
+)
+from agenttalks.reader.workflow.activities.download import (
+    DownloadContentActivityResult as DownloadContentActivityResult,
+)
+from agenttalks.reader.workflow.activities.download import (
+    download_content_activity as download_content_activity,
+)
 from agenttalks.reader.workflow.runtime import workflow_runtime as wfr
-
-
-@dataclass
-class DownloadContentActivityInput:
-    """Input for the download content activity.
-
-    Attributes
-    ----------
-    url : str
-        The URL of the content to download.
-    instructions : str
-        The instructions for the content to download.
-    content_id : str
-        The ID of the content to download.
-    """
-
-    url: str
-    content_id: str
-
-
-@dataclass
-class DownloadContentActivityResult:
-    """Result of the download content activity.
-
-    Attributes
-    ----------
-    content : str
-        The content downloaded.
-    """
-
-    content: str
 
 
 @dataclass
@@ -75,22 +53,6 @@ class UpdateSummaryActivityInput:
 
     summary: str
     content_id: str
-
-
-@wfr.activity(name="download_content")
-def download_content_activity(
-    _ctx: WorkflowActivityContext, input_data: DownloadContentActivityInput
-) -> DownloadContentActivityResult:
-    """Download the content of the submission.
-
-    Parameters
-    ----------
-    _ctx : WorkflowActivityContext
-        The workflow activity context.
-    input_data : DownloadContentActivityInput
-        The input data for the activity.
-    """
-    return DownloadContentActivityResult(content="")
 
 
 @wfr.activity(name="summarize_content")

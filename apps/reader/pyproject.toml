@@ -15,6 +15,7 @@ dependencies = [
     "dapr-ext-fastapi>=1.15.0",
     "uvicorn>=0.34.2",
     "dapr-ext-workflow>=1.15.0",
+    "textract>=1.6.5",
 ]
 
 [project.scripts]
