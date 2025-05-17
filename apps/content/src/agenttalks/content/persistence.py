@@ -7,7 +7,6 @@ variable `APP_DATABASE_NAME` through the `.env` file.
 """
 
 from datetime import UTC, datetime
-from typing import List
 
 from pymongo import AsyncMongoClient
 
@@ -26,22 +25,34 @@ class SubmissionsRepository:
         self._database = self._client.content
         self._submissions = self._database.submissions
 
-    async def find_submissions(self) -> List[ContentSubmission]:
-        """Find all submissions in the database.
+    async def find_submissions(
+        self, skip: int = 0, limit: int = 20
+    ) -> tuple[list[ContentSubmission], int]:
+        """Find paginated submissions in the database.
+
+        Parameters
+        ----------
+        skip : int, optional
+            Number of documents to skip, by default 0
+        limit : int, optional
+            Maximum number of documents to return, by default 20
 
         Returns
         -------
-        List[ContentSubmission]
-            A list of all submissions in the database.
+        tuple[list[ContentSubmission], int]
+            A tuple containing the list of submissions and the total count
         """
-        content_submissions = (
-            await self._submissions.find().sort("created_at", -1).to_list()
-        )
+        # Get total count for pagination
+        total = await self._submissions.count_documents({})
+
+        # Get paginated results
+        cursor = self._submissions.find().sort("created_at", -1).skip(skip).limit(limit)
+        content_submissions = await cursor.to_list(limit)
 
         return [
             ContentSubmission.from_persistence(submission)
             for submission in content_submissions
-        ]
+        ], total
 
     async def find_submission_by_id(self, content_id: str) -> ContentSubmission | None:
         """Find a submission by its ID.

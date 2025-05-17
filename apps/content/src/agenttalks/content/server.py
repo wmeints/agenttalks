@@ -1,10 +1,11 @@
 """The entrypoint for the HTTP server."""
 
 from datetime import UTC, datetime
-from typing import Annotated
+from typing import Annotated, List, TypeVar
 
 from dapr.ext.fastapi import DaprApp
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Query
+from pydantic import BaseModel
 
 from agenttalks.content.eventbus.client import EventPublisher, create_event_publisher
 from agenttalks.content.forms import (
@@ -21,15 +22,50 @@ from agenttalks.content.persistence import (
 app = FastAPI()
 dapr_app = DaprApp(app)
 
+T = TypeVar("T")
+
+
+class PaginatedResponse[T](BaseModel):
+    """Response model for paginated results."""
+
+    items: List[T]
+    total: int
+    page: int
+    page_size: int
+    total_pages: int
+
 
 @app.get("/submissions")
 async def get_submissions(
     submissions_repository: Annotated[
         SubmissionsRepository, Depends(create_submissions_repository)
     ],
-) -> list[ContentSubmission]:
-    """Get all submissions."""
-    return await submissions_repository.find_submissions()
+    page: int = Query(1, ge=1, description="Page number, starting from 1"),
+) -> PaginatedResponse[ContentSubmission]:
+    """Get paginated list of submissions.
+
+    Parameters
+    ----------
+    page : int, optional
+        Page number (1-based), by default 1
+    """
+    # Fix page size to 20 as requested
+    page_size = 20
+    skip = (page - 1) * page_size
+
+    items, total = await submissions_repository.find_submissions(
+        skip=skip, limit=page_size
+    )
+
+    total_pages = (total + page_size - 1) // page_size
+
+    return PaginatedResponse[ContentSubmission](
+        items=items,
+        total=total,
+        page=page,
+        page_size=page_size,
+        total_pages=total_pages,
+    )
 
 
 @app.post("/submissions")
