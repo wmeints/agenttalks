@@ -1,0 +1,8 @@
+POST http://localhost:3000/submissions
+Content-Type: application/json
+Accept: application/json
+
+{
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "instructions": null
+}
