@@ -20,6 +20,7 @@ class ContentSubmission(BaseModel):
     url: str
     instructions: str | None = None
     status: str = "pending"
+    summary: str | None = None
     created_at: datetime
     updated_at: datetime | None = None
 
