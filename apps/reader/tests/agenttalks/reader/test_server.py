@@ -1,9 +1,10 @@
 from datetime import datetime, timezone
 
 import pytest
+from fastapi.testclient import TestClient
+
 from agenttalks.reader.eventbus.events import CloudEventEnvelope, SubmissionCreatedEvent
 from agenttalks.reader.server import app
-from fastapi.testclient import TestClient
 
 
 @pytest.fixture
@@ -15,7 +16,7 @@ def mock_submission_created_event():
         created_at=datetime.now(timezone.utc),
     )
 
-    envelope = CloudEventEnvelope[SubmissionCreatedEvent](
+    return CloudEventEnvelope[SubmissionCreatedEvent](
         data=payload,
         datacontenttype="application/json",
         id="test-event-id",
@@ -29,8 +30,6 @@ def mock_submission_created_event():
         tracestate="",
         type="com.example.test",
     )
-
-    return envelope
 
 
 def test_handle_submission_created(mock_submission_created_event):
