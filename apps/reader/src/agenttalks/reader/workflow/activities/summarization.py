@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 from dapr.ext.workflow import WorkflowActivityContext
 
+from agenttalks.reader.agent import create_summarizer_agent
 from agenttalks.reader.workflow.runtime import workflow_runtime as wfr
 
 
@@ -22,8 +23,8 @@ class SummarizeContentActivityResult:
 
 
 @wfr.activity(name="summarize_content")
-def summarize_content_activity(
-    _ctx: WorkflowActivityContext, _input: SummarizeContentActivityInput
+async def summarize_content_activity(
+    _ctx: WorkflowActivityContext, input_data: SummarizeContentActivityInput
 ) -> SummarizeContentActivityResult:
     """Summarize the content of the submission.
 
@@ -34,4 +35,7 @@ def summarize_content_activity(
     input : int
         The input for the activity.
     """
-    return SummarizeContentActivityResult(summary="This is a summary of the content.")
+    agent_instance = create_summarizer_agent()
+    summary = await agent_instance.run(input_data.content)
+
+    return SummarizeContentActivityResult(summary=summary)
