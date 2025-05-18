@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
@@ -33,15 +34,15 @@ def mock_submission_created_event():
 
 
 def test_handle_submission_created(mock_submission_created_event):
-    """Test that the submission handler returns a 200 status code."""
+    with patch("agenttalks.reader.server.wf_client") as mock_wf_client:
+        test_client = TestClient(app)
 
-    test_client = TestClient(app)
+        response = test_client.post(
+            "/events/eventbus/content.submissions.created.v1",
+            content=mock_submission_created_event.model_dump_json(),
+            headers={"Content-Type": "application/cloudevents+json"},
+        )
 
-    response = test_client.post(
-        "/events/eventbus/content.submissions.created.v1",
-        content=mock_submission_created_event.model_dump_json(),
-        headers={"Content-Type": "application/cloudevents+json"},
-    )
+        assert response.status_code == 200
 
-    # Check the response
-    assert response.status_code == 200
+        mock_wf_client.schedule_new_workflow.assert_called_once()

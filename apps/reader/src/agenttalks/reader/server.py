@@ -16,6 +16,7 @@ logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
 dapr_app = DaprApp(app)
+wf_client = DaprWorkflowClient()
 
 
 @dapr_app.subscribe(pubsub="eventbus", topic="content.submissions.created.v1")
@@ -23,8 +24,6 @@ def handle_submission_created(
     event: CloudEventEnvelope[SubmissionCreatedEvent],
 ) -> Response:
     """Handle a submission created event."""
-    wf_client = DaprWorkflowClient()
-
     wf_client.schedule_new_workflow(
         workflow=summarize_submission_workflow,
         instance_id=event.data.id,
