@@ -7,7 +7,10 @@ from dapr.ext.workflow import DaprWorkflowClient
 from fastapi import FastAPI, Response
 
 from agenttalks.reader.eventbus.events import CloudEventEnvelope, SubmissionCreatedEvent
-from agenttalks.reader.workflow import summarize_submission_workflow
+from agenttalks.reader.workflow import (
+    SummarizeSubmissionWorkflowInput,
+    summarize_submission_workflow,
+)
 
 logging.basicConfig(level=logging.INFO)
 
@@ -25,11 +28,11 @@ def handle_submission_created(
     wf_client.schedule_new_workflow(
         workflow=summarize_submission_workflow,
         instance_id=event.data.id,
-        input={
-            "url": event.data.url,
-            "instructions": event.data.instructions,
-            "id": event.data.id,
-        },
+        input=SummarizeSubmissionWorkflowInput(
+            content_id=event.data.id,
+            url=event.data.url,
+            instructions=event.data.instructions,
+        ),
     )
 
     return Response(status_code=200)

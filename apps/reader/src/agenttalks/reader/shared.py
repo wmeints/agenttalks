@@ -7,7 +7,7 @@ from datetime import datetime
 class ApplicationJSONEncoder(json.JSONEncoder):
     """Custom JSON encoder for the application."""
 
-    def default(self, obj: any):
+    def default(self, obj: any) -> any:
         """Provide a sensible default while encoding values.
 
         Parameters

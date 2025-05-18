@@ -1,9 +1,8 @@
 """Workflow implementation for the reader API."""
 
-import logging
+from dataclasses import dataclass
 
 from dapr.ext.workflow import DaprWorkflowContext
-from pydantic import BaseModel
 
 from agenttalks.reader.workflow.activities import (
     DownloadContentActivityInput,
@@ -13,29 +12,16 @@ from agenttalks.reader.workflow.activities import (
     summarize_content_activity,
     update_status_activity,
 )
+from agenttalks.reader.workflow.activities.content import UpdateSummaryActivityInput
+from agenttalks.reader.workflow.activities.summarization import (
+    SummarizeContentActivityInput,
+)
+from agenttalks.reader.workflow.logging import ReplaySafeLogger
 from agenttalks.reader.workflow.runtime import workflow_runtime as wfr
 
 
-class ReplaySafeLogger:
-    """A logger that is safe to use in the workflow code."""
-
-    def __init__(self, ctx, base_logger=None):
-        self.ctx = ctx
-        self.base_logger = base_logger or logging.getLogger(__name__)
-
-    def _should_log(self):
-        return not self.ctx.is_replaying
-
-    def info(self, msg, *args, **kwargs):
-        if self._should_log():
-            self.base_logger.info(msg, *args, **kwargs)
-
-    def error(self, msg, *args, **kwargs):
-        if self._should_log():
-            self.base_logger.error(msg, *args, **kwargs)
-
-
-class SummarizeWorkflowInput(BaseModel):
+@dataclass
+class SummarizeSubmissionWorkflowInput:
     """Input for the summarization workflow.
 
     Parameters
@@ -48,13 +34,60 @@ class SummarizeWorkflowInput(BaseModel):
         The instructions for the summarization.
     """
 
-    id: str
+    content_id: str
     url: str
     instructions: str
 
 
+@dataclass
+class SummarizeSubmissionWorkflowData:
+    """Workflow related data for the summarization workflow.
+
+    Attributes
+    ----------
+    content_id : str
+        The ID of the submission.
+    content : str
+        The content to summarize.
+    summary : str
+        The summary of the content.
+    """
+
+    content_id: str
+    url: str
+    instructions: str
+    content: str | None = None
+    summary: str | None = None
+
+    @classmethod
+    def from_input(
+        cls, input_data: SummarizeSubmissionWorkflowInput
+    ) -> "SummarizeSubmissionWorkflowData":
+        """Create a SummarizeSubmissionWorkflowData object from input data.
+
+        Parameters
+        ----------
+        cls : type
+            The class to create an instance of.
+        input_data : SummarizeSubmissionWorkflowInput
+            The input data for the workflow.
+
+        Returns
+        -------
+        SummarizeSubmissionWorkflowData
+            The created workflow data object.
+        """
+        return cls(
+            content_id=input_data.content_id,
+            url=input_data.url,
+            instructions=input_data.instructions,
+        )
+
+
 @wfr.workflow(name="summarize_submission")
-def summarize_submission_workflow(ctx: DaprWorkflowContext, input_data: any) -> any:
+def summarize_submission_workflow(
+    ctx: DaprWorkflowContext, input_data: SummarizeSubmissionWorkflowInput
+) -> any:
     """Summarize the content of a submission.
 
     This workflow downloads the content from the original website.
@@ -71,26 +104,46 @@ def summarize_submission_workflow(ctx: DaprWorkflowContext, input_data: any) -> 
     wf_logger = ReplaySafeLogger(ctx)
     wf_logger.info("Starting workflow")
 
+    instance_data = SummarizeSubmissionWorkflowData.from_input(input_data)
+
     yield ctx.call_activity(
         update_status_activity,
         input=UpdateStatusActivityInput(
-            content_id=input_data["id"], status="summarizing"
+            content_id=input_data.content_id, status="summarizing"
         ),
     )
 
-    yield ctx.call_activity(
+    download_result = yield ctx.call_activity(
         download_content_activity,
         input=DownloadContentActivityInput(
-            url=input_data["url"], content_id=input_data["id"]
+            url=input_data.url, content_id=input_data.content_id
         ),
     )
+
+    # Store the intermediate result in the workflow data
+    # The workflow data is stored in the statestore, so we can request it later.
+    instance_data.content = download_result.content
 
     wf_logger.info("Downloaded the content")
 
-    yield ctx.call_activity(summarize_content_activity, input=1)
+    summarization_result = yield ctx.call_activity(
+        summarize_content_activity,
+        input=SummarizeContentActivityInput(content=download_result.content),
+    )
+
+    # Store the intermediate result in the workflow data
+    # The workflow data is stored in the statestore, so we can request it later.
+    instance_data.summary = summarization_result.summary
+
     wf_logger.info("Summarized the content")
 
-    yield ctx.call_activity(store_summary_activity, input=1)
+    yield ctx.call_activity(
+        store_summary_activity,
+        input=UpdateSummaryActivityInput(
+            summarization_result.summary, content_id=input_data.content_id
+        ),
+    )
+
     wf_logger.info("Stored the created summary")
 
-    return {}
+    return instance_data

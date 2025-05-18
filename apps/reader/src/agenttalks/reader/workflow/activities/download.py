@@ -100,7 +100,7 @@ def download_content_activity(
 
         try:
             content_type, encoding = _get_content_type(response)
-            extract_text(content_type, response.content, encoding)
+            content = extract_text(content_type, response.content, encoding)
         except Exception:
             content = ""
 
