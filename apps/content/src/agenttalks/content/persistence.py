@@ -8,6 +8,7 @@ variable `APP_DATABASE_NAME` through the `.env` file.
 
 from datetime import UTC, datetime
 
+from bson import ObjectId
 from pymongo import AsyncMongoClient
 
 from agenttalks.content.config import ApplicationSettings
@@ -67,7 +68,7 @@ class SubmissionsRepository:
         ContentSubmission
             The submission with the given ID.
         """
-        data = await self._submissions.find_one({"_id": content_id})
+        data = await self._submissions.find_one({"_id": ObjectId(content_id)})
 
         if data is None:
             return None
@@ -96,11 +97,13 @@ class SubmissionsRepository:
             raise ValueError(exc_message)
 
         await self._submissions.update_one(
-            {"_id": content_id},
+            {"_id": ObjectId(content_id)},
             {"$set": {"status": status, "updated_at": datetime.now(UTC)}},
         )
 
-        return await self._submissions.find_one({"_id": content_id})
+        return ContentSubmission.from_persistence(
+            await self._submissions.find_one({"_id": ObjectId(content_id)})
+        )
 
     async def create_submission(
         self, url: str, instructions: str | None, created_at: datetime
@@ -152,12 +155,12 @@ class SubmissionsRepository:
             The updated submission.
         """
         await self._submissions.update_one(
-            {"_id": content_id},
+            {"_id": ObjectId(content_id)},
             {"$set": {"summary": summary, "updated_at": datetime.now(UTC)}},
         )
 
         return ContentSubmission.from_persistence(
-            await self._submissions.find_one({"_id": content_id})
+            await self._submissions.find_one({"_id": ObjectId(content_id)})
         )
 
 
