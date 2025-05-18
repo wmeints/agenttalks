@@ -3,6 +3,6 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "url": "https://medium.com/realworld-ai-use-cases/cursor-ai-tip-my-folder-system-trick-that-cut-my-requests-down-by-50-7585c8c248dd",
     "instructions": null
 }
