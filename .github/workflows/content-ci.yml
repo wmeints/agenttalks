@@ -40,7 +40,7 @@ jobs:
 
             - name: Run tests
               working-directory: apps/content
-              run: uv run pytest --cov=reforge --cov-report xml:coverage.xml
+              run: uv run pytest --cov=agenttalks --cov-report xml:coverage.xml
               env:
                 APP_DATABASE_URL: "NOT_SET"
 

@@ -40,7 +40,7 @@ jobs:
 
             - name: Run tests
               working-directory: apps/reader
-              run: uv run pytest --cov=reforge --cov-report xml:coverage.xml
+              run: uv run pytest --cov=agenttalks --cov-report xml:coverage.xml
 
             - name: Report coverage
               uses: orgoro/coverage@v3.2
