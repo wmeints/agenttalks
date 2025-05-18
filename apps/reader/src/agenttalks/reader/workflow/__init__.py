@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from dapr.ext.workflow import DaprWorkflowContext
+from dapr.ext.workflow import DaprWorkflowContext, RetryPolicy
 
 from agenttalks.reader.workflow.activities import (
     DownloadContentActivityInput,
@@ -111,12 +111,19 @@ def summarize_submission_workflow(
         input=UpdateStatusActivityInput(
             content_id=input_data.content_id, status="summarizing"
         ),
+        retry_policy=RetryPolicy(max_number_of_attempts=3, first_retry_interval=1000),
     )
+
+    # Content download can fail because the external server is broken.
+    # We retry max 10 times with a 30 second interval.
 
     download_result = yield ctx.call_activity(
         download_content_activity,
         input=DownloadContentActivityInput(
             url=input_data.url, content_id=input_data.content_id
+        ),
+        retry_policy=RetryPolicy(
+            max_number_of_attempts=10, first_retry_interval=30_000
         ),
     )
 
@@ -126,9 +133,13 @@ def summarize_submission_workflow(
 
     wf_logger.info("Downloaded the content")
 
+    # Summarization can fail because the LLM isn't available.
+    # We retry max 3 times with a 30 second interval.
+
     summarization_result = yield ctx.call_activity(
         summarize_content_activity,
         input=SummarizeContentActivityInput(content=download_result.content),
+        retry_policy=RetryPolicy(max_number_of_attempts=3, first_retry_interval=30_000),
     )
 
     # Store the intermediate result in the workflow data
@@ -142,6 +153,7 @@ def summarize_submission_workflow(
         input=UpdateSummaryActivityInput(
             summarization_result.summary, content_id=input_data.content_id
         ),
+        retry_policy=RetryPolicy(max_number_of_attempts=3, first_retry_interval=1000),
     )
 
     wf_logger.info("Stored the created summary")
