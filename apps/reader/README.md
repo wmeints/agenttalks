@@ -27,6 +27,9 @@ content API.
 ### Technology stack
 
 - [FastAPI](https://fastapi.tiangolo.com)
+- [Dapr](https://dapr.io)
+- [Typer](https://typer.tiangolo.com)
+- [Uvicorn](https://www.uvicorn.org)
 
 ### Testing
 

@@ -30,8 +30,10 @@ Please use this README to learn more about the structure of the API.
 ### Technology stack
 
 - [FastAPI](https://fastapi.tiangolo.com)
-- [Strawberry GraphQL](https://strawberry.rocks/docs)
 - [PyMongo](https://pymongo.readthedocs.io/en/stable/)
+- [Dapr](https://dapr.io)
+- [Typer](https://typer.tiangolo.com)
+- [Uvicorn](https://www.uvicorn.org)
 
 ### Testing
 
