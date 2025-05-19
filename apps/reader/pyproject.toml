@@ -16,6 +16,7 @@ dependencies = [
     "uvicorn>=0.34.2",
     "dapr-ext-workflow>=1.15.0",
     "agenttalks-textextraction",
+    "bs4>=0.0.2",
 ]
 
 [project.scripts]
