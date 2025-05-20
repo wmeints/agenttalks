@@ -3,6 +3,7 @@
 from typing import Annotated
 
 import uvicorn
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from typer import Option, Typer
 
 from agenttalks.content import server
@@ -24,4 +25,6 @@ def run_server(
     port: str
         The port to bind to
     """
+    FastAPIInstrumentor.instrument_app(server.app)
+
     uvicorn.run(server.app, host=host, port=port)
