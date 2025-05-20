@@ -2,7 +2,10 @@
 
 ## Content summarization
 
-The content summarization flow is triggered every time a user submits content.
+The content summarization flow is triggered based on an event called
+`content.submissions.created.v1` that's published
+by the content API and captured by the reader API.
+
 The following sequence diagram illustrates the content summarization flow:
 
 ```mermaid
@@ -37,6 +40,8 @@ The flow is implemented as a workflow in the Reader API.
 ## Podcast generation
 
 The podcast generation flow happens once per week on Friday at 18:00.
+The reader API is triggered by a timer binding.
+
 The following sequence diagram illustrates the podcast generation flow:
 
 ```mermaid
