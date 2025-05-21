@@ -4,9 +4,14 @@ apps:
     appDirPath: ./apps/content
     appPort: 3000
     daprHTTPPort: 3500
-    command: ["uv","run","agenttalks-content"]
+    command: ["uv", "run", "agenttalks-content"]
   - appID: reader
     appDirPath: ./apps/reader
     appPort: 3001
     daprHTTPPort: 3501
-    command: ["uv","run","agenttalks-reader"]
+    command: ["uv", "run", "agenttalks-reader"]
+  - appID: podcasts
+    appDirPath: ./apps/podcasts
+    appPort: 3002
+    daprHTTPPort: 3502
+    command: ["uv", "run", "agenttalks-podcasts"]
