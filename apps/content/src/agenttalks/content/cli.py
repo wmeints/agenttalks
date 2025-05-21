@@ -7,6 +7,7 @@ from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from typer import Option, Typer
 
 from agenttalks.content import server
+from agenttalks.content.telemetry import configure_tracing
 
 app = Typer(name="agenttalks-content")
 
@@ -22,9 +23,10 @@ def run_server(
     ----------
     host: str
         The host to bind to
-    port: str
+    port: int
         The port to bind to
     """
+    configure_tracing()
     FastAPIInstrumentor.instrument_app(server.app)
 
     uvicorn.run(server.app, host=host, port=port)

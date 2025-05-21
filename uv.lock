@@ -37,6 +37,10 @@ dependencies = [
     { name = "dapr-ext-fastapi" },
     { name = "dapr-ext-workflow" },
     { name = "fastapi" },
+    { name = "opentelemetry-api" },
+    { name = "opentelemetry-exporter-zipkin-json" },
+    { name = "opentelemetry-instrumentation-fastapi" },
+    { name = "opentelemetry-sdk" },
     { name = "pydantic" },
     { name = "typer" },
     { name = "uvicorn" },
@@ -60,6 +64,10 @@ requires-dist = [
     { name = "dapr-ext-fastapi", specifier = ">=1.15.0" },
     { name = "dapr-ext-workflow", specifier = ">=1.15.0" },
     { name = "fastapi", specifier = ">=0.115.12" },
+    { name = "opentelemetry-api", specifier = ">=1.33.1" },
+    { name = "opentelemetry-exporter-zipkin-json", specifier = ">=1.33.1" },
+    { name = "opentelemetry-instrumentation-fastapi", specifier = ">=0.54b1" },
+    { name = "opentelemetry-sdk", specifier = ">=1.33.1" },
     { name = "pydantic", specifier = ">=2.10.5" },
     { name = "typer", specifier = ">=0.15.4" },
     { name = "uvicorn", specifier = ">=0.34.2" },
@@ -396,6 +404,7 @@ dependencies = [
     { name = "dapr-ext-grpc" },
     { name = "fastapi" },
     { name = "opentelemetry-api" },
+    { name = "opentelemetry-exporter-zipkin-json" },
     { name = "opentelemetry-instrumentation-fastapi" },
     { name = "opentelemetry-sdk" },
     { name = "pydantic" },
@@ -422,6 +431,7 @@ requires-dist = [
     { name = "dapr-ext-grpc", specifier = ">=1.15.0" },
     { name = "fastapi", specifier = ">=0.115.12" },
     { name = "opentelemetry-api", specifier = ">=1.33.1" },
+    { name = "opentelemetry-exporter-zipkin-json", specifier = ">=1.33.1" },
     { name = "opentelemetry-instrumentation-fastapi", specifier = ">=0.54b1" },
     { name = "opentelemetry-sdk", specifier = ">=1.33.1" },
     { name = "pydantic", specifier = ">=2.10.5" },
@@ -748,14 +758,14 @@ wheels = [
 
 [[package]]
 name = "googleapis-common-protos"
-version = "1.70.0"
+version = "1.56.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "protobuf" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/39/24/33db22342cf4a2ea27c9955e6713140fedd51e8b141b5ce5260897020f1a/googleapis_common_protos-1.70.0.tar.gz", hash = "sha256:0e1b44e0ea153e6594f9f394fef15193a68aaaea2d843f83e2742717ca753257", size = 145903 }
+sdist = { url = "https://files.pythonhosted.org/packages/a6/65/e178ee378323aabdd3a283d9030dc39872de6ee3500bec853f302d3987a0/googleapis-common-protos-1.56.1.tar.gz", hash = "sha256:6b5ee59dc646eb61a8eb65ee1db186d3df6687c8804830024f32573298bca19b", size = 109702 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/86/f1/62a193f0227cf15a920390abe675f386dec35f7ae3ffe6da582d3ade42c7/googleapis_common_protos-1.70.0-py3-none-any.whl", hash = "sha256:b8bfcca8c25a2bb253e0e0b0adaf8c00773e5e6af6fd92397576680b807e0fd8", size = 294530 },
+    { url = "https://files.pythonhosted.org/packages/00/11/2a8d766a5b2378e243fdce6b7e74cc961594a8cf1c3d6ddab1ef99cbb717/googleapis_common_protos-1.56.1-py2.py3-none-any.whl", hash = "sha256:ddcd955b5bb6589368f659fa475373faa1ed7d09cde5ba25e88513d87007e174", size = 211748 },
 ]
 
 [[package]]
@@ -1211,6 +1221,20 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/9a/8d/1f5a45fbcb9a7d87809d460f09dc3399e3fbd31d7f3e14888345e9d29951/opentelemetry_api-1.33.1.tar.gz", hash = "sha256:1c6055fc0a2d3f23a50c7e17e16ef75ad489345fd3df1f8b8af7c0bbf8a109e8", size = 65002 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/05/44/4c45a34def3506122ae61ad684139f0bbc4e00c39555d4f7e20e0e001c8a/opentelemetry_api-1.33.1-py3-none-any.whl", hash = "sha256:4db83ebcf7ea93e64637ec6ee6fabee45c5cbe4abd9cf3da95c43828ddb50b83", size = 65771 },
+]
+
+[[package]]
+name = "opentelemetry-exporter-zipkin-json"
+version = "1.33.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "opentelemetry-api" },
+    { name = "opentelemetry-sdk" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e0/16/7142d5804e3054bb17d128ceb34ae6abfa7eb37de3122663e9d6f3b9d718/opentelemetry_exporter_zipkin_json-1.33.1.tar.gz", hash = "sha256:31870d09e05cc6d1d852dc4abbcc10cd8bb6ff2cb325d3947f13cce0d2a31485", size = 16597 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/67/c3/6b0f25a5af6259dc808a710d05263cd5c75416a538a8b9090e17a37975b3/opentelemetry_exporter_zipkin_json-1.33.1-py3-none-any.whl", hash = "sha256:117cf8c09ebe505a048e2c1ec360e30dab90e92694ad01c9408952ed49e231e4", size = 16359 },
 ]
 
 [[package]]

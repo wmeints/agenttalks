@@ -31,8 +31,6 @@ class CloudEventEnvelope[TEvent](BaseModel):
         The version of the CloudEvents specification.
     topic : str
         The topic of the event.
-    traceid : str
-        The trace ID for distributed tracing.
     traceparent : str
         The traceparent header for distributed tracing.
     tracestate : str
@@ -46,12 +44,11 @@ class CloudEventEnvelope[TEvent](BaseModel):
     id: str
     pubsubname: str
     source: str
-    specversion: str
+    specversion: str = "1.0"
     time: datetime
     topic: str
-    traceid: str
-    traceparent: str
-    tracestate: str
+    traceparent: str | None = None
+    tracestate: str | None = None
     type: str
 
 

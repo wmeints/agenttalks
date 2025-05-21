@@ -39,6 +39,20 @@ class SummarizeSubmissionWorkflowInput:
     url: str
     instructions: str
 
+    def to_dict(self) -> dict:
+        """Convert the data fields to a dictionary.
+
+        Returns
+        -------
+        dict
+            The dictionary containing the data from this instance.
+        """
+        return {
+            "content_id": self.content_id,
+            "url": self.url,
+            "instructions": self.instructions,
+        }
+
 
 @dataclass
 class SummarizeSubmissionWorkflowData:
@@ -85,7 +99,7 @@ class SummarizeSubmissionWorkflowData:
         )
 
 
-@wfr.workflow(name="summarize_submission")
+@wfr.workflow(name="summarize_submission_workflow")
 def summarize_submission_workflow(
     ctx: DaprWorkflowContext, input_data: SummarizeSubmissionWorkflowInput
 ) -> any:

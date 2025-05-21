@@ -24,6 +24,8 @@ def handle_submission_created(
     event: CloudEventEnvelope[SubmissionCreatedEvent],
 ) -> Response:
     """Handle a submission created event."""
+    print("Traceparent: ", event.traceparent)
+
     wf_client.schedule_new_workflow(
         workflow=summarize_submission_workflow,
         instance_id=event.data.id,
