@@ -21,6 +21,7 @@ dependencies = [
     "opentelemetry-instrumentation-fastapi>=0.54b1",
     "opentelemetry-sdk>=1.33.1",
     "opentelemetry-exporter-zipkin-json>=1.33.1",
+    "opentelemetry-instrumentation-requests>=0.54b1",
 ]
 
 [project.scripts]
