@@ -34,6 +34,7 @@ Please use this README to learn more about the structure of the API.
 - [Dapr](https://dapr.io)
 - [Typer](https://typer.tiangolo.com)
 - [Uvicorn](https://www.uvicorn.org)
+- [OpenTelemetry](https://opentelemetry.io)
 
 ### Testing
 
