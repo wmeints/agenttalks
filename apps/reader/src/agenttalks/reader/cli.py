@@ -4,7 +4,6 @@ from typing import Annotated
 
 import uvicorn
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
 from typer import Option, Typer
 
 from agenttalks.reader.server import app as server_app
@@ -30,7 +29,6 @@ def run_server(
     """
     configure_tracing()
     FastAPIInstrumentor(server_app)
-    # RequestsInstrumentor().instrument()
 
     wfr.start()
     uvicorn.run(server_app, host=host, port=port)
