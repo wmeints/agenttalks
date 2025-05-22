@@ -1,12 +1,14 @@
-"""Entrypoint for the application."""
+"""Commandline interface for the reader app."""
 
 from typing import Annotated
 
 import uvicorn
-from agenttalks.podcasts import server
-from agenttalks.podcasts.telemetry import configure_tracing
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from typer import Option, Typer
+
+from agenttalks.podcasts.server import app as server_app
+from agenttalks.podcasts.telemetry import configure_tracing
+from agenttalks.podcasts.workflow.runtime import workflow_runtime as wfr
 
 app = Typer(name="agenttalks-podcasts")
 
@@ -22,10 +24,12 @@ def run_server(
     ----------
     host: str
         The host to bind to
-    port: int
+    port: str
         The port to bind to
     """
     configure_tracing()
-    FastAPIInstrumentor.instrument_app(server.app)
+    FastAPIInstrumentor(server_app)
 
-    uvicorn.run(server.app, host=host, port=port)
+    wfr.start()
+    uvicorn.run(server_app, host=host, port=port)
+    wfr.shutdown()
