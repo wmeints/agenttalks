@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from typing import List, TypeVar
+
 from pydantic import BaseModel, field_validator
 
 
@@ -103,12 +104,34 @@ class ContentSubmission(BaseModel):
             updated_at=data["updated_at"],
         )
 
+
+class SubmissionListItem(BaseModel):
+    """Model for a submission in the list response.
+
+    Attributes
+    ----------
+    id: str
+        The ID of the submission
+    url: str
+        The URL of the submitted content
+    summary: str | None
+        The summary of the content, if available
+    created_at: datetime
+        The creation date of the submission
+    """
+
+    id: str
+    url: str
+    summary: str | None = None
+    created_at: datetime
+
+
 TPaginatedItem = TypeVar("T")
 
 
 class PaginatedResponse[TPaginatedItem](BaseModel):
     """Response model for paginated results.
-    
+
     Attributes
     ----------
     items: List[T]
@@ -128,4 +151,3 @@ class PaginatedResponse[TPaginatedItem](BaseModel):
     page: int
     page_size: int
     total_pages: int
-

@@ -163,6 +163,33 @@ class SubmissionsRepository:
             await self._submissions.find_one({"_id": ObjectId(content_id)})
         )
 
+    async def find_submissions_by_date_range(
+        self, start_date: datetime, end_date: datetime
+    ) -> list[ContentSubmission]:
+        """Find submissions created between the given dates.
+
+        Parameters
+        ----------
+        start_date : datetime
+            The start date (inclusive)
+        end_date : datetime
+            The end date (inclusive)
+
+        Returns
+        -------
+        list[ContentSubmission]
+            List of submissions created between the given dates
+        """
+        query = {"created_at": {"$gte": start_date, "$lte": end_date}}
+
+        cursor = self._submissions.find(query).sort("created_at", -1)
+        content_submissions = await cursor.to_list(None)
+
+        return [
+            ContentSubmission.from_persistence(submission)
+            for submission in content_submissions
+        ]
+
 
 def create_submissions_repository() -> SubmissionsRepository:
     """Create a new submissions repository.

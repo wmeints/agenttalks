@@ -1,6 +1,6 @@
 """Tests for the FastAPI server endpoints."""
 
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -382,4 +382,76 @@ def test_get_submissions_second_page(client, mock_submissions_repository):
     mock_submissions_repository.find_submissions.assert_called_once_with(
         skip=20,  # (2-1) * 20 = 20
         limit=page_size,
+    )
+
+
+@pytest.mark.asyncio
+async def test_get_submissions_by_date_range(client, mock_submissions_repository):
+    """Test getting submissions by date range."""
+    # Setup
+    start_date = datetime.now(UTC) - timedelta(days=7)
+    end_date = datetime.now(UTC)
+
+    # Create sample submissions
+    sample_submissions = [
+        ContentSubmission(
+            id=f"test{i}",
+            url=f"https://example.com/{i}",
+            instructions=f"Test instructions {i}",
+            status="ready",
+            summary=f"Test summary {i}",
+            created_at=datetime.now(UTC) - timedelta(days=i),
+            updated_at=None,
+        )
+        for i in range(1, 6)
+    ]
+
+    # Configure mock
+    mock_submissions_repository.find_submissions_by_date_range.return_value = (
+        sample_submissions
+    )
+
+    # Act
+    response = client.get(
+        "/submissions/by-date",
+        params={"start_date": start_date.isoformat(), "end_date": end_date.isoformat()},
+    )
+
+    # Assert
+    assert response.status_code == status.HTTP_200_OK
+    result = response.json()
+
+    assert len(result) == len(sample_submissions)
+
+    mock_submissions_repository.find_submissions_by_date_range.assert_called_once_with(
+        start_date, end_date
+    )
+
+
+@pytest.mark.asyncio
+async def test_get_submissions_by_date_range_no_results(
+    client, mock_submissions_repository
+):
+    """Test getting submissions by date range when no results are found."""
+    # Setup
+    start_date = datetime.now(UTC) - timedelta(days=7)
+    end_date = datetime.now(UTC)
+
+    # Configure mock
+    mock_submissions_repository.find_submissions_by_date_range.return_value = []
+
+    # Act
+    response = client.get(
+        "/submissions/by-date",
+        params={"start_date": start_date.isoformat(), "end_date": end_date.isoformat()},
+    )
+
+    # Assert
+    assert response.status_code == status.HTTP_200_OK
+    result = response.json()
+
+    assert result == []
+
+    mock_submissions_repository.find_submissions_by_date_range.assert_called_once_with(
+        start_date, end_date
     )

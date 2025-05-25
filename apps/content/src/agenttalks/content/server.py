@@ -12,7 +12,11 @@ from agenttalks.content.forms import (
     UpdateStatusForm,
     UpdateSummaryForm,
 )
-from agenttalks.content.models import ContentSubmission, PaginatedResponse
+from agenttalks.content.models import (
+    ContentSubmission,
+    PaginatedResponse,
+    SubmissionListItem,
+)
 from agenttalks.content.persistence import (
     SubmissionsRepository,
     create_submissions_repository,
@@ -55,6 +59,43 @@ async def get_submissions(
         page_size=page_size,
         total_pages=total_pages,
     )
+
+
+@app.get("/submissions/by-date")
+async def get_submissions_by_date_range(
+    submissions_repository: Annotated[
+        SubmissionsRepository, Depends(create_submissions_repository)
+    ],
+    start_date: Annotated[datetime, Query(description="Start date (inclusive)")],
+    end_date: Annotated[datetime, Query(description="End date (inclusive)")],
+) -> list[SubmissionListItem]:
+    """Get a list of submissions between start and end date.
+
+    Parameters
+    ----------
+    start_date : datetime
+        The start date (inclusive)
+    end_date : datetime
+        The end date (inclusive)
+
+    Returns
+    -------
+    list[SubmissionListItem]
+        List of submissions between the specified dates
+    """
+    submissions = await submissions_repository.find_submissions_by_date_range(
+        start_date, end_date
+    )
+
+    return [
+        SubmissionListItem(
+            id=submission.id,
+            url=submission.url,
+            summary=submission.summary,
+            created_at=submission.created_at,
+        )
+        for submission in submissions
+    ]
 
 
 @app.post("/submissions")
