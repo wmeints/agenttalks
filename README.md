@@ -20,6 +20,15 @@ script generation, and conversion from the script to a podcast show!
 You can, but you're going to have to host the beast yourself. We have included the
 deployment scripts and documentation to do so, so it shouldn't be too hard.
 
+## Build status
+
+| Component | Current status |
+| --------- | -------------- |
+| Content | [![Content CI](https://github.com/wmeints/agenttalks/actions/workflows/content-ci.yml/badge.svg)](https://github.com/wmeints/agenttalks/actions/workflows/content-ci.yml) |
+| Reader | [![Reader CI](https://github.com/wmeints/agenttalks/actions/workflows/reader-ci.yml/badge.svg)](https://github.com/wmeints/agenttalks/actions/workflows/reader-ci.yml) |
+| Podcasts | [![Podcasts CI](https://github.com/wmeints/agenttalks/actions/workflows/podcasts-ci.yml/badge.svg)](https://github.com/wmeints/agenttalks/actions/workflows/podcasts-ci.yml) |
+| TextExtraction | [![TextExtraction CI](https://github.com/wmeints/agenttalks/actions/workflows/textextraction-ci.yml/badge.svg)](https://github.com/wmeints/agenttalks/actions/workflows/textextraction-ci.yml) |
+
 ## System Requirements
 
 - [Dapr 1.15](https://docs.dapr.io/getting-started/install-dapr-cli/)
