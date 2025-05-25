@@ -38,5 +38,6 @@ def test_publish_content_submitted_translates_event_data(
         pubsub_name="eventbus",
         topic_name="content.submissions.created.v1",
         data=String(),
-        data_content_type='application/json'
+        data_content_type='application/json',
+        publish_metadata={'cloudevent.traceparent': None}
     )
