@@ -3,32 +3,14 @@
 import logging
 from dataclasses import dataclass
 from datetime import datetime
+from urllib.parse import quote
 
+from dapr.clients import DaprClient
 from dapr.ext.workflow import WorkflowActivityContext
 
 from agenttalks.podcasts.workflow.runtime import workflow_runtime as wfr
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass
-class PodcastSummary:
-    """
-    Data class for podcast summary.
-
-    Attributes
-    ----------
-    title : str
-        The title of the podcast episode
-    url : str
-        The URL of the podcast episode
-    summary : str
-        A brief summary of the podcast episode
-    """
-
-    title: str
-    url: str
-    summary: str
 
 
 @dataclass
@@ -48,10 +30,59 @@ class CollectSummariesActivityInput:
 
 
 @dataclass
+class SubmissionListItem:
+    """Model for a submission in the list response.
+
+    Attributes
+    ----------
+    id: str
+        The ID of the submission
+    url: str
+        The URL of the submitted content
+    summary: str
+        The summary of the content, if available
+    created_at: datetime
+        The creation date of the submission
+    """
+
+    id: str
+    url: str
+    summary: str
+    created_at: datetime
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "SubmissionListItem":
+        """Create a SubmissionListItem instance from a dictionary.
+
+        Parameters
+        ----------
+        data : dict
+            The data dictionary containing submission details
+
+        Returns
+        -------
+        SubmissionListItem
+            The SubmissionListItem instance created from the data
+
+        Raises
+        ------
+        ValueError
+            If the data does not contain the required fields or if the date format is
+            incorrect
+        """
+        return cls(
+            id=data["id"],
+            url=data["url"],
+            summary=data.get("summary"),
+            created_at=datetime.fromisoformat(data["created_at"]),
+        )
+
+
+@dataclass
 class CollectSummariesActivityResult:
     """Output data for the CollectSummariesActivity."""
 
-    summaries: list[PodcastSummary]
+    summaries: list[SubmissionListItem]
 
 
 @dataclass
@@ -87,7 +118,25 @@ def collect_summaries_activity(
     CollectSummariesActivityResult
         Activity response with success/error information
     """
-    return CollectSummariesActivityResult()
+    with DaprClient() as dapr_client:
+        start_date_str = quote(_input_data.start_date.isoformat())
+        end_date_str = quote(_input_data.end_date.isoformat())
+
+        response = dapr_client.invoke_method(
+            "content",
+            "submissions/by-date",
+            http_verb="GET",
+            http_querystring=[
+                ("start_date", start_date_str),
+                ("end_date", end_date_str),
+            ],
+        )
+
+        collected_summaries = [
+            SubmissionListItem.from_dict(item) for item in response.json()
+        ]
+
+        return CollectSummariesActivityResult(summaries=collected_summaries)
 
 
 @wfr.activity
