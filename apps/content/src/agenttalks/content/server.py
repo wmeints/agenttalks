@@ -4,8 +4,7 @@ from datetime import UTC, datetime
 from typing import Annotated, List, TypeVar
 
 from dapr.ext.fastapi import DaprApp
-from fastapi import Depends, FastAPI, HTTPException, Query, Request
-from opentelemetry.propagate import extract, inject
+from fastapi import Depends, FastAPI, HTTPException, Query
 from pydantic import BaseModel
 
 from agenttalks.content.eventbus.client import EventPublisher, create_event_publisher
@@ -73,7 +72,6 @@ async def get_submissions(
 
 @app.post("/submissions")
 async def create_submission(
-    request: Request,
     submissions_repository: Annotated[
         SubmissionsRepository, Depends(create_submissions_repository)
     ],

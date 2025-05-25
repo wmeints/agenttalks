@@ -4,7 +4,6 @@ import json
 import logging
 
 from dapr.clients import DaprClient
-from opentelemetry import trace
 
 from agenttalks.content.eventbus.events import (
     SubmissionCreatedEvent,
