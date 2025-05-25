@@ -1,11 +1,10 @@
 """The entrypoint for the HTTP server."""
 
 from datetime import UTC, datetime
-from typing import Annotated, List, TypeVar
+from typing import Annotated
 
 from dapr.ext.fastapi import DaprApp
 from fastapi import Depends, FastAPI, HTTPException, Query
-from pydantic import BaseModel
 
 from agenttalks.content.eventbus.client import EventPublisher, create_event_publisher
 from agenttalks.content.forms import (
@@ -13,7 +12,7 @@ from agenttalks.content.forms import (
     UpdateStatusForm,
     UpdateSummaryForm,
 )
-from agenttalks.content.models import ContentSubmission
+from agenttalks.content.models import ContentSubmission, PaginatedResponse
 from agenttalks.content.persistence import (
     SubmissionsRepository,
     create_submissions_repository,
@@ -23,18 +22,6 @@ from agenttalks.content.telemetry import get_tracer
 app = FastAPI()
 dapr_app = DaprApp(app)
 tracer = get_tracer(__name__)
-
-T = TypeVar("T")
-
-
-class PaginatedResponse[T](BaseModel):
-    """Response model for paginated results."""
-
-    items: List[T]
-    total: int
-    page: int
-    page_size: int
-    total_pages: int
 
 
 @app.get("/submissions")

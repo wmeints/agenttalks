@@ -1,7 +1,7 @@
 """Contains the models used in the API."""
 
 from datetime import datetime
-
+from typing import List, TypeVar
 from pydantic import BaseModel, field_validator
 
 
@@ -102,3 +102,30 @@ class ContentSubmission(BaseModel):
             created_at=data["created_at"],
             updated_at=data["updated_at"],
         )
+
+TPaginatedItem = TypeVar("T")
+
+
+class PaginatedResponse[TPaginatedItem](BaseModel):
+    """Response model for paginated results.
+    
+    Attributes
+    ----------
+    items: List[T]
+        The list of items in the current page.
+    total: int
+        The total number of items across all pages.
+    page: int
+        The current page number (1-based).
+    page_size: int
+        The number of items per page.
+    total_pages: int
+        The total number of pages available.
+    """
+
+    items: List[TPaginatedItem]
+    total: int
+    page: int
+    page_size: int
+    total_pages: int
+
