@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.transaction.Transactional;
+import nl.fizzylogic.newscast.content.eventbus.ContentSubmissionCreated;
+import nl.fizzylogic.newscast.content.eventbus.EventPublisher;
 import nl.fizzylogic.newscast.content.graph.input.MarkAsProcessed;
 import nl.fizzylogic.newscast.content.graph.input.MarkForProcessing;
 import nl.fizzylogic.newscast.content.graph.input.SubmitContent;
@@ -22,20 +24,32 @@ import nl.fizzylogic.newscast.content.service.ContentSubmissions;
 public class ContentGraphTest {
     private ContentGraph contentGraph;
     private ContentSubmissions contentSubmissions;
+    private EventPublisher eventPublisher;
 
     @BeforeEach
     public void setUpTestCase() {
         contentSubmissions = mock(ContentSubmissions.class);
+        eventPublisher = mock(EventPublisher.class);
+
         contentGraph = new ContentGraph();
+
         contentGraph.contentSubmissions = contentSubmissions;
+        contentGraph.eventPublisher = eventPublisher;
     }
 
     @Test
     @Transactional
     public void canSubmitContent() {
+        ContentSubmission contentSubmission = new ContentSubmission("http://localhost:3000/");
+        contentSubmission.id = 1L; // Simulate an ID being assigned
+
+        when(contentSubmissions.submitContent(anyString()))
+                .thenReturn(contentSubmission);
+
         contentGraph.submitContent(new SubmitContent("http://localhost:3000/"));
 
         verify(contentGraph.contentSubmissions).submitContent(eq("http://localhost:3000/"));
+        verify(eventPublisher).publishContentSubmissionCreated(any());
     }
 
     @Test

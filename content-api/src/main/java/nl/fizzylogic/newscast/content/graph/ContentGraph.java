@@ -4,6 +4,8 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import nl.fizzylogic.newscast.content.model.ContentSubmission;
+import nl.fizzylogic.newscast.content.eventbus.ContentSubmissionCreated;
+import nl.fizzylogic.newscast.content.eventbus.EventPublisher;
 import nl.fizzylogic.newscast.content.graph.input.MarkAsProcessed;
 import nl.fizzylogic.newscast.content.graph.input.MarkForProcessing;
 import nl.fizzylogic.newscast.content.graph.input.SubmitContent;
@@ -21,6 +23,9 @@ public class ContentGraph {
     @Inject
     ContentSubmissions contentSubmissions;
 
+    @Inject
+    EventPublisher eventPublisher;
+
     @Query
     public List<ContentSubmission> submissions() {
         return contentSubmissions.findAll();
@@ -29,7 +34,15 @@ public class ContentGraph {
     @Mutation
     @Transactional
     public ContentSubmission submitContent(SubmitContent input) {
-        return contentSubmissions.submitContent(input.url);
+        ContentSubmission submission = contentSubmissions.submitContent(input.url);
+        
+        eventPublisher.publishContentSubmissionCreated(
+            new ContentSubmissionCreated(
+                submission.id, 
+                submission.url, 
+                submission.dateCreated));
+
+        return submission;
     }
 
     @Mutation
