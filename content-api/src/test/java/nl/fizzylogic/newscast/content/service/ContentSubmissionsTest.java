@@ -1,20 +1,28 @@
 package nl.fizzylogic.newscast.content.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.transaction.Transactional;
 import nl.fizzylogic.newscast.content.model.ContentSubmission;
 import nl.fizzylogic.newscast.content.model.SubmissionStatus;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 public class ContentSubmissionsTest {
+    private ContentSubmissions contentSubmissions;
+
+    @BeforeEach
+    public void setUpTestCase() {
+        contentSubmissions = new ContentSubmissionsImpl();
+    }
+
     @Test
     @Transactional
     public void canSubmitContent() {
-        // Arrange
-        ContentSubmissions contentSubmissions = new ContentSubmissionsImpl();
-
         // Act
         ContentSubmission submission  = contentSubmissions.submitContent("http://localhost:3000");
 
@@ -25,9 +33,6 @@ public class ContentSubmissionsTest {
     @Test
     @Transactional
     public void canSummarizeContent() {
-        // Arrange
-        ContentSubmissions contentSubmissions = new ContentSubmissionsImpl();
-
         // Act
         ContentSubmission submission = contentSubmissions.submitContent("http://localhost:3000");
         ContentSubmission summarized = contentSubmissions.summarizeContent(submission.id, "test", "test");
@@ -41,9 +46,6 @@ public class ContentSubmissionsTest {
     @Test
     @Transactional
     public void canMarkContentForProcessing() {
-        // Arrange
-        ContentSubmissions contentSubmissions = new ContentSubmissionsImpl();
-
         // Act
         ContentSubmission submission = contentSubmissions.submitContent("http://localhost:3000");
         ContentSubmission processing = contentSubmissions.markForProcessing(submission.id);
@@ -55,14 +57,25 @@ public class ContentSubmissionsTest {
     @Test
     @Transactional
     public void canMarkContentAsProcessed() {
-        // Arrange
-        ContentSubmissions contentSubmissions = new ContentSubmissionsImpl();
-
         // Act
         ContentSubmission submission = contentSubmissions.submitContent("http://localhost:3000");
         ContentSubmission processed = contentSubmissions.markAsProcessed(submission.id);
 
         // Assert
         assertEquals(SubmissionStatus.PROCESSED, processed.status);
+    }
+
+    @Test
+    @Transactional
+    public void canFindAllSubmissions() {
+        // Act
+        ContentSubmission submission1 = contentSubmissions.submitContent("http://localhost:3000");
+        ContentSubmission submission2 = contentSubmissions.submitContent("http://localhost:3001");
+
+        // Assert
+        var allSubmissions = contentSubmissions.findAll();
+
+        assertTrue(allSubmissions.contains(submission1));
+        assertTrue(allSubmissions.contains(submission2));
     }
 }
