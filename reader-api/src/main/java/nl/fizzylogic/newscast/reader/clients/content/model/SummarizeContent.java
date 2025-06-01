@@ -1,0 +1,17 @@
+package nl.fizzylogic.newscast.reader.clients.content.model;
+
+public class SummarizeContent {
+    public long id;
+    public String title;
+    public String summary;
+
+    public SummarizeContent() {
+        // Default constructor for deserialization
+    }
+
+    public SummarizeContent(long id, String title, String summary) {
+        this.id = id;
+        this.title = title;
+        this.summary = summary;
+    }
+}

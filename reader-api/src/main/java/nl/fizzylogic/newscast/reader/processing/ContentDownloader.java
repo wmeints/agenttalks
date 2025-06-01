@@ -21,6 +21,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.core.json.jackson.DatabindCodec;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import nl.fizzylogic.newscast.reader.exceptions.ContentDownloadFailedException;
 import nl.fizzylogic.newscast.reader.model.ContentDownload;
 import nl.fizzylogic.newscast.reader.model.ContentSubmissionCreated;
 
