@@ -3,6 +3,7 @@ package nl.fizzylogic.newscast.reader.processing;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
 
+import io.smallrye.graphql.client.GraphQLClientException;
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -25,11 +26,20 @@ public class ContentSubmissionUpdater {
                 "Updating content submission with ID: %d",
                 contentSummary.contentSubmissionId);
 
-        SummarizeContent input = new SummarizeContent(
-                contentSummary.contentSubmissionId,
-                "empty-title",
-                contentSummary.summary);
+        try {
+            SummarizeContent input = new SummarizeContent(
+                    contentSummary.contentSubmissionId,
+                    "empty-title",
+                    contentSummary.summary);
 
-        contentClient.summarizeContent(input);
+            var response = contentClient.summarizeContent(input);
+
+            if (response.hasErrors()) {
+                throw new RuntimeException("Failed to update content submission");
+            }
+        } catch (GraphQLClientException ex) {
+            logger.errorf("Failed to update content submission: %s", ex.getMessage());
+            throw ex;
+        }
     }
 }
