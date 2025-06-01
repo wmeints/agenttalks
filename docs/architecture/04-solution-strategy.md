@@ -65,6 +65,9 @@ for example.
 The podcast generation process is even slower than the content summarization process. So
 it makes sense to apply an event-driven approach to this process as well.
 
+We'll use [the built-in scheduler](https://quarkus.io/guides/scheduler-reference) options
+for Quarkus to trigger the podcast generation process every friday at 18:00.
+
 ### Microprofile reactive messaging
 
 We'll use [the Microprofile Reactive Messaging
@@ -90,3 +93,4 @@ strong opinion on both, but GraphQL does give us a few advantages in this soluti
 
 We use [SmallRye](https://smallrye.io/smallrye-graphql/latest/) for the GraphQL
 implementation.
+
