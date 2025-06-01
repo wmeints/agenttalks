@@ -78,4 +78,4 @@ After submitting the content, you can watch it progress through the Jaeger UI: h
 
 ## Documentation
 
-TODO: List architecture docs here.
+* [Architecture documentation](docs/architecture/README.md)
