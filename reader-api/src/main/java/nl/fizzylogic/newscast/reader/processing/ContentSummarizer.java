@@ -2,7 +2,6 @@ package nl.fizzylogic.newscast.reader.processing;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
-import org.jboss.logging.Logger;
 
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonObject;

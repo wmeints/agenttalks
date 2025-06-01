@@ -1,7 +1,6 @@
 package nl.fizzylogic.newscast.reader.processing;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.Duration;
