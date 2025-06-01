@@ -1,12 +1,5 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
-    "java.configuration.runtimes": [
-        {
-            "name":"JavaSE-21",
-            "path": "C:\\program files\\BellSoft\\LibericaJDK-21",
-            "default": true
-        }
-    ],
     "[java]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
