@@ -49,17 +49,6 @@ quarkus dev
 
 Alternatively you can use `mvn quarkus:dev` if you don't have the Quarkus CLI.
 
-### Enable tracing
-
-This application uses tracing through opentelemetry. You can start a Jaeger instance by
-running the following command:
-
-```bash
-docker compose -f docker-compose-tracing.yml up -d
-```
-
-You can access Jaeger through http://localhost:16686
-
 ### Submitting content for the podcast
 
 You can test the content submission process through the development UI.
