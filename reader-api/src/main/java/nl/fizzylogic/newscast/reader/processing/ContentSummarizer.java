@@ -7,6 +7,7 @@ import org.jboss.logging.Logger;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.control.ActivateRequestContext;
 import jakarta.inject.Inject;
 import nl.fizzylogic.newscast.reader.agent.SummarizerAgent;
 import nl.fizzylogic.newscast.reader.model.ContentDownload;
@@ -17,16 +18,11 @@ public class ContentSummarizer {
     @Inject
     SummarizerAgent summarizerAgent;
 
-    Logger logger = Logger.getLogger(ContentSummarizer.class);
-
+    @ActivateRequestContext
     @Incoming("content-summarizer-input")
     @Outgoing("content-summarizer-output")
     public Uni<JsonObject> process(JsonObject message) {
         var contentDownload = message.mapTo(ContentDownload.class);
-
-        logger.info(String.format(
-                "Summarizing content for submission ID: %d",
-                contentDownload.contentSubmissionId));
 
         var agentResponse = summarizerAgent.summarizeContent(contentDownload.body);
 
