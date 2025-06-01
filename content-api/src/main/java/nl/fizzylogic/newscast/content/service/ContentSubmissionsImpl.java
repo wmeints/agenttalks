@@ -3,11 +3,13 @@ package nl.fizzylogic.newscast.content.service;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.RequestScoped;
 import nl.fizzylogic.newscast.content.model.ContentSubmission;
+import nl.fizzylogic.newscast.content.model.SubmissionStatus;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestScoped
-public class ContentSubmissionsImpl implements ContentSubmissions{
+public class ContentSubmissionsImpl implements ContentSubmissions {
     @Override
     public ContentSubmission submitContent(String url) {
         var submission = new ContentSubmission(url);
@@ -49,5 +51,11 @@ public class ContentSubmissionsImpl implements ContentSubmissions{
     @Override
     public List<ContentSubmission> findAll() {
         return ContentSubmission.findAll(Sort.descending("dateCreated")).list();
+    }
+
+    @Override
+    public List<ContentSubmission> findProcessableSubmissions(LocalDate startDate, LocalDate endDate) {
+        return ContentSubmission.findProcessable(
+                startDate, endDate);
     }
 }

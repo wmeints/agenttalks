@@ -15,6 +15,7 @@ import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @GraphQLApi
@@ -31,16 +32,21 @@ public class ContentGraph {
         return contentSubmissions.findAll();
     }
 
+    @Query
+    public List<ContentSubmission> findProcessableSubmissions(LocalDate startDate, LocalDate endDate) {
+        return contentSubmissions.findProcessableSubmissions(startDate, endDate);
+    }
+
     @Mutation
     @Transactional
     public ContentSubmission submitContent(SubmitContent input) {
         ContentSubmission submission = contentSubmissions.submitContent(input.url);
-        
+
         eventPublisher.publishContentSubmissionCreated(
-            new ContentSubmissionCreated(
-                submission.id, 
-                submission.url, 
-                submission.dateCreated));
+                new ContentSubmissionCreated(
+                        submission.id,
+                        submission.url,
+                        submission.dateCreated));
 
         return submission;
     }

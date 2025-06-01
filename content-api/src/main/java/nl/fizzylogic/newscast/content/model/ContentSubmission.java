@@ -1,11 +1,15 @@
 package nl.fizzylogic.newscast.content.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.panache.common.Parameters;
+import io.quarkus.panache.common.Sort;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import org.eclipse.microprofile.graphql.Type;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Type
 @Entity
@@ -61,5 +65,17 @@ public class ContentSubmission extends PanacheEntity {
                 "id=" + id.toString() +
                 ", url=" + url +
                 ", status=" + status.toString();
+    }
+
+    public static List<ContentSubmission> findProcessable(LocalDate startDate, LocalDate endDate) {
+        var startDateTime = startDate.atStartOfDay();
+        var endDateTime = endDate.atStartOfDay().plusDays(1);
+
+        Parameters queryParams = Parameters.with("startDate", startDateTime)
+                .and("endDate", endDateTime).and("status", SubmissionStatus.SUMMARIZED);
+
+        return list(
+                "dateCreated >= :startDate and dateCreated < :endDate and status = :status",
+                Sort.by("dateCreated"), queryParams);
     }
 }
