@@ -20,5 +20,6 @@
         "vmArgs": [
             "-Djava.util.logging.manager=org.jboss.logmanager.LogManager"
         ]
-    }
+    },
+    "java.compile.nullAnalysis.mode": "automatic"
 }
