@@ -15,5 +15,10 @@
         "editor.tabSize": 4,
         "editor.detectIndentation": false
     },
-    "java.format.settings.url": "eclipse-formatter.xml"
+    "java.test.config": {
+        "name": "quarkusConfiguration",
+        "vmArgs": [
+            "-Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+        ]
+    }
 }
