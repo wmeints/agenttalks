@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.graphql.client.typesafe.api.ErrorOr;
-import io.vertx.core.json.JsonObject;
 import jakarta.inject.Inject;
 import nl.fizzylogic.newscast.podcast.clients.content.ContentClient;
 import nl.fizzylogic.newscast.podcast.clients.content.model.ContentSubmission;
@@ -22,9 +21,9 @@ import nl.fizzylogic.newscast.podcast.clients.content.model.SubmissionStatus;
 import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
 
 @QuarkusTest
-public class ContentSubmissionLockingTest {
+public class ContentSubmissionLockerTest {
     @Inject
-    ContentSubmissionLocking contentSubmissionLocking;
+    ContentSubmissionLocker contentSubmissionLocking;
 
     @InjectMock
     ContentClient contentClient;
@@ -42,7 +41,7 @@ public class ContentSubmissionLockingTest {
                 LocalDate.now(),
                 processableItems);
 
-        var output = contentSubmissionLocking.process(JsonObject.mapFrom(trigger));
+        var output = contentSubmissionLocking.process(trigger);
 
         assertNotNull(output);
         verify(contentClient, times(2)).markForProcessing(any());

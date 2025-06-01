@@ -9,14 +9,14 @@ import jakarta.inject.Inject;
 import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
 
 @QuarkusTest
-public class PodcastScriptGeneratorTest {
+public class PodcastAudioMixerTest {
     @Inject
-    PodcastScriptGenerator podcastScriptGenerator;
+    PodcastAudioMixer podcastAudioMixer;
 
     @Test
-    public void canGeneratePodcastScript() {
+    public void canMixPodcastAudio() {
         var podcastData = new PodcastEpisodeData();
-        var response = podcastScriptGenerator.process(podcastData);
+        var response = podcastAudioMixer.process(podcastData);
 
         assertNotNull(response);
     }
