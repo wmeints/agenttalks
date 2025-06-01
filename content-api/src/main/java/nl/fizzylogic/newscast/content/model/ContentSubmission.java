@@ -1,6 +1,7 @@
 package nl.fizzylogic.newscast.content.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import org.eclipse.microprofile.graphql.Type;
 
@@ -9,12 +10,22 @@ import java.time.LocalDateTime;
 @Type
 @Entity
 public class ContentSubmission extends PanacheEntity {
-    public Long id;
+    @Column(name = "url", nullable = false)
     public String url;
+
+    @Column(name = "title")
     public String title;
+
+    @Column(name = "summary", columnDefinition = "TEXT")
     public String summary;
+
+    @Column(name = "date_created", columnDefinition = "TIMESTAMP")
     public LocalDateTime dateCreated;
+
+    @Column(name = "date_modified", columnDefinition = "TIMESTAMP")
     public LocalDateTime dateModified;
+
+    @Column(name = "status")
     public SubmissionStatus status;
 
     protected ContentSubmission() {
