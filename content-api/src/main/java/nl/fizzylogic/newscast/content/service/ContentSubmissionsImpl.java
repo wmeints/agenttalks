@@ -1,12 +1,11 @@
 package nl.fizzylogic.newscast.content.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.RequestScoped;
 import nl.fizzylogic.newscast.content.model.ContentSubmission;
-import nl.fizzylogic.newscast.content.model.SubmissionStatus;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RequestScoped
 public class ContentSubmissionsImpl implements ContentSubmissions {
