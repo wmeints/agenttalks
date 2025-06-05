@@ -1,22 +1,23 @@
 package nl.fizzylogic.newscast.content.graph;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.eclipse.microprofile.graphql.GraphQLApi;
+import org.eclipse.microprofile.graphql.Mutation;
+import org.eclipse.microprofile.graphql.Query;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import nl.fizzylogic.newscast.content.model.ContentSubmission;
 import nl.fizzylogic.newscast.content.eventbus.ContentSubmissionCreated;
 import nl.fizzylogic.newscast.content.eventbus.EventPublisher;
 import nl.fizzylogic.newscast.content.graph.input.MarkAsProcessed;
 import nl.fizzylogic.newscast.content.graph.input.MarkForProcessing;
 import nl.fizzylogic.newscast.content.graph.input.SubmitContent;
 import nl.fizzylogic.newscast.content.graph.input.SummarizeContent;
+import nl.fizzylogic.newscast.content.model.ContentSubmission;
 import nl.fizzylogic.newscast.content.service.ContentSubmissions;
-import org.eclipse.microprofile.graphql.GraphQLApi;
-import org.eclipse.microprofile.graphql.Mutation;
-import org.eclipse.microprofile.graphql.Query;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @GraphQLApi
 @RequestScoped
