@@ -1,0 +1,77 @@
+name: GitHub Coding Agent Environment
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
+  QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME }}
+  QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
+
+jobs:
+  setup-coding-agent-environment:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Java 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+        
+    - name: Verify Maven installation
+      run: mvn --version
+      
+    - name: Verify Java installation
+      run: java -version
+      
+    - name: Setup Docker access for dev services
+      run: |
+        # Docker is pre-installed on GitHub Actions runners
+        # Verify Docker is accessible for Quarkus dev services
+        docker --version
+        docker info
+        
+    - name: Verify environment variables
+      run: |
+        echo "Checking required environment variables are set..."
+        if [ -z "$QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME" ]; then
+          echo "Warning: QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME not set"
+        else
+          echo "✓ QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME is configured"
+        fi
+        
+        if [ -z "$QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME" ]; then
+          echo "Warning: QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME not set"  
+        else
+          echo "✓ QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME is configured"
+        fi
+        
+        if [ -z "$QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY" ]; then
+          echo "Warning: QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY not set"
+        else
+          echo "✓ QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY is configured"
+        fi
+        
+    - name: Test basic Maven operations
+      run: |
+        # Test Maven with a basic validate goal that doesn't require compilation
+        mvn validate -q
+        echo "✓ Maven validation successful"
+        
+    - name: Environment setup complete
+      run: |
+        echo "GitHub Coding Agent environment setup complete!"
+        echo "- Java 21: $(java -version 2>&1 | head -1)"
+        echo "- Maven: $(mvn --version | head -1)"
+        echo "- Docker: $(docker --version)"
+        echo "- Environment variables configured from secrets"
+        echo "- Ready for Quarkus development with dev services"
