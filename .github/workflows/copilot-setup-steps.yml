@@ -2,10 +2,6 @@ name: GitHub Coding Agent Environment
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 env:
   QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
