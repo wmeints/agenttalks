@@ -1,6 +1,8 @@
 # Content API
 
-The Content API is responsible for managing content submissions for the Newscast application. It provides GraphQL endpoints for submitting content URLs, tracking submission status, and managing content lifecycle.
+The Content API is responsible for managing content submissions for the Newscast
+application. It provides GraphQL endpoints for submitting content URLs, tracking
+submission status, and managing content lifecycle.
 
 ## Technical Requirements
 
@@ -9,6 +11,7 @@ The Content API is responsible for managing content submissions for the Newscast
 - [Maven](https://maven.apache.org/) (or use the included Maven wrapper)
 
 Optional:
+
 - [Quarkus CLI](https://quarkus.io/guides/cli-tooling) for enhanced development experience
 
 ## Running the API in Development Mode
@@ -16,16 +19,19 @@ Optional:
 You can run the Content API in development mode using either the Quarkus CLI or Maven:
 
 ### Using Quarkus CLI (recommended)
+
 ```bash
 quarkus dev
 ```
 
 ### Using Maven
+
 ```bash
 ./mvnw quarkus:dev
 ```
 
 In development mode, the API will:
+
 - Enable live coding with automatic reload on code changes
 - Start with an in-memory H2 database for testing
 - Provide a GraphQL UI at `http://localhost:8080/q/graphql-ui`
@@ -61,19 +67,3 @@ src/main/resources/
 
 src/test/java/         # Unit and integration tests
 ```
-
-### Functional Areas
-
-- **EventBus** (`eventbus/`): Handles publishing domain events when content submissions are created or updated
-- **GraphQL Layer** (`graph/`): Exposes the public API for content submission and querying
-- **Domain Models** (`model/`): Contains the core business entities like `ContentSubmission`
-- **Services** (`service/`): Implements business logic for content lifecycle management
-
-## API Endpoints
-
-When running in development mode, you can access:
-
-- **GraphQL API**: `http://localhost:8080/graphql`
-- **GraphQL UI**: `http://localhost:8080/q/graphql-ui`
-- **Health Check**: `http://localhost:8080/q/health`
-- **Metrics**: `http://localhost:8080/q/metrics`

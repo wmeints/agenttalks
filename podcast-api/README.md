@@ -1,66 +1,69 @@
-# podcast-api
+# Podcast API
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+The Podcast API is responsible for generating the weekly podcast API. The Podcast API
+uses an LLM to generate a podcast script. It generates podcast audio with ElevenLabs and
+publishes the final result through Buzzsprout.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Technical Requirements
 
-## Running the application in dev mode
+- [Java SDK 21](https://bell-sw.com/pages/downloads/#jdk-21-lts)
+- [Docker](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/) (for database)
+- [Maven](https://maven.apache.org/) (or use the included Maven wrapper)
 
-You can run your application in dev mode that enables live coding using:
+Optional:
 
-```shell script
+- [Quarkus CLI](https://quarkus.io/guides/cli-tooling) for enhanced development experience
+
+## Running the API in Development Mode
+
+You can run the Content API in development mode using either the Quarkus CLI or Maven:
+
+### Using Quarkus CLI (recommended)
+
+```bash
+quarkus dev
+```
+
+### Using Maven
+
+```bash
 ./mvnw quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+In development mode, the API will:
 
-## Packaging and running the application
+- Enable live coding with automatic reload on code changes
+- Start with an in-memory H2 database for testing
+- Provide a GraphQL UI at `http://localhost:8080/q/graphql-ui`
+- Offer the Quarkus Dev UI at `http://localhost:8080/q/dev/`
 
-The application can be packaged using:
+## Running Tests
 
-```shell script
-./mvnw package
+To run all tests including unit and integration tests:
+
+```bash
+mvn verify
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+To run only unit tests:
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+```bash
+mvn test
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+## Directory Structure
 
-## Creating a native executable
+The Content API follows a clean architecture approach with the following structure:
 
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
 ```
+src/main/java/nl/fizzylogic/newscast/reader/
+├── clients/           # Clients used to connect to other services
+├── processing/        # Components used in the podcast generation process
+├── model/             # Domain models and entities
+└── service/           # Business logic and service implementations
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+src/main/resources/
+└── application.properties  # Configuration settings
 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
+src/test/java/         # Unit and integration tests
 ```
-
-You can then execute your native executable with: `./target/podcast-api-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
