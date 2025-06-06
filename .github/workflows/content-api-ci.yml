@@ -62,21 +62,18 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
         
     - name: Build content-api
-      run: |
-        cd content-api
-        ./mvnw clean compile
+      working-directory: content-api
+      run: ./mvnw clean compile
         
     - name: Run tests with coverage
-      run: |
-        cd content-api
-        ./mvnw test -Dquarkus.test.profile=test
+      working-directory: content-api
+      run: ./mvnw test -Dquarkus.test.profile=test
       env:
         TESTCONTAINERS_RYUK_DISABLED: true
         
     - name: Generate code coverage report
-      run: |
-        cd content-api
-        ./mvnw jacoco:report
+      working-directory: content-api
+      run: ./mvnw jacoco:report
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4
