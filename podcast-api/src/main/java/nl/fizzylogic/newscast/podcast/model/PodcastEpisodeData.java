@@ -26,4 +26,35 @@ public class PodcastEpisodeData {
         this.script = script;
         return this;
     }
+
+    public static PodcastEpisodeDataBuilder builder() {
+        return new PodcastEpisodeDataBuilder();
+    }
+
+    public static class PodcastEpisodeDataBuilder {
+        private PodcastEpisodeData instance;
+
+        public PodcastEpisodeDataBuilder() {
+            this.instance = new PodcastEpisodeData();
+        }
+
+        public PodcastEpisodeDataBuilder withStartDate(LocalDate startDate) {
+            instance.startDate = startDate;
+            return this;
+        }
+
+        public PodcastEpisodeDataBuilder withEndDate(LocalDate endDate) {
+            instance.endDate = endDate;
+            return this;
+        }
+
+        public PodcastEpisodeDataBuilder withContentSubmissions(List<ContentSubmission> contentSubmissions) {
+            instance.contentSubmissions = contentSubmissions;
+            return this;
+        }
+
+        public PodcastEpisodeData build() {
+            return instance;
+        }
+    }
 }

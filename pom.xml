@@ -6,6 +6,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>shared-kernel</module>
         <module>content-api</module>
         <module>reader-api</module>
         <module>podcast-api</module>

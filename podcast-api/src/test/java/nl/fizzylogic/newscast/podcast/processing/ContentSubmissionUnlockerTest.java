@@ -29,9 +29,12 @@ public class ContentSubmissionUnlockerTest {
     @Test
     public void canUnlockContentAfterProcessing() {
         var processedContentSubmissions = List.of(
-                new ContentSubmission(1L, "Content 1", "Test", SubmissionStatus.PROCESSING),
-                new ContentSubmission(2L, "Content 2", "Test", SubmissionStatus.PROCESSING),
-                new ContentSubmission(3L, "Content 3", "Test", SubmissionStatus.PROCESSING));
+                new ContentSubmission(1L, "Content 1", "Test", SubmissionStatus.PROCESSING,
+                        "http://localhost:3000/"),
+                new ContentSubmission(2L, "Content 2", "Test", SubmissionStatus.PROCESSING,
+                        "http://localhost:3001/"),
+                new ContentSubmission(3L, "Content 3", "Test", SubmissionStatus.PROCESSING,
+                        "http://localhost:3002/"));
 
         var episodeData = new PodcastEpisodeData(
                 LocalDate.now().minusDays(7),

@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.shared;
+package nl.fizzylogic.newscast.shared;
 
 import java.io.IOException;
 import java.io.InputStream;

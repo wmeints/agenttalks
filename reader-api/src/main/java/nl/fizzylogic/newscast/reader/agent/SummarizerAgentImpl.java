@@ -18,7 +18,7 @@ import com.microsoft.semantickernel.services.chatcompletion.ChatMessageContent;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.RequestScoped;
 import mutiny.zero.flow.adapters.AdaptersToFlow;
-import nl.fizzylogic.newscast.reader.shared.EmbeddedResource;
+import nl.fizzylogic.newscast.shared.EmbeddedResource;
 
 @RequestScoped
 public class SummarizerAgentImpl implements SummarizerAgent {

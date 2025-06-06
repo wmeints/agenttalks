@@ -33,8 +33,10 @@ public class ContentSubmissionLockerTest {
         when(contentClient.markForProcessing(any())).thenReturn(ErrorOr.of(new ContentSubmission()));
 
         List<ContentSubmission> processableItems = List.of(
-                new ContentSubmission(1L, "Test Submission 1", "test", SubmissionStatus.SUMMARIZED),
-                new ContentSubmission(2L, "Test Submission 2", "test", SubmissionStatus.SUMMARIZED));
+                new ContentSubmission(1L, "Test Submission 1", "test", SubmissionStatus.SUMMARIZED,
+                        "http://localhost:3000/"),
+                new ContentSubmission(2L, "Test Submission 2", "test", SubmissionStatus.SUMMARIZED,
+                        "http://localhost:3001/"));
 
         var trigger = new PodcastEpisodeData(
                 LocalDate.now().minusDays(7),
