@@ -41,6 +41,9 @@ jobs:
       run: ./mvnw clean verify -Dquarkus.test.profile=test
       env:
         TESTCONTAINERS_RYUK_DISABLED: true
+        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
+        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME }}
+        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4
