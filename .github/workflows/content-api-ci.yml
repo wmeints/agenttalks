@@ -1,0 +1,87 @@
+name: Content API CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'content-api/**'
+      - '.github/workflows/content-api-ci.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'content-api/**'
+      - '.github/workflows/content-api-ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: quarkus
+          POSTGRES_USER: quarkus
+          POSTGRES_DB: quarkus
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      rabbitmq:
+        image: rabbitmq:3.12-management
+        env:
+          RABBITMQ_DEFAULT_USER: quarkus
+          RABBITMQ_DEFAULT_PASS: quarkus
+        options: >-
+          --health-cmd "rabbitmq-diagnostics -q ping"
+          --health-interval 30s
+          --health-timeout 30s
+          --health-retries 5
+        ports:
+          - 5672:5672
+          - 15672:15672
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        
+    - name: Cache Maven dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Build content-api
+      run: |
+        cd content-api
+        ./mvnw clean compile
+        
+    - name: Run tests with coverage
+      run: |
+        cd content-api
+        ./mvnw test -Dquarkus.test.profile=test
+      env:
+        TESTCONTAINERS_RYUK_DISABLED: true
+        
+    - name: Generate code coverage report
+      run: |
+        cd content-api
+        ./mvnw jacoco:report
+        
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./content-api/target/jacoco-report/jacoco.xml
+        flags: content-api
+        name: content-api-coverage
+        fail_ci_if_error: false
