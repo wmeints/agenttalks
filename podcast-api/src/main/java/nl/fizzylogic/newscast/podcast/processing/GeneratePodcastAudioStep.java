@@ -7,13 +7,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
 
 /**
- * Stores the podcast metadata in the content API and publishes the final
- * episode to Buzzsprout.
+ * Converts the podcast script into audio using ElevenLabs.
  */
 @ApplicationScoped
-public class PodcastEpisodePublisher {
-    @Incoming("publication-input")
-    @Outgoing("publication-output")
+public class GeneratePodcastAudioStep {
+    @Incoming("audio-generation-input")
+    @Outgoing("audio-generation-output")
     public PodcastEpisodeData process(PodcastEpisodeData episodeData) {
         return episodeData;
     }

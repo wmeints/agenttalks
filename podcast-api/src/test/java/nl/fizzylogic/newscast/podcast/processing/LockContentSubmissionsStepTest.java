@@ -21,9 +21,9 @@ import nl.fizzylogic.newscast.podcast.clients.content.model.SubmissionStatus;
 import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
 
 @QuarkusTest
-public class ContentSubmissionLockerTest {
+public class LockContentSubmissionsStepTest {
     @Inject
-    ContentSubmissionLocker contentSubmissionLocking;
+    LockContentSubmissionsStep contentSubmissionLocking;
 
     @InjectMock
     ContentClient contentClient;

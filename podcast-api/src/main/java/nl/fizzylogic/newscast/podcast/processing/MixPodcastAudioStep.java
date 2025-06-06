@@ -8,7 +8,7 @@ import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
 /**
  * Mixes the intro, content, and outro audio files for a podcast episode.
  */
-public class PodcastAudioMixer {
+public class MixPodcastAudioStep {
     @Incoming("audio-mixing-input")
     @Outgoing("audio-mixing-output")
     public PodcastEpisodeData process(PodcastEpisodeData message) {

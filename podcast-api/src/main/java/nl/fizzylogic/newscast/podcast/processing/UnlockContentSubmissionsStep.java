@@ -10,11 +10,11 @@ import nl.fizzylogic.newscast.podcast.clients.content.model.MarkAsProcessed;
 import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
 
 @ApplicationScoped
-public class ContentSubmissionUnlocker {
+public class UnlockContentSubmissionsStep {
     @Inject
     ContentClient contentClient;
 
-    Logger logger = Logger.getLogger(ContentSubmissionUnlocker.class);
+    Logger logger = Logger.getLogger(UnlockContentSubmissionsStep.class);
 
     @Incoming("submission-unlocking-input")
     public void process(PodcastEpisodeData episodeData) {

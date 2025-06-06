@@ -1,5 +1,7 @@
 package nl.fizzylogic.newscast.podcast.processing;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -7,13 +9,15 @@ import jakarta.inject.Inject;
 import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
 
 @QuarkusTest
-public class PodcastEpisodePublisherTest {
+public class GeneratePodcastAudioStepTest {
     @Inject
-    PodcastEpisodePublisher podcastEpisodePublisher;
+    GeneratePodcastAudioStep podcastAudioGenerator;
 
     @Test
-    public void canPublishPodcastEpisode() {
+    public void canGeneratePodcastAudio() {
         var podcastData = new PodcastEpisodeData();
-        podcastEpisodePublisher.process(podcastData);
+        var response = podcastAudioGenerator.process(podcastData);
+
+        assertNotNull(response);
     }
 }

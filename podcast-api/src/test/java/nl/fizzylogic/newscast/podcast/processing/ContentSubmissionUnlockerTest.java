@@ -21,7 +21,7 @@ import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
 @QuarkusTest
 public class ContentSubmissionUnlockerTest {
     @Inject
-    ContentSubmissionUnlocker contentSubmissionUnlocker;
+    UnlockContentSubmissionsStep contentSubmissionUnlocker;
 
     @InjectMock
     ContentClient contentClient;

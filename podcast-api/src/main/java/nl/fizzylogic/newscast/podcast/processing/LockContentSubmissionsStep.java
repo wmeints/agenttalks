@@ -14,11 +14,11 @@ import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
  * Locks content submissions for processing into a podcast episode.
  */
 @ApplicationScoped
-public class ContentSubmissionLocker {
+public class LockContentSubmissionsStep {
     @Inject
     ContentClient contentClient;
 
-    Logger logger = Logger.getLogger(ContentSubmissionLocker.class);
+    Logger logger = Logger.getLogger(LockContentSubmissionsStep.class);
 
     @Incoming("content-submission-locking-input")
     @Outgoing("content-submission-locking-output")
