@@ -61,19 +61,11 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
         
-    - name: Build content-api
+    - name: Build and test content-api with coverage
       working-directory: content-api
-      run: ./mvnw clean compile
-        
-    - name: Run tests with coverage
-      working-directory: content-api
-      run: ./mvnw test -Dquarkus.test.profile=test
+      run: ./mvnw clean verify -Dquarkus.test.profile=test
       env:
         TESTCONTAINERS_RYUK_DISABLED: true
-        
-    - name: Generate code coverage report
-      working-directory: content-api
-      run: ./mvnw jacoco:report
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4
