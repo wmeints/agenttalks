@@ -9,7 +9,7 @@ public class PodcastEpisodeData {
     public LocalDate startDate;
     public LocalDate endDate;
     public List<ContentSubmission> contentSubmissions;
-    public String script;
+    public PodcastScript script;
 
     public PodcastEpisodeData() {
         // Default constructor for serialization/deserialization
@@ -22,7 +22,7 @@ public class PodcastEpisodeData {
         this.contentSubmissions = contentSubmissions;
     }
 
-    public PodcastEpisodeData withPodcastScript(String script) {
+    public PodcastEpisodeData withPodcastScript(PodcastScript script) {
         this.script = script;
         return this;
     }
