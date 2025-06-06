@@ -1,5 +1,7 @@
 package nl.fizzylogic.newscast.reader.processing;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -12,26 +14,32 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonObject;
 import jakarta.inject.Inject;
-import nl.fizzylogic.newscast.reader.agent.SummarizerAgent;
 import nl.fizzylogic.newscast.reader.model.ContentDownload;
+import nl.fizzylogic.newscast.reader.model.ContentSummarizationData;
+import nl.fizzylogic.newscast.reader.model.ContentSummary;
+import nl.fizzylogic.newscast.reader.service.ContentSummarizer;
 
 @QuarkusTest
 public class ContentSummarizerTest {
 
     @Inject
-    ContentSummarizer contentSummarizer;
+    ContentSummarizationStep contentSummarizer;
 
     @InjectMock
-    SummarizerAgent summarizerAgent;
+    ContentSummarizer summarizerAgent;
 
     @Test
     public void canSummarizeContent() {
         when(summarizerAgent.summarizeContent(anyString())).thenReturn(
-                Uni.createFrom().item("This is a summary"));
+                new ContentSummary("test", "test"));
 
-        var contentDownload = new ContentDownload(1L, "text/html", "This is some sample content to summarize");
+        var processData = new ContentSummarizationData(
+                1L, "http://localhost:3000/", "test", "text/plain");
 
-        contentSummarizer.process(JsonObject.mapFrom(contentDownload))
-                .await().atMost(Duration.ofSeconds(10));
+        var result = contentSummarizer.process(processData);
+
+        assertNotNull(result);
+        assertEquals("test", result.summary);
+        assertEquals("test", result.title);
     }
 }

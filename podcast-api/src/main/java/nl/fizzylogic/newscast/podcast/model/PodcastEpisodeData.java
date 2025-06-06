@@ -32,7 +32,7 @@ public class PodcastEpisodeData {
     }
 
     public static class PodcastEpisodeDataBuilder {
-        private PodcastEpisodeData instance;
+        private final PodcastEpisodeData instance;
 
         public PodcastEpisodeDataBuilder() {
             this.instance = new PodcastEpisodeData();

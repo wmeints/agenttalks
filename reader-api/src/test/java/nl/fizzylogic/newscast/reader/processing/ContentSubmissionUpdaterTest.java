@@ -9,11 +9,10 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.graphql.client.typesafe.api.ErrorOr;
-import io.vertx.core.json.JsonObject;
 import jakarta.inject.Inject;
 import nl.fizzylogic.newscast.reader.clients.content.ContentClient;
 import nl.fizzylogic.newscast.reader.clients.content.model.ContentSubmission;
-import nl.fizzylogic.newscast.reader.model.ContentSummary;
+import nl.fizzylogic.newscast.reader.model.ContentSummarizationData;
 
 @QuarkusTest
 public class ContentSubmissionUpdaterTest {
@@ -21,14 +20,18 @@ public class ContentSubmissionUpdaterTest {
     ContentClient contentClient;
 
     @Inject
-    ContentSubmissionUpdater contentSubmissionUpdater;
+    UpdateContentSubmissionStep contentSubmissionUpdater;
 
     @Test
     public void canUpdateContentSubmission() {
         when(contentClient.summarizeContent(any())).thenReturn(ErrorOr.of(new ContentSubmission()));
 
-        var contentSummary = new ContentSummary(1L, "text/html", "This is a summary");
-        contentSubmissionUpdater.updateContentSubmission(JsonObject.mapFrom(contentSummary));
+        var processData = new ContentSummarizationData(
+                1L, "http://localhost:3000/", "test", "text/plain");
+
+        processData = processData.withSummary("Test Title", "This is a test summary");
+
+        contentSubmissionUpdater.updateContentSubmission(processData);
 
         verify(contentClient).summarizeContent(any());
     }

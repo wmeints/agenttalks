@@ -24,19 +24,20 @@ import jakarta.inject.Inject;
 import nl.fizzylogic.newscast.reader.exceptions.ContentDownloadFailedException;
 import nl.fizzylogic.newscast.reader.model.ContentDownload;
 import nl.fizzylogic.newscast.reader.model.ContentSubmissionCreated;
+import nl.fizzylogic.newscast.reader.model.ContentSummarizationData;
 
 @ApplicationScoped
-public class ContentDownloader {
+public class ContentDownloadStep {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3";
 
-    Logger logger = Logger.getLogger(ContentDownloader.class);
+    Logger logger = Logger.getLogger(ContentDownloadStep.class);
 
     @Inject
-    TikaParser parser;
+    TikaParser documentParser;
 
     @Incoming("content-downloader-input")
     @Outgoing("content-downloader-output")
-    public JsonObject process(JsonObject message) {
+    public ContentSummarizationData process(JsonObject message) {
         DatabindCodec.mapper().registerModule(new JavaTimeModule());
 
         ContentSubmissionCreated contentSubmissionCreated = message
@@ -51,7 +52,7 @@ public class ContentDownloader {
             HttpResponse response = executeDownloadRequest(contentSubmissionCreated, httpClient);
             var result = processDownloadResponse(contentSubmissionCreated, response);
 
-            return JsonObject.mapFrom(result);
+            return result;
         } catch (IOException ex) {
             logger.error(String.format("Failed to download content from %s",
                     contentSubmissionCreated.url), ex);
@@ -68,12 +69,12 @@ public class ContentDownloader {
         }
     }
 
-    private ContentDownload processDownloadResponse(
+    private ContentSummarizationData processDownloadResponse(
             ContentSubmissionCreated contentSubmissionCreated,
             HttpResponse response) throws IOException {
         String contentType = response.getFirstHeader("Content-Type").getValue();
         InputStream contentStream = response.getEntity().getContent();
-        String parsedContent = parser.parse(contentStream, contentType).getText();
+        String parsedContent = documentParser.parse(contentStream, contentType).getText();
 
         logger.info(String.format("Downloaded content from %s with content type: %s",
                 contentSubmissionCreated.url, contentType));
@@ -83,7 +84,11 @@ public class ContentDownloader {
                 contentType,
                 parsedContent);
 
-        return result;
+        return new ContentSummarizationData(
+                contentSubmissionCreated.contentSubmissionId,
+                contentSubmissionCreated.url,
+                result.body,
+                contentType);
     }
 
     private HttpResponse executeDownloadRequest(ContentSubmissionCreated contentSubmissionCreated,
