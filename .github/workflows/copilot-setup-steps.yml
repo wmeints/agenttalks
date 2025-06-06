@@ -13,7 +13,7 @@ env:
   QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
 
 jobs:
-  setup-coding-agent-environment:
+  copilot-setup-steps:
     runs-on: ubuntu-latest
     
     steps:
