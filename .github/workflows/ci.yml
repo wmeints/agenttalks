@@ -17,7 +17,8 @@ on:
       - '.github/workflows/ci.yml'
 
 jobs:
-  test:
+  build-and-test:
+    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:
@@ -36,7 +37,7 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
         
-    - name: Build and test
+    - name: Run Maven build
       run: ./mvnw clean verify -Dquarkus.test.profile=test
       env:
         TESTCONTAINERS_RYUK_DISABLED: true
