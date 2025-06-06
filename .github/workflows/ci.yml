@@ -1,21 +1,25 @@
-name: Reader API CI
+name: Continuous integration
 
 on:
   push:
     branches: [ main, develop ]
     paths:
+      - 'content-api/**'
+      - 'podcast-api/**'
       - 'reader-api/**'
-      - '.github/workflows/reader-api-ci.yml'
+      - '.github/workflows/ci.yml'
   pull_request:
     branches: [ main, develop ]
     paths:
+      - 'content-api/**'
+      - 'podcast-api/**'
       - 'reader-api/**'
-      - '.github/workflows/reader-api-ci.yml'
+      - '.github/workflows/ci.yml'
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
     
@@ -32,20 +36,16 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
         
-    - name: Build and test reader-api with coverage
-      working-directory: reader-api
+    - name: Build and test
       run: ./mvnw clean verify -Dquarkus.test.profile=test
       env:
         TESTCONTAINERS_RYUK_DISABLED: true
-        TESTCONTAINERS_CHECKS_DISABLE: true
-        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
-        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME }}
-        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4
       with:
-        file: ./reader-api/target/jacoco-report/jacoco.xml
-        flags: reader-api
-        name: reader-api-coverage
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: content-api/target/jacoco-report/jacoco.xml,podcast-api/target/jacoco-report/jacoco.xml,reader-api/target/jacoco-report/jacoco.xml
+        flags: content-api
+        name: content-api-coverage
         fail_ci_if_error: false
