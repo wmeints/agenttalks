@@ -10,7 +10,7 @@ env:
 
 jobs:
   copilot-setup-steps:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-4-core
     
     steps:
     - name: Checkout code
