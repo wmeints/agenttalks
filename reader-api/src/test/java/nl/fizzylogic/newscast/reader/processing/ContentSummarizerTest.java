@@ -5,16 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import java.time.Duration;
-
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
-import io.smallrye.mutiny.Uni;
-import io.vertx.core.json.JsonObject;
 import jakarta.inject.Inject;
-import nl.fizzylogic.newscast.reader.model.ContentDownload;
 import nl.fizzylogic.newscast.reader.model.ContentSummarizationData;
 import nl.fizzylogic.newscast.reader.model.ContentSummary;
 import nl.fizzylogic.newscast.reader.service.ContentSummarizer;
