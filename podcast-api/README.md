@@ -1,66 +1,86 @@
-# podcast-api
+# Podcast API
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+The Podcast API is responsible for generating AI-driven podcast episodes from content submissions in the Newscast application. It orchestrates a multi-step pipeline that converts summarized content into published podcast episodes using Azure OpenAI and ElevenLabs TTS services.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Technical Requirements
 
-## Running the application in dev mode
+- [Java SDK 21](https://bell-sw.com/pages/downloads/#jdk-21-lts)
+- [Docker](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/) (for database and message broker)
+- [Maven](https://maven.apache.org/) (or use the included Maven wrapper)
 
-You can run your application in dev mode that enables live coding using:
+Optional:
+- [Quarkus CLI](https://quarkus.io/guides/cli-tooling) for enhanced development experience
 
-```shell script
+## Running the API in Development Mode
+
+You can run the Podcast API in development mode using either the Quarkus CLI or Maven:
+
+### Using Quarkus CLI (recommended)
+```bash
+quarkus dev
+```
+
+### Using Maven
+```bash
 ./mvnw quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+In development mode, the API will:
+- Enable live coding with automatic reload on code changes
+- Start with PostgreSQL and RabbitMQ dev services via Testcontainers
+- Provide the Quarkus Dev UI at `http://localhost:8082/q/dev/`
+- Enable observability features with LGTM stack (Grafana, Loki, Tempo, Prometheus)
 
-## Packaging and running the application
+## Running Tests
 
-The application can be packaged using:
+To run all tests including unit and integration tests:
 
-```shell script
-./mvnw package
+```bash
+mvn verify
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+To run only unit tests:
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+```bash
+mvn test
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+## Directory Structure
 
-## Creating a native executable
+The Podcast API follows a clean architecture approach with the following structure:
 
-You can create a native executable using:
+```
+src/main/java/nl/fizzylogic/newscast/podcast/
+├── clients/           # External service integrations
+├── model/             # Domain models and entities  
+├── processing/        # Pipeline steps for podcast generation
+└── service/           # Core business logic and services
 
-```shell script
-./mvnw package -Dnative
+src/main/resources/
+├── application.properties  # Configuration settings
+└── prompts/               # AI prompt templates
+
+src/test/java/         # Unit and integration tests
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+### Functional Areas
 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
+- **Clients** (`clients/`): External service integrations including Content API GraphQL client and ElevenLabs TTS client
+- **Models** (`model/`): Domain models for podcast data structures like `PodcastEpisodeData`, `PodcastHost`, and `PodcastScript` 
+- **Processing** (`processing/`): Pipeline steps that orchestrate the podcast generation workflow:
+  - Content submission locking/unlocking
+  - Podcast script generation using Azure OpenAI
+  - Audio generation using ElevenLabs TTS
+  - Audio mixing and post-processing
+  - Publication to podcast platforms
+- **Services** (`service/`): Core business logic including the scheduled `PodcastGenerationProcess` and AI-powered `PodcastScriptGenerator`
 
-You can then execute your native executable with: `./target/podcast-api-1.0.0-SNAPSHOT-runner`
+## API Endpoints
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+When running in development mode, you can access:
 
-## Related Guides
+- **Quarkus Dev UI**: `http://localhost:8082/q/dev/`
+- **Health Check**: `http://localhost:8082/q/health`
+- **Metrics**: `http://localhost:8082/q/metrics`
 
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+The API runs on port **8082** to avoid conflicts with other services in the Newscast application.
