@@ -9,8 +9,10 @@ import org.eclipse.microprofile.graphql.Query;
 import io.smallrye.graphql.client.typesafe.api.ErrorOr;
 import io.smallrye.graphql.client.typesafe.api.GraphQLClientApi;
 import nl.fizzylogic.newscast.podcast.clients.content.model.ContentSubmission;
+import nl.fizzylogic.newscast.podcast.clients.content.model.CreatePodcastEpisode;
 import nl.fizzylogic.newscast.podcast.clients.content.model.MarkAsProcessed;
 import nl.fizzylogic.newscast.podcast.clients.content.model.MarkForProcessing;
+import nl.fizzylogic.newscast.podcast.clients.content.model.PodcastEpisode;
 
 @GraphQLClientApi(configKey = "content-api")
 public interface ContentClient {
@@ -19,6 +21,9 @@ public interface ContentClient {
 
     @Mutation
     ErrorOr<ContentSubmission> markAsProcessed(MarkAsProcessed input);
+
+    @Mutation
+    ErrorOr<PodcastEpisode> createPodcastEpisode(CreatePodcastEpisode input);
 
     @Query
     List<ContentSubmission> findProcessableSubmissions(LocalDate startDate, LocalDate endDate);

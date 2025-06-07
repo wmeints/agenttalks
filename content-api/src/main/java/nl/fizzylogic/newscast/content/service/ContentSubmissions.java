@@ -1,6 +1,7 @@
 package nl.fizzylogic.newscast.content.service;
 
 import nl.fizzylogic.newscast.content.model.ContentSubmission;
+import nl.fizzylogic.newscast.content.model.PodcastEpisode;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,4 +18,6 @@ public interface ContentSubmissions {
     List<ContentSubmission> findAll();
 
     List<ContentSubmission> findProcessableSubmissions(LocalDate startDate, LocalDate endDate);
+
+    PodcastEpisode createPodcastEpisode(String audioFilePath, String title);
 }
