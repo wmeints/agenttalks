@@ -19,8 +19,6 @@ import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
 import io.temporal.worker.WorkerFactory;
 import jakarta.inject.Inject;
-import nl.fizzylogic.newscast.podcast.clients.content.model.SubmissionStatus;
-import nl.fizzylogic.newscast.podcast.model.PodcastScript;
 import nl.fizzylogic.newscast.podcast.shared.TestObjectFactory;
 
 @QuarkusTest
@@ -57,9 +55,11 @@ public class GeneratePodcastWorkflowImplTest {
                 GeneratePodcastWorkflow.class,
                 workflowOptions);
 
-        var workflowInput = new GeneratePodcastWorkflowInput(LocalDate.now().minusDays(7), LocalDate.now(), List.of(
-                TestObjectFactory.createSummarizedSubmission(),
-                TestObjectFactory.createSummarizedSubmission()));
+        var workflowInput = new GeneratePodcastWorkflowInput(
+                LocalDate.now().minusDays(7),
+                LocalDate.now(),
+                List.of(TestObjectFactory.createSummarizedSubmission(),
+                        TestObjectFactory.createSummarizedSubmission()));
 
         workflowInstance.generatePodcast(workflowInput);
 
