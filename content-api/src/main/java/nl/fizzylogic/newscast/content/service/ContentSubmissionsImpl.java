@@ -6,6 +6,7 @@ import java.util.List;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.RequestScoped;
 import nl.fizzylogic.newscast.content.model.ContentSubmission;
+import nl.fizzylogic.newscast.content.model.PodcastEpisode;
 
 @RequestScoped
 public class ContentSubmissionsImpl implements ContentSubmissions {
@@ -56,5 +57,13 @@ public class ContentSubmissionsImpl implements ContentSubmissions {
     public List<ContentSubmission> findProcessableSubmissions(LocalDate startDate, LocalDate endDate) {
         return ContentSubmission.findProcessable(
                 startDate, endDate);
+    }
+
+    @Override
+    public PodcastEpisode createPodcastEpisode(String audioFilePath, String title) {
+        var episode = new PodcastEpisode(title, audioFilePath);
+        episode.persistAndFlush();
+
+        return episode;
     }
 }

@@ -62,6 +62,10 @@ public class GeneratePodcastAudioActivitiesImpl implements GeneratePodcastAudioA
 
     @Override
     public String concatenateAudioFragments(List<String> audioFragments) {
+        // NOTE: The assumption here is that the workflow is always running on one
+        // machine.If this is ever changed, we need to ensure that we download the audio
+        // fragments from blob storage.
+
         String filename = String.format("%s.mp3", UUID.randomUUID());
         File dataDir = new File(outputDirectoryPath);
         File outputFile = new File(dataDir, filename);

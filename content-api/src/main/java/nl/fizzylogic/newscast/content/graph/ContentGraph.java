@@ -12,11 +12,13 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import nl.fizzylogic.newscast.content.eventbus.ContentSubmissionCreated;
 import nl.fizzylogic.newscast.content.eventbus.EventPublisher;
+import nl.fizzylogic.newscast.content.graph.input.CreatePodcastEpisode;
 import nl.fizzylogic.newscast.content.graph.input.MarkAsProcessed;
 import nl.fizzylogic.newscast.content.graph.input.MarkForProcessing;
 import nl.fizzylogic.newscast.content.graph.input.SubmitContent;
 import nl.fizzylogic.newscast.content.graph.input.SummarizeContent;
 import nl.fizzylogic.newscast.content.model.ContentSubmission;
+import nl.fizzylogic.newscast.content.model.PodcastEpisode;
 import nl.fizzylogic.newscast.content.service.ContentSubmissions;
 
 @GraphQLApi
@@ -50,6 +52,12 @@ public class ContentGraph {
                         submission.dateCreated));
 
         return submission;
+    }
+
+    @Mutation
+    @Transactional
+    public PodcastEpisode createPodcastEpisode(CreatePodcastEpisode input) {
+        return contentSubmissions.createPodcastEpisode(input.audioFile, input.title);
     }
 
     @Mutation

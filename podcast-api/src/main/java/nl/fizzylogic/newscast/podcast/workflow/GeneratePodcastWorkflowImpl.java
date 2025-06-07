@@ -82,8 +82,11 @@ public class GeneratePodcastWorkflowImpl implements GeneratePodcastWorkflow {
         var finalAudioFile = generatePodcastAudioActivities.mixPodcastEpisode(contentAudioFile);
 
         // Save the podcast episode with the generated audio file and the included
-        // content submissions.=
-        contentMetadataActivities.savePodcastEpisode(finalAudioFile, input.contentSubmissions);
+        // content submissions.
+        contentMetadataActivities.savePodcastEpisode(
+                script.title,
+                finalAudioFile,
+                input.contentSubmissions);
 
         // Mark the content submissions as processed.
         // Other workflow triggers can't pick them up anymore.
