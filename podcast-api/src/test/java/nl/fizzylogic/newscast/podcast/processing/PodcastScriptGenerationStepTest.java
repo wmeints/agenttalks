@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 import nl.fizzylogic.newscast.podcast.clients.content.model.ContentSubmission;
 import nl.fizzylogic.newscast.podcast.model.PodcastEpisodeData;
 import nl.fizzylogic.newscast.podcast.model.PodcastHost;
+import nl.fizzylogic.newscast.podcast.model.PodcastScript;
 import nl.fizzylogic.newscast.podcast.service.PodcastScriptGenerator;
 
 @QuarkusTest
@@ -36,11 +37,8 @@ public class PodcastScriptGenerationStepTest {
                 .withStyleInstructions("Friendly and engaging").build().persist();
 
         when(podcastScriptGenerator.generatePodcastScript(anyString(),
-                anyString(),
-                anyString(),
-                anyString(),
-                anyString()))
-                .thenReturn("Generated script content");
+                anyString(), anyString(), anyString(), anyString()))
+                .thenReturn(new PodcastScript());
 
         var podcastData = PodcastEpisodeData.builder().withStartDate(LocalDate.now())
                 .withEndDate(LocalDate.now().plusDays(1))
