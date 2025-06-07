@@ -19,10 +19,12 @@ import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 
+import io.quarkus.test.junit.QuarkusTest;
 import nl.fizzylogic.newscast.podcast.clients.content.ContentClient;
 import nl.fizzylogic.newscast.podcast.clients.content.model.CreatePodcastEpisode;
 import nl.fizzylogic.newscast.podcast.shared.TestObjectFactory;
 
+@QuarkusTest
 class ContentMetadataActivitiesImplTest {
 
     private ContentMetadataActivitiesImpl activities;
@@ -72,6 +74,7 @@ class ContentMetadataActivitiesImplTest {
     void testSavePodcastEpisode() throws Exception {
         // Create a temp file to simulate audio file
         File tempFile = File.createTempFile("test-audio", ".mp3");
+
         try (FileOutputStream fos = new FileOutputStream(tempFile)) {
             fos.write("audio".getBytes());
         }
