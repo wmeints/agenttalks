@@ -34,6 +34,7 @@ public class TestObjectFactory {
     public static ContentSubmission createSummarizedSubmission() {
         var submission = new ContentSubmission();
 
+        submission.id = faker.number().randomNumber();
         submission.title = faker.lorem().sentence();
         submission.summary = faker.lorem().paragraph();
         submission.url = faker.internet().url();
