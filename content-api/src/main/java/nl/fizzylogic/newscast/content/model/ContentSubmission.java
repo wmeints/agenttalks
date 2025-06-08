@@ -1,10 +1,17 @@
 package nl.fizzylogic.newscast.content.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import org.eclipse.microprofile.graphql.Type;
 
 import java.time.LocalDate;
@@ -12,24 +19,29 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Type
-@Entity
-public class ContentSubmission extends PanacheEntity {
-    @Column(name = "url", nullable = false)
+@Entity(name = "content_submission")
+public class ContentSubmission extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long id;
+
+    @Column(name = "url", nullable = false, columnDefinition = "varchar(1000)")
     public String url;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = true, columnDefinition = "varchar(500)")
     public String title;
 
-    @Column(name = "summary", columnDefinition = "TEXT")
+    @Column(name = "summary", columnDefinition = "text", nullable = true)
     public String summary;
 
-    @Column(name = "date_created", columnDefinition = "TIMESTAMP")
+    @Column(name = "date_created", columnDefinition = "timestamp", nullable = false)
     public LocalDateTime dateCreated;
 
-    @Column(name = "date_modified", columnDefinition = "TIMESTAMP")
+    @Column(name = "date_modified", columnDefinition = "timestamp", nullable = true)
     public LocalDateTime dateModified;
 
-    @Column(name = "status")
+    @Column(name = "submission_status", columnDefinition = "varchar(50)")
+    @Enumerated(EnumType.STRING)
     public SubmissionStatus status;
 
     protected ContentSubmission() {
@@ -62,9 +74,10 @@ public class ContentSubmission extends PanacheEntity {
     @Override
     public String toString() {
         return "ContentSubmission{" +
-                "id=" + id.toString() +
+                "id=" + id +
                 ", url=" + url +
-                ", status=" + status.toString();
+                ", status=" + status.toString() + "}";
+
     }
 
     public static List<ContentSubmission> findProcessable(LocalDate startDate, LocalDate endDate) {
