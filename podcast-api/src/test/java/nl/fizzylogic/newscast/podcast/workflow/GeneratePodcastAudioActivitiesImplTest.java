@@ -1,28 +1,30 @@
 package nl.fizzylogic.newscast.podcast.workflow;
 
-import nl.fizzylogic.newscast.podcast.clients.elevenlabs.ElevenLabsClient;
-import nl.fizzylogic.newscast.podcast.clients.elevenlabs.model.CreateSpeechRequest;
-import nl.fizzylogic.newscast.podcast.model.PodcastFragment;
-import nl.fizzylogic.newscast.podcast.model.PodcastHost;
-import nl.fizzylogic.newscast.podcast.service.AudioConcatenation;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.junit.jupiter.api.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import org.mockito.*;
 
 import io.quarkus.panache.mock.PanacheMock;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.ws.rs.core.Response;
-
-import java.io.*;
-import java.nio.file.*;
-import java.util.List;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import nl.fizzylogic.newscast.podcast.clients.elevenlabs.ElevenLabsClient;
+import nl.fizzylogic.newscast.podcast.clients.elevenlabs.model.CreateSpeechRequest;
+import nl.fizzylogic.newscast.podcast.model.PodcastFragment;
+import nl.fizzylogic.newscast.podcast.model.PodcastHost;
+import nl.fizzylogic.newscast.podcast.service.AudioConcatenation;
 
 @QuarkusTest
 class GeneratePodcastAudioActivitiesImplTest {
