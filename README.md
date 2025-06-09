@@ -1,7 +1,6 @@
 # Newscast application
 
 [![Continuous integration](https://github.com/wmeints/quarkus-newscast/actions/workflows/ci.yml/badge.svg)](https://github.com/wmeints/quarkus-newscast/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/github/wmeints/quarkus-newscast/graph/badge.svg?token=D801NGNF55)](https://codecov.io/github/wmeints/quarkus-newscast)
 
 This repository contains a full Quarkus implementation for an AI-driven podcast generator.
 You can use this to run your own AI-driven podcast or as a sample on how to use Quarkus

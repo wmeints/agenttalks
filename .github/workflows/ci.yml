@@ -48,11 +48,3 @@ jobs:
         QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
         NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
 
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v4
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: content-api/target/jacoco-report/jacoco.xml,podcast-api/target/jacoco-report/jacoco.xml,reader-api/target/jacoco-report/jacoco.xml
-        flags: content-api
-        name: content-api-coverage
-        fail_ci_if_error: false
