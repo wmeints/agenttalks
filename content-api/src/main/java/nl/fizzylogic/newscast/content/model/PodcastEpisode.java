@@ -28,6 +28,15 @@ public class PodcastEpisode extends PanacheEntityBase {
     @Column(name = "date_created", columnDefinition = "timestamp")
     public LocalDateTime dateCreated;
 
+    @Column(name = "episode_number", nullable = false)
+    public int episodeNumber;
+
+    @Column(name = "show_notes", columnDefinition = "text", nullable = false)
+    public String showNotes;
+
+    @Column(name = "description", columnDefinition = "text", nullable = false)
+    public String description;
+
     public PodcastEpisode() {
 
     }
@@ -36,5 +45,35 @@ public class PodcastEpisode extends PanacheEntityBase {
         this.title = title;
         this.audioFilePath = audioFilePath;
         this.dateCreated = LocalDateTime.now();
+    }
+
+    public PodcastEpisode(String title, String audioFilePath, int episodeNumber, String showNotes, String description) {
+        this.title = title;
+        this.audioFilePath = audioFilePath;
+        this.episodeNumber = episodeNumber;
+        this.showNotes = showNotes;
+        this.description = description;
+        this.dateCreated = LocalDateTime.now();
+    }
+
+    public static int getNextEpisodeNumber() {
+        try {
+            // Try to use the sequence for PostgreSQL
+            return ((Number) getEntityManager()
+                    .createNativeQuery("SELECT nextval('podcast_episode_number_seq')")
+                    .getSingleResult()).intValue();
+        } catch (Exception e) {
+            try {
+                // Try H2 sequence syntax
+                return ((Number) getEntityManager()
+                        .createNativeQuery("SELECT next value for podcast_episode_number_seq")
+                        .getSingleResult()).intValue();
+            } catch (Exception e2) {
+                // Fallback to manual approach if sequences aren't available
+                return (int) PodcastEpisode.find("ORDER BY episodeNumber DESC").firstResultOptional()
+                        .map(episode -> ((PodcastEpisode) episode).episodeNumber + 1)
+                        .orElse(1);
+            }
+        }
     }
 }

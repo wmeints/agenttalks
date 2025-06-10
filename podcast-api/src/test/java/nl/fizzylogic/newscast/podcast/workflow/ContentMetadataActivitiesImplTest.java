@@ -81,7 +81,7 @@ class ContentMetadataActivitiesImplTest {
 
         when(blobClient.getBlobName()).thenReturn(tempFile.getName());
 
-        activities.savePodcastEpisode("Test Title", tempFile.getAbsolutePath(), List.of());
+        activities.savePodcastEpisode("Test Title", tempFile.getAbsolutePath(), "Test show notes", "Test description", List.of());
 
         verify(blobContainerClient).createIfNotExists();
         verify(blobContainerClient).getBlobClient(tempFile.getName());

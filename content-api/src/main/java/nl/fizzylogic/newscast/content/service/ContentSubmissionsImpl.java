@@ -60,8 +60,9 @@ public class ContentSubmissionsImpl implements ContentSubmissions {
     }
 
     @Override
-    public PodcastEpisode createPodcastEpisode(String audioFilePath, String title) {
-        var episode = new PodcastEpisode(title, audioFilePath);
+    public PodcastEpisode createPodcastEpisode(String audioFilePath, String title, String showNotes, String description) {
+        int episodeNumber = PodcastEpisode.getNextEpisodeNumber();
+        var episode = new PodcastEpisode(title, audioFilePath, episodeNumber, showNotes, description);
         episode.persistAndFlush();
 
         return episode;

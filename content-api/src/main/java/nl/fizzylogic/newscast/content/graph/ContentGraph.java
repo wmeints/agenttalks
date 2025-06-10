@@ -57,7 +57,7 @@ public class ContentGraph {
     @Mutation
     @Transactional
     public PodcastEpisode createPodcastEpisode(CreatePodcastEpisode input) {
-        return contentSubmissions.createPodcastEpisode(input.audioFile, input.title);
+        return contentSubmissions.createPodcastEpisode(input.audioFile, input.title, input.showNotes, input.description);
     }
 
     @Mutation
