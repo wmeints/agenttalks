@@ -28,6 +28,15 @@ public class PodcastEpisode extends PanacheEntityBase {
     @Column(name = "date_created", columnDefinition = "timestamp")
     public LocalDateTime dateCreated;
 
+    @Column(name = "episode_number", nullable = false)
+    public int episodeNumber;
+
+    @Column(name = "show_notes", columnDefinition = "text", nullable = false)
+    public String showNotes;
+
+    @Column(name = "description", columnDefinition = "text", nullable = false)
+    public String description;
+
     public PodcastEpisode() {
 
     }
@@ -36,5 +45,20 @@ public class PodcastEpisode extends PanacheEntityBase {
         this.title = title;
         this.audioFilePath = audioFilePath;
         this.dateCreated = LocalDateTime.now();
+    }
+
+    public PodcastEpisode(String title, String audioFilePath, int episodeNumber, String showNotes, String description) {
+        this.title = title;
+        this.audioFilePath = audioFilePath;
+        this.episodeNumber = episodeNumber;
+        this.showNotes = showNotes;
+        this.description = description;
+        this.dateCreated = LocalDateTime.now();
+    }
+
+    public static int getNextEpisodeNumber() {
+        return (int) PodcastEpisode.find("ORDER BY episodeNumber DESC").firstResultOptional()
+                .map(episode -> ((PodcastEpisode) episode).episodeNumber + 1)
+                .orElse(1);
     }
 }
