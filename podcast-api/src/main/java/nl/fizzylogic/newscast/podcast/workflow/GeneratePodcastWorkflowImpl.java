@@ -1,11 +1,13 @@
 package nl.fizzylogic.newscast.podcast.workflow;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import io.temporal.activity.ActivityOptions;
 import io.temporal.common.RetryOptions;
 import io.temporal.workflow.Workflow;
+import nl.fizzylogic.newscast.podcast.clients.content.model.ContentSubmission;
 import nl.fizzylogic.newscast.podcast.model.PodcastScript;
 
 public class GeneratePodcastWorkflowImpl implements GeneratePodcastWorkflow {
@@ -83,14 +85,59 @@ public class GeneratePodcastWorkflowImpl implements GeneratePodcastWorkflow {
 
         // Save the podcast episode with the generated audio file and the included
         // content submissions.
+        String showNotes = buildShowNotes(input.contentSubmissions);
+        String description = buildDescription(input.contentSubmissions);
+        
         contentMetadataActivities.savePodcastEpisode(
                 script.title,
                 finalAudioFile,
+                showNotes,
+                description,
                 input.contentSubmissions);
 
         // Mark the content submissions as processed.
         // Other workflow triggers can't pick them up anymore.
         contentMetadataActivities.markContentSubmissionsAsProcessed(input.contentSubmissions);
+    }
+
+    private String buildShowNotes(List<ContentSubmission> contentSubmissions) {
+        StringBuilder showNotes = new StringBuilder();
+        showNotes.append("In this episode, we cover:\n\n");
+        
+        for (ContentSubmission submission : contentSubmissions) {
+            if (submission.title != null && !submission.title.isEmpty()) {
+                showNotes.append("• ").append(submission.title);
+                if (submission.url != null && !submission.url.isEmpty()) {
+                    showNotes.append(" (").append(submission.url).append(")");
+                }
+                showNotes.append("\n");
+            }
+        }
+        
+        return showNotes.toString();
+    }
+
+    private String buildDescription(List<ContentSubmission> contentSubmissions) {
+        StringBuilder description = new StringBuilder();
+        description.append("This episode covers the latest developments in technology and software engineering. ");
+        description.append("We discuss ");
+        
+        if (!contentSubmissions.isEmpty()) {
+            for (int i = 0; i < contentSubmissions.size(); i++) {
+                ContentSubmission submission = contentSubmissions.get(i);
+                if (submission.title != null && !submission.title.isEmpty()) {
+                    if (i > 0 && i == contentSubmissions.size() - 1) {
+                        description.append(" and ");
+                    } else if (i > 0) {
+                        description.append(", ");
+                    }
+                    description.append(submission.title.toLowerCase());
+                }
+            }
+            description.append(".");
+        }
+        
+        return description.toString();
     }
 
     @Override
