@@ -116,7 +116,7 @@ public class ContentGraphTest {
         PodcastEpisode expectedEpisode = new PodcastEpisode(
                 "Test Episode", 
                 "src/test/resources/audio/joop-fragment-01.mp3", 
-                1, 
+                1,
                 "Test show notes", 
                 "Test description");
         

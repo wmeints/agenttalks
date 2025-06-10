@@ -57,8 +57,23 @@ public class PodcastEpisode extends PanacheEntityBase {
     }
 
     public static int getNextEpisodeNumber() {
-        return (int) PodcastEpisode.find("ORDER BY episodeNumber DESC").firstResultOptional()
-                .map(episode -> ((PodcastEpisode) episode).episodeNumber + 1)
-                .orElse(1);
+        try {
+            // Try to use the sequence for PostgreSQL
+            return ((Number) getEntityManager()
+                    .createNativeQuery("SELECT nextval('podcast_episode_number_seq')")
+                    .getSingleResult()).intValue();
+        } catch (Exception e) {
+            try {
+                // Try H2 sequence syntax
+                return ((Number) getEntityManager()
+                        .createNativeQuery("SELECT next value for podcast_episode_number_seq")
+                        .getSingleResult()).intValue();
+            } catch (Exception e2) {
+                // Fallback to manual approach if sequences aren't available
+                return (int) PodcastEpisode.find("ORDER BY episodeNumber DESC").firstResultOptional()
+                        .map(episode -> ((PodcastEpisode) episode).episodeNumber + 1)
+                        .orElse(1);
+            }
+        }
     }
 }
