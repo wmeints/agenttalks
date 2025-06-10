@@ -115,7 +115,7 @@ public class ContentGraphTest {
         // Arrange
         PodcastEpisode expectedEpisode = new PodcastEpisode(
                 "Test Episode", 
-                "/path/to/audio.mp3", 
+                "src/test/resources/audio/joop-fragment-01.mp3", 
                 1, 
                 "Test show notes", 
                 "Test description");
@@ -125,7 +125,7 @@ public class ContentGraphTest {
                 .thenReturn(expectedEpisode);
 
         CreatePodcastEpisode input = new CreatePodcastEpisode(
-                "/path/to/audio.mp3", 
+                "src/test/resources/audio/joop-fragment-01.mp3", 
                 "Test Episode", 
                 "Test show notes", 
                 "Test description");
@@ -136,7 +136,7 @@ public class ContentGraphTest {
         // Assert
         assertEquals(expectedEpisode, result);
         verify(contentSubmissions).createPodcastEpisode(
-                "/path/to/audio.mp3", 
+                "src/test/resources/audio/joop-fragment-01.mp3", 
                 "Test Episode", 
                 "Test show notes", 
                 "Test description");
