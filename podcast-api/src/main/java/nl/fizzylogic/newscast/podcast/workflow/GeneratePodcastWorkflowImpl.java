@@ -86,7 +86,9 @@ public class GeneratePodcastWorkflowImpl implements GeneratePodcastWorkflow {
         // Save the podcast episode with the generated audio file and the included
         // content submissions.
         String showNotes = buildShowNotes(input.contentSubmissions);
-        String description = buildDescription(input.contentSubmissions);
+        String description = script.description != null && !script.description.trim().isEmpty() 
+            ? script.description 
+            : buildDescription(input.contentSubmissions);
         
         contentMetadataActivities.savePodcastEpisode(
                 script.title,

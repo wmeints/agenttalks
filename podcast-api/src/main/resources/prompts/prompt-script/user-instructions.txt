@@ -3,6 +3,12 @@ De output moet een **conversatiescript** zijn tussen twee AI-hosts die de inhoud
 
 **Naam van de podcast:** AI Unpacked by AI
 
+**Genereer ook een korte en informatieve beschrijving van de aflevering** die:
+* Beknopt samenvat waar de aflevering over gaat
+* Interesse wekt bij potentiële luisteraars
+* Tussen de 2-4 zinnen lang is
+* Professioneel maar toegankelijk van toon is
+
 **Podcastformaat:**
 
 * **Duur:** Mik op een gesprek van 10 minuten (ongeveer 1500 woorden)

@@ -85,6 +85,55 @@ public class GeneratePodcastWorkflowImplTest {
     }
 
     @Test
+    public void canGeneratePodcastWithFallbackDescriptionWhenScriptDescriptionIsEmpty() {
+        var script = TestObjectFactory.createPodcastScript();
+        script.description = null; // Clear the description to test fallback
+
+        when(generatePodcastScriptActivities.generatePodcastScript(any())).thenReturn(script);
+        when(generatePodcastAudioActivities.generateSpeech(any())).thenReturn("data/test.mp3");
+        when(generatePodcastAudioActivities.concatenateAudioFragments(any())).thenReturn("data/final.mp3");
+        when(generatePodcastAudioActivities.mixPodcastEpisode(any())).thenReturn("data/mixed.mp3");
+
+        WorkflowOptions workflowOptions = WorkflowOptions.newBuilder()
+                .setTaskQueue("<default>")
+                .setWorkflowRunTimeout(Duration.ofSeconds(2))
+                .build();
+
+        var workflowInstance = workflowClient.newWorkflowStub(
+                GeneratePodcastWorkflow.class,
+                workflowOptions);
+
+        // Create test submissions with specific titles
+        var submission1 = TestObjectFactory.createSummarizedSubmission();
+        submission1.title = "First Tech Article";
+        
+        var submission2 = TestObjectFactory.createSummarizedSubmission();
+        submission2.title = "Second Tech Article";
+
+        var workflowInput = new GeneratePodcastWorkflowInput(
+                LocalDate.now().minusDays(7),
+                LocalDate.now(),
+                List.of(submission1, submission2));
+
+        workflowInstance.generatePodcast(workflowInput);
+
+        // Capture the savePodcastEpisode call to verify fallback description
+        var descriptionCaptor = ArgumentCaptor.forClass(String.class);
+
+        verify(contentMetadataActivities).savePodcastEpisode(
+                any(), any(), any(), descriptionCaptor.capture(), any());
+
+        // Verify fallback description content (should use manually built description)
+        String description = descriptionCaptor.getValue();
+        assertEquals(true, description.contains("This episode covers the latest developments"), 
+                "Description should contain manually built description when script description is null");
+        assertEquals(true, description.contains("first tech article"), 
+                "Description should contain first article (lowercase)");
+        assertEquals(true, description.contains("second tech article"), 
+                "Description should contain second article (lowercase)");
+    }
+
+    @Test
     public void canGeneratePodcastWithProperShowNotesAndDescription() {
         var script = TestObjectFactory.createPodcastScript();
 
@@ -145,13 +194,11 @@ public class GeneratePodcastWorkflowImplTest {
         assertEquals(true, showNotes.contains("https://example.com/second-article"), 
                 "Show notes should contain second article URL");
 
-        // Verify description content
+        // Verify description content (should use AI-generated description from script)
         String description = descriptionCaptor.getValue();
-        assertEquals(true, description.contains("This episode covers the latest developments"), 
-                "Description should contain episode overview");
-        assertEquals(true, description.contains("first tech article"), 
-                "Description should contain first article (lowercase)");
-        assertEquals(true, description.contains("second tech article"), 
-                "Description should contain second article (lowercase)");
+        assertEquals(true, description.contains("Test description for podcast episode"), 
+                "Description should contain AI-generated description from script");
+        assertEquals(false, description.contains("This episode covers the latest developments"), 
+                "Description should not contain manually built description when AI-generated description is available");
     }
 }

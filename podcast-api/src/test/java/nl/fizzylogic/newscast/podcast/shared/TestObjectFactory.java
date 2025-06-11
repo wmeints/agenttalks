@@ -15,6 +15,9 @@ public class TestObjectFactory {
     public static PodcastScript createPodcastScript() {
         var script = new PodcastScript();
 
+        script.title = "Test Podcast Episode";
+        script.description = "Test description for podcast episode covering the latest developments in AI.";
+
         var segment = new PodcastSection();
 
         segment.title = "Test Segment";
