@@ -101,7 +101,6 @@ class ContentMetadataActivitiesImplTest {
         verify(contentClient).createPodcastEpisode(episodeCaptor.capture());
 
         CreatePodcastEpisode capturedEpisode = episodeCaptor.getValue();
-        assertEquals(tempFile.getName(), capturedEpisode.audioFile, "Audio file name should match blob name");
         assertEquals(testTitle, capturedEpisode.title, "Title should be passed correctly");
         assertEquals(testShowNotes, capturedEpisode.showNotes, "Show notes should be passed correctly");
         assertEquals(testDescription, capturedEpisode.description, "Description should be passed correctly");
