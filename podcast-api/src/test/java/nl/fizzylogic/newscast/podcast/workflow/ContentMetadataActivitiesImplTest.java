@@ -1,5 +1,6 @@
 package nl.fizzylogic.newscast.podcast.workflow;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
@@ -21,6 +23,7 @@ import com.azure.storage.blob.BlobServiceClient;
 
 import io.quarkus.test.junit.QuarkusTest;
 import nl.fizzylogic.newscast.podcast.clients.content.ContentClient;
+import nl.fizzylogic.newscast.podcast.clients.content.model.ContentSubmission;
 import nl.fizzylogic.newscast.podcast.clients.content.model.CreatePodcastEpisode;
 import nl.fizzylogic.newscast.podcast.shared.TestObjectFactory;
 
@@ -81,12 +84,27 @@ class ContentMetadataActivitiesImplTest {
 
         when(blobClient.getBlobName()).thenReturn(tempFile.getName());
 
-        activities.savePodcastEpisode("Test Title", tempFile.getAbsolutePath(), "Test show notes", "Test description", List.of());
+        String testTitle = "Test Title";
+        String testShowNotes = "Test show notes";
+        String testDescription = "Test description";
+        List<ContentSubmission> testSubmissions = List.of();
 
+        activities.savePodcastEpisode(testTitle, tempFile.getAbsolutePath(), testShowNotes, testDescription, testSubmissions);
+
+        // Verify the blob operations
         verify(blobContainerClient).createIfNotExists();
         verify(blobContainerClient).getBlobClient(tempFile.getName());
         verify(blobClient).upload(any(FileInputStream.class));
-        verify(contentClient).createPodcastEpisode(any(CreatePodcastEpisode.class));
+
+        // Capture the CreatePodcastEpisode argument to verify its content
+        ArgumentCaptor<CreatePodcastEpisode> episodeCaptor = ArgumentCaptor.forClass(CreatePodcastEpisode.class);
+        verify(contentClient).createPodcastEpisode(episodeCaptor.capture());
+
+        CreatePodcastEpisode capturedEpisode = episodeCaptor.getValue();
+        assertEquals(tempFile.getName(), capturedEpisode.audioFile, "Audio file name should match blob name");
+        assertEquals(testTitle, capturedEpisode.title, "Title should be passed correctly");
+        assertEquals(testShowNotes, capturedEpisode.showNotes, "Show notes should be passed correctly");
+        assertEquals(testDescription, capturedEpisode.description, "Description should be passed correctly");
 
         tempFile.delete();
     }
