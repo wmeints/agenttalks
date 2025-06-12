@@ -68,7 +68,7 @@ jobs:
       with:
         azcliversion: latest
         inlineScript: |
-          az acr login -n ${{ secrets.CONTAINER_REGISTRY }}
+          az acr login -n ${{ secrets.CONTAINER_REGISTRY }} --expose-token
 
     - name: Push container images
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
