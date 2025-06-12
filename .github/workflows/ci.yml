@@ -36,15 +36,35 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
+
     - name: Setup FFmpeg
       uses: AnimMouse/setup-ffmpeg@v1
 
     - name: Run Maven build
-      run: ./mvnw clean verify -Dquarkus.test.profile=test
+      run: |
+        export GIT_HASH=$(git rev-parse --short HEAD)
+        ./mvnw clean verify -Dquarkus.test.profile=test -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
       env:
         TESTCONTAINERS_RYUK_DISABLED: true
         QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
         QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME }}
         QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
         NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
+        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY || 'localhost:5000' }}
+
+    - name: Login to Azure
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      uses: azure/login@v1
+      with:
+        creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+
+    - name: Push container images
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      run: |
+        export GIT_HASH=$(git rev-parse --short HEAD)
+        cd content-api && mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+        cd ../reader-api && mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+        cd ../podcast-api && mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+      env:
+        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY || 'localhost:5000' }}
 
