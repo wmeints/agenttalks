@@ -70,13 +70,27 @@ jobs:
         username: ${{ secrets.AZURE_CLIENT_ID }}
         password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-    - name: Push container images
+    - name: Push content-api container image
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      working-directory: content-api
       run: |
         export GIT_HASH=$(git rev-parse --short HEAD)
-        cd content-api && mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
-        cd ../reader-api && mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
-        cd ../podcast-api && mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+        mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
       env:
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY || 'localhost:5000' }}
-
+    - name: Push reader-api container image
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      working-directory: reader-api
+      run: |
+        export GIT_HASH=$(git rev-parse --short HEAD)
+        mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+      env:
+        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY || 'localhost:5000' }}
+    - name: Push podcast-api container image
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      working-directory: podcast-api
+      run: |
+        export GIT_HASH=$(git rev-parse --short HEAD)
+        mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+      env:
+        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY || 'localhost:5000' }}
