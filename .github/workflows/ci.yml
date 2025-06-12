@@ -39,6 +39,8 @@ jobs:
         
     - name: Install Quarkus CLI
       run: |
+        mkdir -p ~/.jbang
+        echo '{"sources": ["https://repo1.maven.org/maven2/"]}' > ~/.jbang/trusted-sources.json
         curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
         echo "$HOME/.jbang/bin" >> $GITHUB_PATH
         
