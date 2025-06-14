@@ -39,5 +39,20 @@ services:
         posix:
           shell: sh
           run: './mvnw -DskipTests -Dquarkus.container-image.build=true clean package'
+  podcast-api:
+    project: ./podcast-api
+    language: java
+    host: containerapp
+    docker:
+      path: ./src/main/docker/Dockerfile.jvm
+      image: newscast/podcast-api
+    hooks:
+      prebuild:
+        windows:
+          shell: pwsh
+          run: './mvnw "-DskipTests" "-Dquarkus.container-image.build=true" clean package'
+        posix:
+          shell: sh
+          run: './mvnw -DskipTests -Dquarkus.container-image.build=true clean package'
 
     
