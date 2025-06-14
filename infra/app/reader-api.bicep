@@ -1,7 +1,6 @@
 param name string
 param location string = resourceGroup().location
 param tags object = {}
-param identityName string = 'id-reader-api'
 param imageName string = ''
 param containerRegistryName string
 param containerRegistryResourceGroupName string
@@ -13,7 +12,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-
 }
 
 resource applicationIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2025-01-31-preview' = {
-  name: identityName
+  name: 'id-reader-api'
   location: location
 }
 

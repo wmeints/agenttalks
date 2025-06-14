@@ -62,7 +62,6 @@ module contentApi './app/content-api.bicep' = {
   name: 'content-api'
   scope: rg
   params: {
-    identityName: 'id-content-api'
     containerRegistryName: containerRegistryName
     containerRegistryResourceGroupName: containerRegistryResourceGroupName
     containerAppsEnvironmentName: containerAppsEnvironmentName
@@ -80,7 +79,6 @@ module readerApi './app/reader-api.bicep' = {
   name: 'reader-api'
   scope: rg
   params: {
-    identityName: 'id-reader-api'
     containerRegistryName: containerRegistryName
     containerRegistryResourceGroupName: containerRegistryResourceGroupName
     containerAppsEnvironmentName: containerAppsEnvironmentName
@@ -95,7 +93,6 @@ module podcastApi './app/podcast-api.bicep' = {
   name: 'podcast-api'
   scope: rg
   params: {
-    identityName: 'id-podcast-api'
     containerRegistryName: containerRegistryName
     containerRegistryResourceGroupName: containerRegistryResourceGroupName
     containerAppsEnvironmentName: containerAppsEnvironmentName
@@ -113,7 +110,6 @@ module temporalApp './app/temporal.bicep' = {
   name: 'temporal-app'
   scope: rg
   params: {
-    identityName: 'id-temporal-app'
     containerAppsEnvironmentName: containerAppsEnvironmentName
     databaseServerAdminPassword: databaseServerAdminPassword
     databaseServerAdminUsername: databaseServerAdminLogin

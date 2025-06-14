@@ -1,8 +1,6 @@
 param name string
 param location string = resourceGroup().location
 param tags object = {}
-param identityName string = 'id-temporal-app'
-param imageName string = 'temporalio/auto-setup:1.27.2.0'
 param containerAppsEnvironmentName string
 param databaseServerDomainName string
 param databaseServerAdminUsername string
@@ -14,7 +12,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-
 }
 
 resource applicationIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2025-01-31-preview' = {
-  name: identityName
+  name: 'id-temporal-app'
   location: location
 }
 
@@ -42,7 +40,7 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
       containers: [
         {
           name: 'app'
-          image: !empty(imageName) ? imageName : 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+          image: 'temporalio/auto-setup:1.27.2.0'
           resources: {
             cpu: 1
             memory: '2Gi'
