@@ -120,5 +120,15 @@ module temporalApp './app/temporal.bicep' = {
   }
 }
 
+module rabbitmqApp './app/rabbitmq.bicep' = {
+  name: 'rabbitmq-app'
+  scope: rg
+  params: {
+    containerAppsEnvironmentName: containerAppsEnvironmentName
+    location: location
+    tags: tags
+  }
+}
+
 
 output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerApps.outputs.containerRegistryEndpoint

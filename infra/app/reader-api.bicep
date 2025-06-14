@@ -56,6 +56,12 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             cpu: 1
             memory: '2Gi'
           }
+          env: [
+            {
+              name: 'RABBITMQ_HOST'
+              value: 'rabbitmq-app'
+            }
+          ]
         }
       ]
       scale: {
