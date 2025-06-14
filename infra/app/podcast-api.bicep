@@ -82,6 +82,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
               name: 'QUARKUS_DATASOURCE_PASSWORD'
               secretRef: 'database-password'
             }
+            {
+              name: 'QUARKUS_TEMPORAL_CONNECTION_TARGET'
+              value: 'temporal-app:7233'
+            }
           ]
         }
       ]
