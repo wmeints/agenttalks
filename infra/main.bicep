@@ -109,5 +109,20 @@ module podcastApi './app/podcast-api.bicep' = {
   }
 }
 
+module temporalApp './app/temporal.bicep' = {
+  name: 'temporal-app'
+  scope: rg
+  params: {
+    identityName: 'id-temporal-app'
+    containerAppsEnvironmentName: containerAppsEnvironmentName
+    databaseServerAdminPassword: databaseServerAdminPassword
+    databaseServerAdminUsername: databaseServerAdminLogin
+    databaseServerDomainName: databaseServer.outputs.domainName
+    name: 'temporal-app'
+    location: location
+    tags: tags
+  }
+}
+
 
 output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerApps.outputs.containerRegistryEndpoint

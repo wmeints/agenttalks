@@ -38,6 +38,14 @@ resource postgresServer 'Microsoft.DBforPostgreSQL/flexibleServers@2025-01-01-pr
     name: 'podcasts'
   }
 
+  resource temporalDatabase 'databases' = {
+    name: 'temporal'
+  }
+
+  resource temporalVisibilityDatabase 'databases' = {
+    name: 'temporal_visibility'
+  }
+
   resource allowInternalAddressess 'firewallRules' = {
     name: 'AllowInternalAddresses'
     properties: {
