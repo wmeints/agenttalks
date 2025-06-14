@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
 name: newscast
 metadata:
   template: azd-init@1.17.0
@@ -13,13 +15,29 @@ services:
     host: containerapp
     docker:
       path: ./src/main/docker/Dockerfile.jvm
+      image: newscast/content-api
     hooks:
       prebuild:
         windows:
           shell: pwsh
-          run: './mvnw "-DskipTests" clean package'
+          run: './mvnw "-DskipTests" "-Dquarkus.container-image.build=true" clean package'
         posix:
           shell: sh
-          run: './mvnw -DskipTests clean package'
+          run: './mvnw -DskipTests -Dquarkus.container-image.build=true clean package'
+  reader-api:
+    project: ./reader-api
+    language: java
+    host: containerapp
+    docker:
+      path: ./src/main/docker/Dockerfile.jvm
+      image: newscast/reader-api
+    hooks:
+      prebuild:
+        windows:
+          shell: pwsh
+          run: './mvnw "-DskipTests" "-Dquarkus.container-image.build=true" clean package'
+        posix:
+          shell: sh
+          run: './mvnw -DskipTests -Dquarkus.container-image.build=true clean package'
 
     

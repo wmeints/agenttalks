@@ -1,16 +1,3 @@
-# Deployment view
-
-This section covers how the application is deployed on Azure.
-
-## Deployment overview
-
-TODO: Create a diagram of the resources in Azure.
-
-## Deploying using Azure Developer CLI
-
-This solution can be deployed using the Azure CLI. You'll need to create a parameters file `infra/main.parameters.json` with the following content:
-
-```json
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
@@ -38,7 +25,9 @@ This solution can be deployed using the Azure CLI. You'll need to create a param
         },
         "logAnalyticsWorkspaceName": {
             "value": "law-newscast-${AZURE_ENV_NAME}"
+        },
+        "databaseServerName": {
+            "value": "pgsql-newscast-${AZURE_ENV_NAME}"
         }
     }
 }
-```
