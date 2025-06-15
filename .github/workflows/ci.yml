@@ -101,6 +101,9 @@ jobs:
 
       - name: Provision Infrastructure
         run: azd provision --no-prompt
+        env: 
+          DATABASE_ADMIN_USER: ${{ secrets.DATABASE_ADMIN_USER }}
+          DATABASE_ADMIN_PASSWORD: ${{ secrets.DATABASE_ADMIN_PASSWORD }}
 
       - name: Deploy Container Images
         run: azd deploy --no-prompt --all --from-package "1.0.0-${{ github.sha }}"
