@@ -32,7 +32,6 @@ module pullRoleAssignment '../core/security/registry-access.bicep' = {
   scope: resourceGroup(containerRegistryResourceGroupName)
   params: {
     containerRegistryName: containerRegistryName
-    containerRegistryResourceGroupName: containerRegistryResourceGroupName
     principalId: applicationIdentity.properties.principalId
   }
 }

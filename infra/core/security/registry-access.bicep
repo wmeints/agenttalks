@@ -1,5 +1,4 @@
 param containerRegistryName string
-param containerRegistryResourceGroupName string
 param principalId string
 
 
