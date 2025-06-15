@@ -105,6 +105,11 @@ jobs:
           DATABASE_ADMIN_USER: ${{ secrets.DATABASE_ADMIN_USER }}
           DATABASE_ADMIN_PASSWORD: ${{ secrets.DATABASE_ADMIN_PASSWORD }}
 
-      - name: Deploy Container Images
-        run: azd deploy --no-prompt --all --from-package "1.0.0-${{ github.sha }}"
-        
+      - name: Deploy Content API
+        run: azd deploy --no-prompt --from-package "newscast/content-api:1.0.0-${{ github.sha }}" content-api
+
+      - name: Deploy Reader API
+        run: azd deploy --no-prompt --from-package "newscast/reader-api:1.0.0-${{ github.sha }}" reader-api
+
+      - name: Deploy Podcast API
+        run: azd deploy --no-prompt --from-package "newscast/podcast-api:1.0.0-${{ github.sha }}" podcast-api
