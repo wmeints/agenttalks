@@ -1,36 +1,42 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "environmentName": {
-            "value": "${AZURE_ENV_NAME}"
-        },
-        "resourceGroupName": {
-            "value": "rg-newscast-${AZURE_ENV_NAME}"
-        },
-        "location": {
-            "value": "${AZURE_LOCATION}"
-        },
-        "containerRegistryName": {
-            "value": "acrnewscast"
-        },
-        "containerRegistryResourceGroupName": {
-            "value": "rg-newscast-shared"
-        },
-        "applicationInsightsName": {
-            "value": "ai-newscast-${AZURE_ENV_NAME}"
-        },
-        "containerAppsEnvironmentName": {
-            "value": "cae-newscast-${AZURE_ENV_NAME}"
-        },
-        "logAnalyticsWorkspaceName": {
-            "value": "law-newscast-${AZURE_ENV_NAME}"
-        },
-        "databaseServerName": {
-            "value": "pgsql-newscast-${AZURE_ENV_NAME}"
-        },
-        "azureOpenAIAccountName": {
-            "value": "oai-newscast-${AZURE_ENV_NAME}"
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentName": {
+      "value": "${AZURE_ENV_NAME}"
+    },
+    "resourceGroupName": {
+      "value": "rg-newscast-${AZURE_ENV_NAME}"
+    },
+    "location": {
+      "value": "${AZURE_LOCATION}"
+    },
+    "containerRegistryName": {
+      "value": "acrnewscast"
+    },
+    "containerRegistryResourceGroupName": {
+      "value": "rg-newscast-shared"
+    },
+    "applicationInsightsName": {
+      "value": "ai-newscast-${AZURE_ENV_NAME}"
+    },
+    "containerAppsEnvironmentName": {
+      "value": "cae-newscast-${AZURE_ENV_NAME}"
+    },
+    "logAnalyticsWorkspaceName": {
+      "value": "law-newscast-${AZURE_ENV_NAME}"
+    },
+    "databaseServerName": {
+      "value": "pgsql-newscast-${AZURE_ENV_NAME}"
+    },
+    "azureOpenAIAccountName": {
+      "value": "oai-newscast-${AZURE_ENV_NAME}"
+    },
+    "databaseServerAdminLogin": {
+      "value": "${DATABASE_ADMIN_USER}"
+    },
+    "databaseServerAdminPassword": {
+      "value": "${DATABASE_ADMIN_PASSWORD}"
     }
+  }
 }
