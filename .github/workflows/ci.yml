@@ -26,6 +26,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      name: Checkout sources
     
     - name: Set up JDK 21
       uses: actions/setup-java@v4
@@ -46,51 +47,70 @@ jobs:
     - name: Run Maven build
       run: |
         export GIT_HASH=$(git rev-parse --short HEAD)
-        ./mvnw clean verify -Dquarkus.test.profile=test -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+        ./mvnw clean verify -Dquarkus.test.profile=test -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
       env:
         TESTCONTAINERS_RYUK_DISABLED: true
         QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
         QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME }}
         QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
         NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
-        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY || 'localhost:5000' }}
-
-    - name: Login to Azure
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
-      uses: azure/login@v2
-      with:
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-
-    - name: Login to container registry
-      uses: docker/login-action@v3
-      with:
-        registry: ${{ secrets.CONTAINER_REGISTRY }}
-        username: ${{ secrets.AZURE_CLIENT_ID }}
-        password: ${{ secrets.AZURE_CLIENT_SECRET }}
+        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
     - name: Push content-api container image
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       working-directory: content-api
-      run: |
-        export GIT_HASH=$(git rev-parse --short HEAD)
-        mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+      run: mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
       env:
-        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY || 'localhost:5000' }}
+        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
+
     - name: Push reader-api container image
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       working-directory: reader-api
-      run: |
-        export GIT_HASH=$(git rev-parse --short HEAD)
-        mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+      run: mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
       env:
-        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY || 'localhost:5000' }}
+        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
+
     - name: Push podcast-api container image
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       working-directory: podcast-api
-      run: |
-        export GIT_HASH=$(git rev-parse --short HEAD)
-        mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${GIT_HASH}
+      run: mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
       env:
-        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY || 'localhost:5000' }}
+        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
+
+  deploy-to-test:
+    if:  ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    name: Deploy to Azure Test Environment
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    environment:
+      name: test
+    env:
+      AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+      AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Install azd
+        uses: Azure/setup-azd@v2
+
+      - name: Log in with Azure
+        run: azd auth login --client-id "${{ vars.AZURE_CLIENT_ID }}" --federated-credential-provider "github" --tenant-id "${{ vars.AZURE_TENANT_ID }}"
+
+      - name: Provision Infrastructure
+        run: azd provision --no-prompt
+        env: 
+          DATABASE_ADMIN_USER: ${{ secrets.DATABASE_ADMIN_USER }}
+          DATABASE_ADMIN_PASSWORD: ${{ secrets.DATABASE_ADMIN_PASSWORD }}
+
+      - name: Deploy Content API
+        run: azd deploy --no-prompt --from-package "newscast/content-api:1.0.0-${{ github.sha }}" content-api
+
+      - name: Deploy Reader API
+        run: azd deploy --no-prompt --from-package "newscast/reader-api:1.0.0-${{ github.sha }}" reader-api
+
+      - name: Deploy Podcast API
+        run: azd deploy --no-prompt --from-package "newscast/podcast-api:1.0.0-${{ github.sha }}" podcast-api
