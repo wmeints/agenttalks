@@ -78,6 +78,7 @@ jobs:
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
   deploy-to-test:
+    if:  ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     name: Deploy to Azure Test Environment
     runs-on: ubuntu-latest
     needs: build-and-test
