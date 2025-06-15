@@ -107,8 +107,12 @@ jobs:
       - name: Install azd
         uses: Azure/setup-azd@v2
 
-      - name: Log in with Azure
-        run: azd auth login --client-id "${{ secrets.AZURE_CLIENT_ID }}" --federated-credential-provider "github" --tenant-id "${{ secrets.AZURE_TENANT_ID }}"
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Provision Infrastructure
         run: azd provision --no-prompt
