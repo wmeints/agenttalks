@@ -10,11 +10,16 @@ param databaseServerDomainName string
 param databaseServerAdminUsername string
 @secure()
 param databaseServerAdminPassword string
+param azureOpenAIAccountName string
 
 var databaseUrl = 'jdbc:postgresql://${databaseServerDomainName}:5432/podcasts?sslmode=require'
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-preview' existing = {
   name: containerAppsEnvironmentName
+}
+
+resource cognitiveServicesAccount 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' existing = {
+  name: azureOpenAIAccountName
 }
 
 resource applicationIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2025-01-31-preview' = {
@@ -57,6 +62,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           name: 'database-password'
           value: databaseServerAdminPassword
         }
+        {
+          name: 'openai-api-key'
+          value: cognitiveServicesAccount.listKeys().key1
+        }
       ]
     }
     template: {
@@ -84,6 +93,18 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             {
               name: 'QUARKUS_TEMPORAL_CONNECTION_TARGET'
               value: 'temporal-app:7233'
+            }
+            {
+              name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME'
+              value: cognitiveServicesAccount.name
+            }
+            {
+              name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME'
+              value: 'chatcompletions'
+            }
+            {
+              name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY'
+              secretRef: 'openai-api-key'
             }
           ]
         }

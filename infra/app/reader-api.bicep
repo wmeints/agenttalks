@@ -6,6 +6,7 @@ param containerRegistryName string
 param containerRegistryResourceGroupName string
 param containerAppsEnvironmentName string
 param serviceName string = 'reader-api'
+param azureOpenAIAccountName string
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-preview' existing = {
   name: containerAppsEnvironmentName
@@ -14,6 +15,10 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-
 resource applicationIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2025-01-31-preview' = {
   name: 'id-reader-api'
   location: location
+}
+
+resource cognitiveServicesAccount 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' existing = {
+  name: azureOpenAIAccountName
 }
 
 module pullRoleAssignment '../core/security/registry-access.bicep' = {
@@ -46,6 +51,12 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           identity: applicationIdentity.id
         }
       ]
+      secrets: [
+        {
+          name: 'openai-api-key'
+          value: cognitiveServicesAccount.listKeys().key1
+        }
+      ]
     }
     template: {
       containers: [
@@ -60,6 +71,18 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             {
               name: 'RABBITMQ_HOST'
               value: 'rabbitmq-app'
+            }
+            {
+              name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME'
+              value: cognitiveServicesAccount.name
+            }
+            {
+              name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME'
+              value: 'chatcompletions'
+            }
+            {
+              name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY'
+              secretRef: 'openai-api-key'
             }
           ]
         }

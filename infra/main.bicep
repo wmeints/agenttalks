@@ -6,6 +6,7 @@ param resourceGroupName string
 param applicationInsightsName string
 param containerAppsEnvironmentName string
 param logAnalyticsWorkspaceName string
+param azureOpenAIAccountName string
 param containerRegistryName string
 param containerRegistryResourceGroupName string
 param databaseServerName string
@@ -58,6 +59,15 @@ module databaseServer 'core/database/postgres.bicep' = {
   }
 }
 
+module openaiAccount './core/openai/openai.bicep' = {
+  name: 'openai-account'
+  scope: rg
+  params: {
+    name: azureOpenAIAccountName
+    location: location
+  }
+}
+
 module contentApi './app/content-api.bicep' = {
   name: 'content-api'
   scope: rg
@@ -82,6 +92,7 @@ module readerApi './app/reader-api.bicep' = {
     containerRegistryName: containerRegistryName
     containerRegistryResourceGroupName: containerRegistryResourceGroupName
     containerAppsEnvironmentName: containerAppsEnvironmentName
+    azureOpenAIAccountName: azureOpenAIAccountName
     serviceName: 'reader-api'
     name: 'reader-api'
     location: location
@@ -96,6 +107,7 @@ module podcastApi './app/podcast-api.bicep' = {
     containerRegistryName: containerRegistryName
     containerRegistryResourceGroupName: containerRegistryResourceGroupName
     containerAppsEnvironmentName: containerAppsEnvironmentName
+    azureOpenAIAccountName: azureOpenAIAccountName
     databaseServerAdminPassword: databaseServerAdminPassword
     databaseServerAdminUsername: databaseServerAdminLogin
     databaseServerDomainName: databaseServer.outputs.domainName

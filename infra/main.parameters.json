@@ -28,6 +28,9 @@
         },
         "databaseServerName": {
             "value": "pgsql-newscast-${AZURE_ENV_NAME}"
+        },
+        "azureOpenAIAccountName": {
+            "value": "oai-newscast-${AZURE_ENV_NAME}"
         }
     }
 }
