@@ -56,12 +56,14 @@ jobs:
         NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
-    - name: Login to Azure
-      uses: azure/login@v2
+    # A separate identity is used to push the container images to the registry.
+    # This will need to be replaced with a federated identity in the future.
+    - name: Login to container registry
+      uses: docker/login-action@v3
       with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        registry: ${{ secrets.CONTAINER_REGISTRY }}
+        username: ${{ secrets.AZURE_CLIENT_ID }}
+        password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
     - name: Login to Container Registry
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
