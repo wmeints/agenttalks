@@ -70,21 +70,21 @@ jobs:
     - name: Push content-api container image
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       working-directory: content-api
-      run: mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
+      run: docker push ${CONTAINER_REGISTRY}/newscast/content-api:1.0.0-${{ github.sha }}
       env:
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
     - name: Push reader-api container image
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       working-directory: reader-api
-      run: mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
+      run: docker push ${CONTAINER_REGISTRY}/newscast/reader-api:1.0.0-${{ github.sha }}
       env:
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
     - name: Push podcast-api container image
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       working-directory: podcast-api
-      run: mvn quarkus:image-push -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
+      run: docker push ${CONTAINER_REGISTRY}/newscast/podcast-api:1.0.0-${{ github.sha }}
       env:
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
     
