@@ -50,18 +50,6 @@ jobs:
     - name: Log in with azd
       run: azd auth login --client-id "${{ secrets.AZURE_CLIENT_ID }}" --client-secret "${{ secrets.AZURE_CLIENT_SECRET }}" --tenant-id "${{ secrets.AZURE_TENANT_ID }}"
 
-    - name: Run Maven build
-      run: |
-        export GIT_HASH=$(git rev-parse --short HEAD)
-        ./mvnw clean verify -Dquarkus.test.profile=test -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
-      env:
-        TESTCONTAINERS_RYUK_DISABLED: true
-        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
-        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME }}
-        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
-        NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
-        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
-
     # A separate identity is used to push the container images to the registry.
     # This will need to be replaced with a federated identity in the future.
     - name: Login to container registry
@@ -72,7 +60,13 @@ jobs:
         password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
     - name: Package the application
-      run: azd package --all
+      run: azd package --all --no-prompt
+      env:
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+        AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
   
   deploy-to-test:
     name: Deploy to Azure Test Environment
