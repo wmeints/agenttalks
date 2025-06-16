@@ -13,9 +13,12 @@ param databaseServerName string
 param databaseServerAdminLogin string
 @secure()
 param databaseServerAdminPassword string
+param contentApiImageName string
+param readerApiImageName string
+param podcastApiImageName string
 
 var tags = {
-  'azd-env-name': environmentName
+  'env-name': environmentName
 }
 
 resource rg 'Microsoft.Resources/resourceGroups@2025-04-01' existing = {
@@ -82,6 +85,7 @@ module contentApi './app/content-api.bicep' = {
     name: 'content-api'
     location: location
     tags: tags
+    imageName: contentApiImageName
   }
 }
 
@@ -97,6 +101,7 @@ module readerApi './app/reader-api.bicep' = {
     name: 'reader-api'
     location: location
     tags: tags
+    imageName: readerApiImageName
   }
 }
 
@@ -115,6 +120,7 @@ module podcastApi './app/podcast-api.bicep' = {
     name: 'podcast-api'
     location: location
     tags: tags
+    imageName: podcastApiImageName
   }
 }
 
@@ -141,6 +147,3 @@ module rabbitmqApp './app/rabbitmq.bicep' = {
     tags: tags
   }
 }
-
-
-output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerApps.outputs.containerRegistryEndpoint

@@ -34,7 +34,7 @@ module pullRoleAssignment '../core/security/registry-access.bicep' = {
 resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
   name: name
   location: location
-  tags: union(tags, { 'azd-service-name': serviceName })
+  tags: union(tags, { 'service-name': serviceName })
   dependsOn: [pullRoleAssignment]
   identity: {
     type: 'UserAssigned'
@@ -62,7 +62,7 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
       containers: [
         {
           name: 'app'
-          image: !empty(imageName) ? imageName : 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+          image: imageName
           resources: {
             cpu: 1
             memory: '2Gi'

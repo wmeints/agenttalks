@@ -107,20 +107,22 @@ jobs:
       - name: Install azd
         uses: Azure/setup-azd@v2
 
-      - name: Log in with Azure
-        run: azd auth login --client-id "${{ secrets.AZURE_CLIENT_ID }}" --client-secret "${{ secrets.AZURE_CLIENT_SECRET }}" --tenant-id "${{ secrets.AZURE_TENANT_ID }}"
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          allow-no-subscriptions: true
 
       - name: Provision Infrastructure
-        run: azd provision --no-prompt
-        env: 
+        run: az deployment sub create -n "deploy-commit-${{ github.sha }}" --resource-group rg-newscast-shared --template-file infra/main.bicep --parameters infra/main.bicepparam
+        env:
+          GIT_HASH: ${{ github.sha }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+          AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
           DATABASE_ADMIN_USER: ${{ secrets.DATABASE_ADMIN_USER }}
           DATABASE_ADMIN_PASSWORD: ${{ secrets.DATABASE_ADMIN_PASSWORD }}
-
-      - name: Deploy Content API
-        run: azd deploy --no-prompt --from-package "newscast/content-api:1.0.0-${{ github.sha }}" content-api
-
-      - name: Deploy Reader API
-        run: azd deploy --no-prompt --from-package "newscast/reader-api:1.0.0-${{ github.sha }}" reader-api
-
-      - name: Deploy Podcast API
-        run: azd deploy --no-prompt --from-package "newscast/podcast-api:1.0.0-${{ github.sha }}" podcast-api
