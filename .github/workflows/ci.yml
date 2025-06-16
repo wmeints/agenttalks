@@ -116,7 +116,7 @@ jobs:
           allow-no-subscriptions: true
 
       - name: Provision Infrastructure
-        run: az deployment sub create -n "deploy-commit-${{ github.sha }}" --template-file infra/main.bicep --parameters infra/main.bicepparam --location ${{ vars.AZURE_LOCATION}}
+        run: az deployment sub create -n "deploy-commit-${{ github.run_id }}-${{ github.run_attempt }}" --template-file infra/main.bicep --parameters infra/main.bicepparam --location ${{ vars.AZURE_LOCATION}}
         env:
           GIT_HASH: ${{ github.sha }}
           AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
