@@ -66,21 +66,21 @@ jobs:
         password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
     - name: Push content-api container image
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       working-directory: content-api
       run: docker push ${CONTAINER_REGISTRY}/newscast/content-api:1.0.0-${{ github.sha }}
       env:
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
     - name: Push reader-api container image
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       working-directory: reader-api
       run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/reader-api:1.0.0-${{ github.sha }}
       env:
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
     
     - name: Push podcast-api container image
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       working-directory: podcast-api
       run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/podcast-api:1.0.0-${{ github.sha }}
       env:
@@ -88,7 +88,7 @@ jobs:
     
 
   deploy-to-test:
-    if:  ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    # if:  ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     name: Deploy to Azure Test Environment
     runs-on: ubuntu-latest
     needs: build-and-test
