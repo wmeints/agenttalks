@@ -59,6 +59,9 @@ jobs:
         username: ${{ secrets.AZURE_CLIENT_ID }}
         password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
+    - name: Build and test application
+      run: mvn verify package
+
     - name: Package the application
       run: azd package --all --no-prompt
       env:
