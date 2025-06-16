@@ -61,6 +61,13 @@ jobs:
 
     - name: Build and test application
       run: mvn verify package
+      env:
+        TESTCONTAINERS_RYUK_DISABLED: true
+        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
+        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME }}
+        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
+        NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
+        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
     - name: Package the application
       run: azd package --all --no-prompt
