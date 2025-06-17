@@ -46,7 +46,6 @@ jobs:
 
     - name: Run Maven build
       run: |
-        export GIT_HASH=$(git rev-parse --short HEAD)
         ./mvnw clean verify -Dquarkus.test.profile=test -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
       env:
         TESTCONTAINERS_RYUK_DISABLED: true
@@ -59,6 +58,7 @@ jobs:
     # A separate identity is used to push the container images to the registry.
     # This will need to be replaced with a federated identity in the future.
     - name: Login to container registry
+      if:  ${{ github.ref == 'refs/heads/main' }}
       uses: docker/login-action@v3
       with:
         registry: ${{ secrets.CONTAINER_REGISTRY }}
@@ -66,21 +66,21 @@ jobs:
         password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
     - name: Push content-api container image
-      # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      if: github.ref == 'refs/heads/main'
       working-directory: content-api
       run: docker push ${CONTAINER_REGISTRY}/newscast/content-api:1.0.0-${{ github.sha }}
       env:
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
     - name: Push reader-api container image
-      # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      if:  ${{ github.ref == 'refs/heads/main' }}
       working-directory: reader-api
       run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/reader-api:1.0.0-${{ github.sha }}
       env:
         CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
     
     - name: Push podcast-api container image
-      # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+      if:  ${{ github.ref == 'refs/heads/main' }}
       working-directory: podcast-api
       run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/podcast-api:1.0.0-${{ github.sha }}
       env:
@@ -88,7 +88,7 @@ jobs:
     
 
   deploy-to-test:
-    # if:  ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if:  ${{ github.ref == 'refs/heads/main' }}
     name: Deploy to Azure Test Environment
     runs-on: ubuntu-latest
     needs: build-and-test
