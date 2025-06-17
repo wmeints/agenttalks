@@ -11,6 +11,7 @@ param databaseServerAdminUsername string
 @secure()
 param databaseServerAdminPassword string
 param azureOpenAIAccountName string
+param storageAccountName string
 
 var databaseUrl = 'jdbc:postgresql://${databaseServerDomainName}:5432/podcasts?sslmode=require'
 
@@ -20,6 +21,10 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-
 
 resource cognitiveServicesAccount 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' existing = {
   name: azureOpenAIAccountName
+}
+
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' existing = {
+  name: storageAccountName
 }
 
 resource applicationIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2025-01-31-preview' = {
@@ -65,6 +70,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           name: 'openai-api-key'
           value: cognitiveServicesAccount.listKeys().key1
         }
+        {
+          name: 'storage-connection-string'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
+        }
       ]
     }
     template: {
@@ -104,6 +113,14 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             {
               name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY'
               secretRef: 'openai-api-key'
+            }
+            {
+              name: 'AZURE_STORAGE_CONNECTION_STRING'
+              secretRef: 'storage-connection-string'
+            }
+            {
+              name: 'AZURE_STORAGE_CONTAINER_NAME'
+              value: 'podcast-episodes'
             }
           ]
         }

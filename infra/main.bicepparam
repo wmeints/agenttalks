@@ -11,6 +11,7 @@ param containerAppsEnvironmentName = 'cae-newscast-${environmentName}'
 param logAnalyticsWorkspaceName = 'law-newscast-${environmentName}'
 param databaseServerName = 'pgsql-newscast-${environmentName}'
 param azureOpenAIAccountName = 'oai-newscast-${environmentName}'
+param storageAccountName = 'sanewscast${environmentName}'
 param databaseServerAdminLogin = readEnvironmentVariable('DATABASE_ADMIN_USER')
 param databaseServerAdminPassword = readEnvironmentVariable('DATABASE_ADMIN_PASSWORD')
 

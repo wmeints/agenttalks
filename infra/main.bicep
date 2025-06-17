@@ -10,6 +10,7 @@ param databaseServerName string
 param databaseServerAdminLogin string
 @secure()
 param databaseServerAdminPassword string
+param storageAccountName string
 param contentApiImageName string
 param readerApiImageName string
 param podcastApiImageName string
@@ -60,6 +61,15 @@ module openaiAccount './core/openai/openai.bicep' = {
   }
 }
 
+module storageAccount './core/storage/storage.bicep' = {
+  name: 'storage-account'
+  params: {
+    name: storageAccountName
+    location: location
+    tags: tags
+  }
+}
+
 module contentApi './app/content-api.bicep' = {
   name: 'content-api'
   params: {
@@ -102,6 +112,7 @@ module podcastApi './app/podcast-api.bicep' = {
     databaseServerAdminPassword: databaseServerAdminPassword
     databaseServerAdminUsername: databaseServerAdminLogin
     databaseServerDomainName: databaseServer.outputs.domainName
+    storageAccountName: storageAccount.outputs.name
     serviceName: 'podcast-api'
     name: 'podcast-api'
     location: location
