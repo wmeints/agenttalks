@@ -7,6 +7,7 @@ on:
       - 'content-api/**'
       - 'podcast-api/**'
       - 'reader-api/**'
+      - 'infra/**'
       - '.github/workflows/ci.yml'
   pull_request:
     branches: [ main, develop ]
