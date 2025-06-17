@@ -2,7 +2,55 @@
 
 ## Generation of a weekly podcast
 
-TODO: Describe how we generate a podcast each week.
+The podcast generation workflow is an automated process that runs weekly to create podcast episodes from summarized content submissions. The workflow is implemented using Temporal workflows for reliability and includes several stages from content selection to final publication.
+
+### Workflow Overview
+
+The podcast generation process follows these main steps:
+
+1. **Scheduled Trigger**: Every Friday at 18:00, the `PodcastGenerationProcess` automatically starts the workflow
+2. **Content Collection**: The system finds all processable content submissions from the past week
+3. **Content Locking**: Selected submissions are locked to prevent duplicate processing
+4. **Script Generation**: An AI-powered script generator creates a podcast script from the content submissions
+5. **Audio Generation**: Text-to-speech conversion generates audio for each script fragment using configured host voices
+6. **Audio Processing**: Individual audio fragments are concatenated and mixed into a final episode
+7. **Publication**: The completed episode is saved with metadata (title, show notes, description) and uploaded to blob storage
+8. **Cleanup**: Processed content submissions are marked as completed
+
+### Activity Diagram
+
+```mermaid
+flowchart TD
+    A[Friday 18:00 Scheduled Trigger] --> B[Find Processable Content Submissions]
+    B --> C{Content Available?}
+    C -->|No| D[End - No Content to Process]
+    C -->|Yes| E[Lock Content Submissions]
+    E --> F[Generate Podcast Script from Content]
+    F --> G[Extract Script Fragments]
+    G --> H[Generate Speech for Each Fragment]
+    H --> I[Concatenate Audio Fragments]
+    I --> J[Mix Final Podcast Episode]
+    J --> K[Build Show Notes and Description]
+    K --> L[Save Podcast Episode to Storage]
+    L --> M[Upload Episode Metadata]
+    M --> N[Mark Content Submissions as Processed]
+    N --> O[End - Episode Published]
+    
+    style A fill:#e1f5fe
+    style O fill:#c8e6c9
+    style D fill:#ffecb3
+```
+
+### Implementation Details
+
+- **Workflow Engine**: Uses Temporal for durable workflow execution with retry policies
+- **Content Selection**: Queries for submissions with `SUMMARIZED` status within the date range
+- **Script Generation**: Leverages Azure OpenAI to create conversational content between configured podcast hosts
+- **Audio Generation**: Uses ElevenLabs API with voice clones for each podcast host
+- **Storage**: Episodes are stored in Azure Blob Storage with episode metadata in the content database
+- **Error Handling**: Each activity has configured retry policies for resilience against transient failures
+
+The workflow ensures reliable podcast generation while handling failures gracefully through Temporal's built-in retry and recovery mechanisms.
 
 ## Processing Flow in reader-api
 
