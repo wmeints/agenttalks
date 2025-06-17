@@ -1,8 +1,5 @@
-targetScope = 'subscription'
-
 param environmentName string
 param location string
-param resourceGroupName string
 param applicationInsightsName string
 param containerAppsEnvironmentName string
 param logAnalyticsWorkspaceName string
@@ -13,18 +10,16 @@ param databaseServerName string
 param databaseServerAdminLogin string
 @secure()
 param databaseServerAdminPassword string
+param contentApiImageName string
+param readerApiImageName string
+param podcastApiImageName string
 
 var tags = {
-  'azd-env-name': environmentName
-}
-
-resource rg 'Microsoft.Resources/resourceGroups@2025-04-01' existing = {
-  name: resourceGroupName
+  'env-name': environmentName
 }
 
 module monitor './core/monitor/monitoring.bicep' = {
   name: 'monitoring'
-  scope: rg
   params: {
     applicationInsightsName: applicationInsightsName
     logAnalyticsWorkspaceName: logAnalyticsWorkspaceName
@@ -35,7 +30,6 @@ module monitor './core/monitor/monitoring.bicep' = {
 
 module containerApps './core/host/container-apps.bicep' = {
   name: 'container-apps'
-  scope: rg
   params: {
     applicationInsightsName: monitor.outputs.applicationInsightsName
     containerAppsEnvironmentName: containerAppsEnvironmentName
@@ -51,7 +45,6 @@ module containerApps './core/host/container-apps.bicep' = {
 
 module databaseServer 'core/database/postgres.bicep' = {
   name: 'database-server'
-  scope: rg
   params: {
     name: databaseServerName
     administratorLogin: databaseServerAdminLogin
@@ -61,7 +54,6 @@ module databaseServer 'core/database/postgres.bicep' = {
 
 module openaiAccount './core/openai/openai.bicep' = {
   name: 'openai-account'
-  scope: rg
   params: {
     name: azureOpenAIAccountName
     location: location
@@ -70,7 +62,6 @@ module openaiAccount './core/openai/openai.bicep' = {
 
 module contentApi './app/content-api.bicep' = {
   name: 'content-api'
-  scope: rg
   params: {
     containerRegistryName: containerRegistryName
     containerRegistryResourceGroupName: containerRegistryResourceGroupName
@@ -82,12 +73,12 @@ module contentApi './app/content-api.bicep' = {
     name: 'content-api'
     location: location
     tags: tags
+    imageName: contentApiImageName
   }
 }
 
 module readerApi './app/reader-api.bicep' = {
   name: 'reader-api'
-  scope: rg
   params: {
     containerRegistryName: containerRegistryName
     containerRegistryResourceGroupName: containerRegistryResourceGroupName
@@ -97,12 +88,12 @@ module readerApi './app/reader-api.bicep' = {
     name: 'reader-api'
     location: location
     tags: tags
+    imageName: readerApiImageName
   }
 }
 
 module podcastApi './app/podcast-api.bicep' = {
   name: 'podcast-api'
-  scope: rg
   params: {
     containerRegistryName: containerRegistryName
     containerRegistryResourceGroupName: containerRegistryResourceGroupName
@@ -115,12 +106,12 @@ module podcastApi './app/podcast-api.bicep' = {
     name: 'podcast-api'
     location: location
     tags: tags
+    imageName: podcastApiImageName
   }
 }
 
 module temporalApp './app/temporal.bicep' = {
   name: 'temporal-app'
-  scope: rg
   params: {
     containerAppsEnvironmentName: containerAppsEnvironmentName
     databaseServerAdminPassword: databaseServerAdminPassword
@@ -134,13 +125,9 @@ module temporalApp './app/temporal.bicep' = {
 
 module rabbitmqApp './app/rabbitmq.bicep' = {
   name: 'rabbitmq-app'
-  scope: rg
   params: {
     containerAppsEnvironmentName: containerAppsEnvironmentName
     location: location
     tags: tags
   }
 }
-
-
-output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerApps.outputs.containerRegistryEndpoint

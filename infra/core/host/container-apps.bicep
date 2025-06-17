@@ -13,7 +13,6 @@ param logAnalyticsWorkspaceCustomerId string
 
 module containerAppsEnvironment 'container-apps-environment.bicep' = {
   name: '${name}-container-apps-environment'
-  scope: resourceGroup()
   params: {
     name: containerAppsEnvironmentName
     location: location
