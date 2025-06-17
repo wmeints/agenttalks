@@ -104,9 +104,6 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
-      - name: Install azd
-        uses: Azure/setup-azd@v2
-
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -116,7 +113,7 @@ jobs:
           allow-no-subscriptions: true
 
       - name: Provision Infrastructure
-        run: az deployment group create --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" --template-file infra/main.bicep --parameters infra/main.bicepparam 
+        run: az deployment group create --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" --template-file infra/main.bicep --parameters infra/main.bicepparam  --debug
         env:
           GIT_HASH: ${{ github.sha }}
           AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
