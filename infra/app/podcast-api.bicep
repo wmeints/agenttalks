@@ -120,7 +120,7 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             }
             {
               name: 'AZURE_STORAGE_CONTAINER_NAME'
-              value: 'podcast-episodes'
+              value: 'episodes'
             }
           ]
         }

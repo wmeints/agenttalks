@@ -21,7 +21,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
     name: 'default'
     
     resource podcastEpisodesContainer 'containers' = {
-      name: 'podcast-episodes'
+      name: 'episodes'
       properties: {
         publicAccess: 'None'
       }
