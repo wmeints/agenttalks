@@ -3,7 +3,6 @@ using './main.bicep'
 var imageHash = readEnvironmentVariable('GIT_HASH', 'latest')
 
 param environmentName = readEnvironmentVariable('AZURE_ENV_NAME', 'dev')
-param resourceGroupName = 'rg-newscast-${environmentName}'
 param location = readEnvironmentVariable('AZURE_LOCATION', 'swedencentral')
 param containerRegistryName = 'acrnewscast'
 param containerRegistryResourceGroupName = 'rg-newscast-shared'

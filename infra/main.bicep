@@ -1,6 +1,5 @@
 param environmentName string
 param location string
-param resourceGroupName string
 param applicationInsightsName string
 param containerAppsEnvironmentName string
 param logAnalyticsWorkspaceName string
