@@ -15,6 +15,6 @@ param databaseServerAdminLogin = readEnvironmentVariable('DATABASE_ADMIN_USER')
 param databaseServerAdminPassword = readEnvironmentVariable('DATABASE_ADMIN_PASSWORD')
 
 // The image names are derived from the container registry and a GIT hash that we set in the CI/CD pipeline.
-param contentApiImageName = '${containerRegistryName}.azurecr.io/newscast/content-api:${imageHash}'
-param readerApiImageName = '${containerRegistryName}.azurecr.io/newscast/reader-api:${imageHash}'
-param podcastApiImageName = '${containerRegistryName}.azurecr.io/newscast/podcast-api:${imageHash}'
+param contentApiImageName = '${containerRegistryName}.azurecr.io/newscast/content-api:1.0.0-${imageHash}'
+param readerApiImageName = '${containerRegistryName}.azurecr.io/newscast/reader-api:1.0.0-${imageHash}'
+param podcastApiImageName = '${containerRegistryName}.azurecr.io/newscast/podcast-api:1.0.0-${imageHash}'
