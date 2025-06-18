@@ -46,11 +46,11 @@ public class GmailService {
         try {
             ListMessagesResponse response = service.users().messages().list(userId).setQ(query).execute();
             List<Message> messages = response.getMessages();
-            
+
             if (messages == null) {
                 return Collections.emptyList();
             }
-            
+
             logger.infof("Found %d unread messages", messages.size());
             return messages;
         } catch (IOException e) {
@@ -66,10 +66,10 @@ public class GmailService {
 
     public void markAsRead(String messageId) throws IOException, GeneralSecurityException {
         Gmail service = buildGmailService();
-        service.users().messages().modify("me", messageId, 
-            new com.google.api.services.gmail.model.ModifyMessageRequest()
-                .setRemoveLabelIds(Arrays.asList("UNREAD")))
-            .execute();
+        service.users().messages().modify("me", messageId,
+                new com.google.api.services.gmail.model.ModifyMessageRequest()
+                        .setRemoveLabelIds(Arrays.asList("UNREAD")))
+                .execute();
         logger.infof("Marked message %s as read", messageId);
     }
 
@@ -107,10 +107,10 @@ public class GmailService {
 
         Matcher matcher = URL_PATTERN.matcher(content);
         return matcher.results()
-            .map(result -> result.group())
-            .filter(url -> !url.toLowerCase().contains("unsubscribe")) // Filter out unsubscribe links
-            .distinct()
-            .toList();
+                .map(result -> result.group())
+                .filter(url -> !url.toLowerCase().contains("unsubscribe")) // Filter out unsubscribe links
+                .distinct()
+                .toList();
     }
 
     public boolean isFromAllowedSender(String senderEmail) {
@@ -121,26 +121,26 @@ public class GmailService {
 
         List<String> allowedSenders = gmailConfig.allowedSenders().get();
         boolean allowed = allowedSenders.contains(senderEmail.toLowerCase());
-        
+
         if (!allowed) {
-            logger.infof("Email from %s is not from an allowed sender. Allowed senders: %s", 
-                senderEmail, allowedSenders);
+            logger.infof("Email from %s is not from an allowed sender. Allowed senders: %s",
+                    senderEmail, allowedSenders);
         }
-        
+
         return allowed;
     }
 
     private Gmail buildGmailService() throws IOException, GeneralSecurityException {
         GoogleCredentials credentials = GoogleCredentials
-            .fromStream(new FileInputStream(gmailConfig.credentialsPath().get()))
-            .createScoped(SCOPES);
+                .fromStream(new FileInputStream(gmailConfig.credentialsPath().get()))
+                .createScoped(SCOPES);
 
         return new Gmail.Builder(
-            GoogleNetHttpTransport.newTrustedTransport(),
-            GsonFactory.getDefaultInstance(),
-            new HttpCredentialsAdapter(credentials))
-            .setApplicationName(gmailConfig.applicationName())
-            .build();
+                GoogleNetHttpTransport.newTrustedTransport(),
+                GsonFactory.getDefaultInstance(),
+                new HttpCredentialsAdapter(credentials))
+                .setApplicationName(gmailConfig.applicationName())
+                .build();
     }
 
     private String getMessageContent(Message message) {
@@ -150,7 +150,7 @@ public class GmailService {
 
         MessagePart payload = message.getPayload();
         String body = extractTextFromPart(payload);
-        
+
         return body != null ? body : "";
     }
 
