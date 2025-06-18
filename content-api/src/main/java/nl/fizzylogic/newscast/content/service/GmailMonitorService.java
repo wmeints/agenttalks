@@ -57,7 +57,8 @@ public class GmailMonitorService {
             Optional<String> senderOpt = gmailService.getSender(message);
 
             if (senderOpt.isEmpty()) {
-                logger.warnf("Could not determine sender for message %s, skipping", messageId);
+                logger.warnf("Could not determine sender for message %s, deleting", messageId);
+                gmailService.deleteMessage(messageId);
                 return;
             }
 
