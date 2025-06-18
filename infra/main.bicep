@@ -14,6 +14,7 @@ param storageAccountName string
 param contentApiImageName string
 param readerApiImageName string
 param podcastApiImageName string
+param gmailServiceAccountCredentials string
 
 var tags = {
   'env-name': environmentName
@@ -79,6 +80,7 @@ module contentApi './app/content-api.bicep' = {
     databaseServerAdminPassword: databaseServerAdminPassword
     databaseServerAdminUsername: databaseServerAdminLogin
     databaseServerDomainName: databaseServer.outputs.domainName
+    gmailServiceAccountCredentials: gmailServiceAccountCredentials
     serviceName: 'content-api'
     name: 'content-api'
     location: location
