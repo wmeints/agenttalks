@@ -20,3 +20,4 @@ param gmailServiceAccountCredentials = readEnvironmentVariable('GMAIL_SERVICE_AC
 param contentApiImageName = '${containerRegistryName}.azurecr.io/newscast/content-api:1.0.0-${imageHash}'
 param readerApiImageName = '${containerRegistryName}.azurecr.io/newscast/reader-api:1.0.0-${imageHash}'
 param podcastApiImageName = '${containerRegistryName}.azurecr.io/newscast/podcast-api:1.0.0-${imageHash}'
+param dashboardImageName = '${containerRegistryName}.azurecr.io/newscast/dashboard:1.0.0-${imageHash}'

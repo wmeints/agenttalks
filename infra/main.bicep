@@ -14,6 +14,7 @@ param storageAccountName string
 param contentApiImageName string
 param readerApiImageName string
 param podcastApiImageName string
+param dashboardImageName string
 @secure()
 param gmailServiceAccountCredentials string
 
@@ -141,6 +142,20 @@ module rabbitmqApp './app/rabbitmq.bicep' = {
   name: 'rabbitmq-app'
   params: {
     containerAppsEnvironmentName: containerAppsEnvironmentName
+    location: location
+    tags: tags
+  }
+}
+
+module dashboardApp './app/dashboard.bicep' = {
+  name: 'dashboard-app'
+  params: {
+    containerRegistryName: containerRegistryName
+    containerRegistryResourceGroupName: containerRegistryResourceGroupName
+    containerAppsEnvironmentName: containerAppsEnvironmentName
+    imageName: dashboardImageName
+    serviceName: 'dashboard'
+    name: 'dashboard'
     location: location
     tags: tags
   }
