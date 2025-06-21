@@ -28,11 +28,10 @@ C4Container
     title "Newscast services"
 
     Container_Boundary(app, "Newscast") {
-        Container(spa, "Frontend", "React")
+        Container(spa, "Dashboard", "Sveltekit")
         Container(content, "Content Service", "Quarkus")
         Container(reader, "Reader Service", "Quarkus")
         Container(podcast, "Podcast Service", "Quarkus")
-        
         ContainerDb(content_db, "Content Database", "PostgreSQL")
         Container(broker, "Message Broker", "RabbitMQ")
     }
@@ -56,3 +55,11 @@ C4Container
 
     UpdateLayoutConfig($c4ShapeInRow="4")
 ```
+
+| Name        | Description                                                   |
+| ----------- | ------------------------------------------------------------- |
+| Dashboard   | Provides insights into the current week and previous episodes |
+| Content API | Stores collected content and generated podcast episodes       |
+| Reader API  | Scrapes content and summarizes it for the upcoming podcast    |
+| Podcast API | Generates the weekly podcast every friday at 6PM              |
+| RabbitMQ    | Eventbus implementation for the application                   |
