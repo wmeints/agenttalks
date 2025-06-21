@@ -1,6 +1,7 @@
 package nl.fizzylogic.newscast.podcast.workflow;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -21,10 +22,13 @@ import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 
+import grpc.reflection.v1alpha.Reflection.ErrorResponseOrBuilder;
 import io.quarkus.test.junit.QuarkusTest;
+import io.smallrye.graphql.client.typesafe.api.ErrorOr;
 import nl.fizzylogic.newscast.podcast.clients.content.ContentClient;
 import nl.fizzylogic.newscast.podcast.clients.content.model.ContentSubmission;
 import nl.fizzylogic.newscast.podcast.clients.content.model.CreatePodcastEpisode;
+import nl.fizzylogic.newscast.podcast.clients.content.model.PodcastEpisode;
 import nl.fizzylogic.newscast.podcast.shared.TestObjectFactory;
 
 @QuarkusTest
@@ -49,6 +53,9 @@ class ContentMetadataActivitiesImplTest {
 
         when(blobServiceClient.getBlobContainerClient(anyString())).thenReturn(blobContainerClient);
         when(blobContainerClient.getBlobClient(anyString())).thenReturn(blobClient);
+
+        when(contentClient.createPodcastEpisode(any(CreatePodcastEpisode.class)))
+                .thenReturn(ErrorOr.of(TestObjectFactory.createPodcastEpisode()));
     }
 
     @Test
@@ -86,14 +93,13 @@ class ContentMetadataActivitiesImplTest {
         when(blobClient.getBlobUrl()).thenReturn("https://test.blob.core.windows.net/episodes/" + tempFile.getName());
 
         String testTitle = "Test Title";
-        String testShowNotes = "Test show notes";
-        String testDescription = "Test description";
         List<ContentSubmission> testSubmissions = List.of();
 
-        String audioUrl = activities.savePodcastEpisode(testTitle, tempFile.getAbsolutePath(), testShowNotes, testDescription, testSubmissions);
+        PodcastEpisode podcastEpisode = activities.savePodcastEpisode(
+                testTitle, tempFile.getAbsolutePath(),
+                testSubmissions);
 
-        // Verify the returned URL
-        assertEquals("https://test.blob.core.windows.net/episodes/" + tempFile.getName(), audioUrl);
+        assertNotNull(podcastEpisode);
 
         // Verify the blob operations
         verify(blobContainerClient).createIfNotExists();
@@ -106,8 +112,6 @@ class ContentMetadataActivitiesImplTest {
 
         CreatePodcastEpisode capturedEpisode = episodeCaptor.getValue();
         assertEquals(testTitle, capturedEpisode.title, "Title should be passed correctly");
-        assertEquals(testShowNotes, capturedEpisode.showNotes, "Show notes should be passed correctly");
-        assertEquals(testDescription, capturedEpisode.description, "Description should be passed correctly");
 
         tempFile.delete();
     }

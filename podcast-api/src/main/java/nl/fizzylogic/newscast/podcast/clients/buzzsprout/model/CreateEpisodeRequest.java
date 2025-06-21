@@ -18,11 +18,23 @@ public class CreateEpisodeRequest {
     @JsonProperty("published")
     public Boolean published = true;
 
+    @JsonProperty("explicit")
+    public Boolean explicit = false;
+
+    @JsonProperty("season_number")
+    public Integer seasonNumber = 1;
+
+    @JsonProperty("episode_number")
+    public Integer episodeNumber = 1;
+
     public CreateEpisodeRequest() {
         // Default constructor for serialization
     }
 
-    public CreateEpisodeRequest(String title, String description, String summary, String audioUrl) {
+    public CreateEpisodeRequest(int seasonNumber, int episodeNumber, String title, String description, String summary,
+            String audioUrl) {
+        this.seasonNumber = seasonNumber;
+        this.episodeNumber = episodeNumber;
         this.title = title;
         this.description = description;
         this.summary = summary;

@@ -17,14 +17,13 @@ import nl.fizzylogic.newscast.podcast.clients.buzzsprout.model.CreateEpisodeResp
 
 @QuarkusTest
 class BuzzsproutActivitiesImplTest {
-
     private BuzzsproutActivitiesImpl activities;
     private BuzzsproutClient buzzsproutClient;
 
     @BeforeEach
     void setUp() {
-        activities = new BuzzsproutActivitiesImpl();
         buzzsproutClient = mock(BuzzsproutClient.class);
+        activities = new BuzzsproutActivitiesImpl();
         activities.buzzsproutClient = buzzsproutClient;
         activities.podcastId = "test-podcast-id";
     }
@@ -46,7 +45,9 @@ class BuzzsproutActivitiesImplTest {
                 .thenReturn(mockResponse);
 
         // Execute
-        String result = activities.publishPodcastEpisode(title, description, showNotes, audioFileUrl);
+        String result = activities.publishPodcastEpisode(
+                1, 1, title, description,
+                showNotes, audioFileUrl);
 
         // Verify
         assertEquals("12345", result);
@@ -64,9 +65,10 @@ class BuzzsproutActivitiesImplTest {
                 .thenThrow(new RuntimeException("Buzzsprout API call failed"));
 
         // Execute & Verify
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> 
-            activities.publishPodcastEpisode(title, description, showNotes, audioFileUrl));
-        
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> activities.publishPodcastEpisode(
+                        1, 1, title, description, showNotes, audioFileUrl));
+
         assertEquals("Failed to publish episode to Buzzsprout", exception.getMessage());
     }
 }
