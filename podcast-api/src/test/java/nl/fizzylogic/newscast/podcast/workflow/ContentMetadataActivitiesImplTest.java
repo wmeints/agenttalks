@@ -83,13 +83,17 @@ class ContentMetadataActivitiesImplTest {
         }
 
         when(blobClient.getBlobName()).thenReturn(tempFile.getName());
+        when(blobClient.getBlobUrl()).thenReturn("https://test.blob.core.windows.net/episodes/" + tempFile.getName());
 
         String testTitle = "Test Title";
         String testShowNotes = "Test show notes";
         String testDescription = "Test description";
         List<ContentSubmission> testSubmissions = List.of();
 
-        activities.savePodcastEpisode(testTitle, tempFile.getAbsolutePath(), testShowNotes, testDescription, testSubmissions);
+        String audioUrl = activities.savePodcastEpisode(testTitle, tempFile.getAbsolutePath(), testShowNotes, testDescription, testSubmissions);
+
+        // Verify the returned URL
+        assertEquals("https://test.blob.core.windows.net/episodes/" + tempFile.getName(), audioUrl);
 
         // Verify the blob operations
         verify(blobContainerClient).createIfNotExists();

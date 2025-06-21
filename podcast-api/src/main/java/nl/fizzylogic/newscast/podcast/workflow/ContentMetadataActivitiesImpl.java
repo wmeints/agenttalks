@@ -37,7 +37,7 @@ public class ContentMetadataActivitiesImpl implements ContentMetadataActivities 
     }
 
     @Override
-    public void savePodcastEpisode(String title, String audioFilePath, String showNotes, String description,
+    public String savePodcastEpisode(String title, String audioFilePath, String showNotes, String description,
             List<ContentSubmission> contentSubmissions) {
         var audioFile = new File(audioFilePath);
         var episodesContainer = blobServiceClient.getBlobContainerClient("episodes");
@@ -49,6 +49,8 @@ public class ContentMetadataActivitiesImpl implements ContentMetadataActivities 
             blob.upload(inputStream);
 
             contentClient.createPodcastEpisode(new CreatePodcastEpisode(blob.getBlobName(), title, showNotes, description));
+            
+            return blob.getBlobUrl();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(String.format("Audio file not found: %s", audioFilePath), e);
         } catch (IOException e) {

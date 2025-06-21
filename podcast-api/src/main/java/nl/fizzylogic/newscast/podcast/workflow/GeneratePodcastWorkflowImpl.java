@@ -14,6 +14,7 @@ public class GeneratePodcastWorkflowImpl implements GeneratePodcastWorkflow {
     private final ContentMetadataActivities contentMetadataActivities;
     private final GeneratePodcastScriptActivities podcastScriptGenerationActivities;
     private final GeneratePodcastAudioActivities generatePodcastAudioActivities;
+    private final BuzzsproutActivities buzzsproutActivities;
 
     public GeneratePodcastWorkflowImpl() {
         var contentMetadataActivityOptions = ActivityOptions.newBuilder()
@@ -39,6 +40,14 @@ public class GeneratePodcastWorkflowImpl implements GeneratePodcastWorkflow {
                 .setRetryOptions(podcastAudioGenerationRetryOptions)
                 .build();
 
+        var buzzsproutActivityOptions = ActivityOptions.newBuilder()
+                .setStartToCloseTimeout(Duration.ofMinutes(5))
+                .setRetryOptions(RetryOptions.newBuilder()
+                    .setMaximumAttempts(3)
+                    .setInitialInterval(Duration.ofSeconds(30))
+                    .build())
+                .build();
+
         contentMetadataActivities = Workflow.newActivityStub(
                 ContentMetadataActivities.class,
                 contentMetadataActivityOptions);
@@ -50,6 +59,10 @@ public class GeneratePodcastWorkflowImpl implements GeneratePodcastWorkflow {
         generatePodcastAudioActivities = Workflow.newActivityStub(
                 GeneratePodcastAudioActivities.class,
                 podcastAudioGenerationActivityOptions);
+
+        buzzsproutActivities = Workflow.newActivityStub(
+                BuzzsproutActivities.class,
+                buzzsproutActivityOptions);
     }
 
     @Override
@@ -88,12 +101,19 @@ public class GeneratePodcastWorkflowImpl implements GeneratePodcastWorkflow {
         String showNotes = buildShowNotes(input.contentSubmissions);
         String description = buildDescription(input.contentSubmissions);
         
-        contentMetadataActivities.savePodcastEpisode(
+        String audioFileUrl = contentMetadataActivities.savePodcastEpisode(
                 script.title,
                 finalAudioFile,
                 showNotes,
                 description,
                 input.contentSubmissions);
+
+        // Publish the podcast episode to Buzzsprout
+        String buzzsproutEpisodeId = buzzsproutActivities.publishPodcastEpisode(
+                script.title,
+                description,
+                showNotes,
+                audioFileUrl);
 
         // Mark the content submissions as processed.
         // Other workflow triggers can't pick them up anymore.

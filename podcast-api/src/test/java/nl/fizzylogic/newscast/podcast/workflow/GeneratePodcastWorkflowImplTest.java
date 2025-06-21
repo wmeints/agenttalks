@@ -38,6 +38,9 @@ public class GeneratePodcastWorkflowImplTest {
     @InjectMock
     GeneratePodcastAudioActivities generatePodcastAudioActivities;
 
+    @InjectMock
+    BuzzsproutActivities buzzsproutActivities;
+
     @Test
     public void canRunWorkflowWithMockedActivities() {
         var script = TestObjectFactory.createPodcastScript();
@@ -45,6 +48,11 @@ public class GeneratePodcastWorkflowImplTest {
         when(generatePodcastScriptActivities.generatePodcastScript(any())).thenReturn(script);
         when(generatePodcastAudioActivities.generateSpeech(any())).thenReturn("data/test.mp3");
         when(generatePodcastAudioActivities.concatenateAudioFragments(any())).thenReturn("data/final.mp3");
+        when(generatePodcastAudioActivities.mixPodcastEpisode(any())).thenReturn("data/mixed.mp3");
+        when(contentMetadataActivities.savePodcastEpisode(any(), any(), any(), any(), any()))
+                .thenReturn("https://test.blob.core.windows.net/episodes/test.mp3");
+        when(buzzsproutActivities.publishPodcastEpisode(any(), any(), any(), any()))
+                .thenReturn("12345");
 
         WorkflowOptions workflowOptions = WorkflowOptions.newBuilder()
                 .setTaskQueue("<default>")
@@ -70,8 +78,10 @@ public class GeneratePodcastWorkflowImplTest {
         verify(generatePodcastScriptActivities).generatePodcastScript(any());
         verify(generatePodcastAudioActivities, times(2)).generateSpeech(any());
         verify(generatePodcastAudioActivities).concatenateAudioFragments(fragmentsArgumentCapture.capture());
+        verify(generatePodcastAudioActivities).mixPodcastEpisode(any());
         verify(contentMetadataActivities).lockContentSubmissions(lockedContentSubmissions.capture());
         verify(contentMetadataActivities).savePodcastEpisode(any(), any(), any(), any(), any());
+        verify(buzzsproutActivities).publishPodcastEpisode(any(), any(), any(), any());
         verify(contentMetadataActivities).markContentSubmissionsAsProcessed(processedContentSubmissions.capture());
 
         assertEquals(2, fragmentsArgumentCapture.getValue().size(),
@@ -92,6 +102,10 @@ public class GeneratePodcastWorkflowImplTest {
         when(generatePodcastAudioActivities.generateSpeech(any())).thenReturn("data/test.mp3");
         when(generatePodcastAudioActivities.concatenateAudioFragments(any())).thenReturn("data/final.mp3");
         when(generatePodcastAudioActivities.mixPodcastEpisode(any())).thenReturn("data/mixed.mp3");
+        when(contentMetadataActivities.savePodcastEpisode(any(), any(), any(), any(), any()))
+                .thenReturn("https://test.blob.core.windows.net/episodes/test.mp3");
+        when(buzzsproutActivities.publishPodcastEpisode(any(), any(), any(), any()))
+                .thenReturn("12345");
 
         WorkflowOptions workflowOptions = WorkflowOptions.newBuilder()
                 .setTaskQueue("<default>")

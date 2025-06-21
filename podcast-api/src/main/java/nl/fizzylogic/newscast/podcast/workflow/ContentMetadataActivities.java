@@ -15,6 +15,6 @@ public interface ContentMetadataActivities {
     void markContentSubmissionsAsProcessed(List<ContentSubmission> contentSubmissions);
 
     @ActivityMethod
-    void savePodcastEpisode(String title, String audioFilePath, String showNotes, String description,
+    String savePodcastEpisode(String title, String audioFilePath, String showNotes, String description,
             List<ContentSubmission> contentSubmissions);
 }
