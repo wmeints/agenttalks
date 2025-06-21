@@ -14,6 +14,7 @@ param storageAccountName string
 param contentApiImageName string
 param readerApiImageName string
 param podcastApiImageName string
+@secure()
 param gmailServiceAccountCredentials string
 
 var tags = {

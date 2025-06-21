@@ -10,6 +10,7 @@ param databaseServerDomainName string
 param databaseServerAdminUsername string
 @secure()
 param databaseServerAdminPassword string
+@secure()
 param gmailServiceAccountCredentials string
 
 var databaseUrl = 'jdbc:postgresql://${databaseServerDomainName}:5432/content?sslmode=require'
