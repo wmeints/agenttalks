@@ -7,6 +7,7 @@ on:
       - 'content-api/**'
       - 'podcast-api/**'
       - 'reader-api/**'
+      - 'dashboard/**'
       - 'infra/**'
       - '.github/workflows/ci.yml'
   pull_request:
@@ -15,6 +16,7 @@ on:
       - 'content-api/**'
       - 'podcast-api/**'
       - 'reader-api/**'
+      - 'dashboard/**'
       - 'infra/**'
       - '.github/workflows/ci.yml'
 permissions:
@@ -145,3 +147,5 @@ jobs:
           DATABASE_ADMIN_USER: ${{ secrets.DATABASE_ADMIN_USER }}
           DATABASE_ADMIN_PASSWORD: ${{ secrets.DATABASE_ADMIN_PASSWORD }}
           GMAIL_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GMAIL_SERVICE_ACCOUNT_CREDENTIALS }}
+          BUZZSPROUT_API_KEY: ${{ secrets.BUZZSPROUT_API_KEY }}
+          BUZZSPROUT_PODCAST_ID: ${{ secrets.BUZZSPROUT_PODCAST_ID }}

@@ -15,6 +15,8 @@ param storageAccountName = 'sanewscast${environmentName}'
 param databaseServerAdminLogin = readEnvironmentVariable('DATABASE_ADMIN_USER')
 param databaseServerAdminPassword = readEnvironmentVariable('DATABASE_ADMIN_PASSWORD')
 param gmailServiceAccountCredentials = readEnvironmentVariable('GMAIL_SERVICE_ACCOUNT_CREDENTIALS') 
+param buzzsproutApiKey = readEnvironmentVariable('BUZZSPROUT_API_KEY')
+param buzzsproutPodcastId = readEnvironmentVariable('BUZZSPROUT_PODCAST_ID')
 
 // The image names are derived from the container registry and a GIT hash that we set in the CI/CD pipeline.
 param contentApiImageName = '${containerRegistryName}.azurecr.io/newscast/content-api:1.0.0-${imageHash}'
