@@ -1,13 +1,11 @@
 package nl.fizzylogic.newscast.podcast.workflow;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import io.temporal.activity.ActivityOptions;
 import io.temporal.common.RetryOptions;
 import io.temporal.workflow.Workflow;
-import nl.fizzylogic.newscast.podcast.clients.content.model.ContentSubmission;
 import nl.fizzylogic.newscast.podcast.clients.content.model.PodcastEpisode;
 import nl.fizzylogic.newscast.podcast.model.PodcastScript;
 
