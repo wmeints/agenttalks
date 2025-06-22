@@ -52,8 +52,8 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           name: 'app'
           image: imageName
           resources: {
-            cpu: 0.25
-            memory: '0.5Gi'
+            cpu: 1
+            memory: '2Gi'
           }
         }
       ]
