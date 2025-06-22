@@ -17,6 +17,8 @@ param podcastApiImageName string
 param dashboardImageName string
 @secure()
 param gmailServiceAccountCredentials string
+param buzzsproutApiKey string
+param buzzsproutPodcastId string
 
 var tags = {
   'env-name': environmentName
@@ -117,6 +119,8 @@ module podcastApi './app/podcast-api.bicep' = {
     databaseServerAdminUsername: databaseServerAdminLogin
     databaseServerDomainName: databaseServer.outputs.domainName
     storageAccountName: storageAccount.outputs.name
+    buzzsproutApiKey: buzzsproutApiKey
+    buzzsproutPodcastId: buzzsproutPodcastId
     serviceName: 'podcast-api'
     name: 'podcast-api'
     location: location
