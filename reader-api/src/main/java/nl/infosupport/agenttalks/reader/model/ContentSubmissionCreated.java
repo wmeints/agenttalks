@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.model;
+package nl.infosupport.agenttalks.reader.model;
 
 import java.time.LocalDateTime;
 

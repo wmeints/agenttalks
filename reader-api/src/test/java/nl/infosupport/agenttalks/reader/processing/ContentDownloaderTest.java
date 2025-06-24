@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.processing;
+package nl.infosupport.agenttalks.reader.processing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -17,7 +17,7 @@ import io.quarkus.tika.TikaContent;
 import io.quarkus.tika.TikaMetadata;
 import io.quarkus.tika.TikaParser;
 import io.vertx.core.json.JsonObject;
-import nl.fizzylogic.newscast.reader.model.ContentSubmissionCreated;
+import nl.infosupport.agenttalks.reader.model.ContentSubmissionCreated;
 
 @QuarkusTest
 public class ContentDownloaderTest {

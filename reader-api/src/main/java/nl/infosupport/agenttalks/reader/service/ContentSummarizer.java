@@ -1,9 +1,9 @@
-package nl.fizzylogic.newscast.reader.service;
+package nl.infosupport.agenttalks.reader.service;
 
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
-import nl.fizzylogic.newscast.reader.model.ContentSummary;
+import nl.infosupport.agenttalks.reader.model.ContentSummary;
 
 @RegisterAiService
 public interface ContentSummarizer {

@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.clients.content.model;
+package nl.infosupport.agenttalks.reader.clients.content.model;
 
 public class SummarizeContent {
     public long id;

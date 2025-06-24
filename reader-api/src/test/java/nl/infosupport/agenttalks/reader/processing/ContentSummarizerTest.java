@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.processing;
+package nl.infosupport.agenttalks.reader.processing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,9 +11,9 @@ import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.vertx.core.json.JsonObject;
 import jakarta.inject.Inject;
-import nl.fizzylogic.newscast.reader.model.ContentSummarizationData;
-import nl.fizzylogic.newscast.reader.model.ContentSummary;
-import nl.fizzylogic.newscast.reader.service.ContentSummarizer;
+import nl.infosupport.agenttalks.reader.model.ContentSummarizationData;
+import nl.infosupport.agenttalks.reader.model.ContentSummary;
+import nl.infosupport.agenttalks.reader.service.ContentSummarizer;
 
 @QuarkusTest
 public class ContentSummarizerTest {

@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.exceptions;
+package nl.infosupport.agenttalks.reader.exceptions;
 
 public class ContentDownloadFailedException extends RuntimeException {
     public ContentDownloadFailedException(String message) {

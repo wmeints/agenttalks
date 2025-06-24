@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.processing;
+package nl.infosupport.agenttalks.reader.processing;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,10 +21,10 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.core.json.jackson.DatabindCodec;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import nl.fizzylogic.newscast.reader.exceptions.ContentDownloadFailedException;
-import nl.fizzylogic.newscast.reader.model.ContentDownload;
-import nl.fizzylogic.newscast.reader.model.ContentSubmissionCreated;
-import nl.fizzylogic.newscast.reader.model.ContentSummarizationData;
+import nl.infosupport.agenttalks.reader.exceptions.ContentDownloadFailedException;
+import nl.infosupport.agenttalks.reader.model.ContentDownload;
+import nl.infosupport.agenttalks.reader.model.ContentSubmissionCreated;
+import nl.infosupport.agenttalks.reader.model.ContentSummarizationData;
 
 @ApplicationScoped
 public class ContentDownloadStep {

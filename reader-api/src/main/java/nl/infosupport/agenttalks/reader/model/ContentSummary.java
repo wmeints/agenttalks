@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.model;
+package nl.infosupport.agenttalks.reader.model;
 
 public class ContentSummary {
     public String title;

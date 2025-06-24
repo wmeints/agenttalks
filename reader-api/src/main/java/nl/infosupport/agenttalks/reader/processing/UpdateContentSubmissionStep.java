@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.processing;
+package nl.infosupport.agenttalks.reader.processing;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.jboss.logging.Logger;
@@ -7,9 +7,9 @@ import io.smallrye.graphql.client.GraphQLClientException;
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import nl.fizzylogic.newscast.reader.clients.content.ContentClient;
-import nl.fizzylogic.newscast.reader.clients.content.model.SummarizeContent;
-import nl.fizzylogic.newscast.reader.model.ContentSummarizationData;
+import nl.infosupport.agenttalks.reader.clients.content.ContentClient;
+import nl.infosupport.agenttalks.reader.clients.content.model.SummarizeContent;
+import nl.infosupport.agenttalks.reader.model.ContentSummarizationData;
 
 @ApplicationScoped
 public class UpdateContentSubmissionStep {

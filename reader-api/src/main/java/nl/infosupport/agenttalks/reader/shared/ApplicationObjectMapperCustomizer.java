@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.shared;
+package nl.infosupport.agenttalks.reader.shared;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

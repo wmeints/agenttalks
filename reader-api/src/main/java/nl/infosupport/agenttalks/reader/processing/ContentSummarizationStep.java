@@ -1,4 +1,4 @@
-package nl.fizzylogic.newscast.reader.processing;
+package nl.infosupport.agenttalks.reader.processing;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
@@ -7,8 +7,8 @@ import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.control.ActivateRequestContext;
 import jakarta.inject.Inject;
-import nl.fizzylogic.newscast.reader.model.ContentSummarizationData;
-import nl.fizzylogic.newscast.reader.service.ContentSummarizer;
+import nl.infosupport.agenttalks.reader.model.ContentSummarizationData;
+import nl.infosupport.agenttalks.reader.service.ContentSummarizer;
 
 @ApplicationScoped
 public class ContentSummarizationStep {
