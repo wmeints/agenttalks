@@ -11,7 +11,7 @@ in the API.
 ## Writing tests
 
 - Mark tests with `@QuarkusTest`.
-- Use mockito for mocking out dependencies.
+- Use `@InjectMock` to inject mocked dependencies with mockito
 - Mark test methods with `@Transactional` when accessing data in the database.
 - Use arrange, act, assert style testing.
 
