@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dde98cf3-ceda-434f-bbc4-e397116eb772" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/content-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content-api/src/main/java/nl/infosupport/agenttalks/content/config/GmailConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/content-api/src/main/java/nl/infosupport/agenttalks/content/service/GmailMonitorService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/content-api/src/main/java/nl/infosupport/agenttalks/content/service/GmailService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/content-api/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/content-api/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/architecture/05-building-block-view.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/architecture/05-building-block-view.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/gmail-setup.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/podcast-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/podcast-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reader-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reader-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +188,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1750784657854</updated>
-      <workItem from="1750784659326" duration="636000" />
+      <workItem from="1750784659326" duration="904000" />
     </task>
     <servers />
   </component>

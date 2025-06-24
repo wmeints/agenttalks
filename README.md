@@ -1,10 +1,10 @@
-# Newscast application
+# Agenttalks application
 
 [![Continuous integration](https://github.com/wmeints/quarkus-newscast/actions/workflows/ci.yml/badge.svg)](https://github.com/wmeints/quarkus-newscast/actions/workflows/ci.yml)
 
 This repository contains a full Quarkus implementation for an AI-driven podcast generator.
 You can use this to run your own AI-driven podcast or as a sample on how to use Quarkus
-and Semantic Kernel. Enjoy!
+and Langchain4J. Enjoy!
 
 ## System requirements
 
@@ -27,7 +27,7 @@ quarkus dev
 Alternatively you can use this command:
 
 ```bash
-mvn quarkus:dev
+./mvnw quarkus:dev
 ```
 
 The following services can be started this way:
@@ -49,7 +49,7 @@ in one of the `*-api` directories:
 quarkus dev
 ```
 
-Alternatively you can use `mvn quarkus:dev` if you don't have the Quarkus CLI.
+Alternatively you can use `./mvnw quarkus:dev` if you don't have the Quarkus CLI.
 
 ### Submitting content for the podcast
 
