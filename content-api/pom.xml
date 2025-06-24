@@ -29,8 +29,8 @@
     </dependencyManagement>
 
     <parent>
-        <groupId>nl.fizzylogic.newscast</groupId>
-        <artifactId>newscast-parent</artifactId>
+        <groupId>nl.infosupport.agenttalks</groupId>
+        <artifactId>agenttalks-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
