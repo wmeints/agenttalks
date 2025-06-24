@@ -32,40 +32,13 @@ Alternatively you can use this command:
 
 The following services can be started this way:
 
-| Service Name | Directory     |
-| ------------ | ------------- |
-| Content API  | `content-api` |
-| Reader API   | `reader-api`  |
-| Podcast API  | `podcast-api` |
+| Service Name | Directory          |
+| ------------ | ------------------ |
+| Content API  | `apps/content-api` |
+| Reader API   | `apps/reader-api`  |
+| Podcast API  | `apps/podcast-api` |
 
-## Development
-
-### Running services in development mode
-
-You can run one or more services in development mode by using the following command
-in one of the `*-api` directories:
-
-```bash
-quarkus dev
-```
-
-Alternatively you can use `./mvnw quarkus:dev` if you don't have the Quarkus CLI.
-
-### Submitting content for the podcast
-
-You can test the content submission process through the development UI.
-After starting all the services go to http://localhost:8080/q/dev-ui/io.quarkus.quarkus-smallrye-graphql/graphql-ui
-and run the following mutation through the UI:
-
-```graphql
-mutation {
-  submitContent(input:{url: "https://medium.com/trendyol-tech/rabbitmq-exchange-types-d7e1f51ec825"}) {
-    id
-  }
-}
-```
-
-After submitting the content, you can watch it progress through the Jaeger UI: http://localhost:16686
+For the frontend use the command `npm run dev` from the `apps/dahboard` directory.
 
 ## Documentation
 
