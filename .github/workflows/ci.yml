@@ -2,23 +2,23 @@ name: Continuous integration
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
     paths:
-      - 'content-api/**'
-      - 'podcast-api/**'
-      - 'reader-api/**'
-      - 'dashboard/**'
-      - 'infra/**'
-      - '.github/workflows/ci.yml'
+      - "content-api/**"
+      - "podcast-api/**"
+      - "reader-api/**"
+      - "dashboard/**"
+      - "infra/**"
+      - ".github/workflows/ci.yml"
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
     paths:
-      - 'content-api/**'
-      - 'podcast-api/**'
-      - 'reader-api/**'
-      - 'dashboard/**'
-      - 'infra/**'
-      - '.github/workflows/ci.yml'
+      - "content-api/**"
+      - "podcast-api/**"
+      - "reader-api/**"
+      - "dashboard/**"
+      - "infra/**"
+      - ".github/workflows/ci.yml"
 permissions:
   id-token: write
   contents: read
@@ -29,89 +29,89 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-      name: Checkout sources
-    
-    - name: Set up JDK 21
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        
-    - name: Cache Maven dependencies
-      uses: actions/cache@v4
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+      - uses: actions/checkout@v4
+        name: Checkout sources
 
-    - name: Install Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-        cache: 'npm'
-        cache-dependency-path: dashboard/package-lock.json
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
 
-    - name: Setup FFmpeg
-      uses: AnimMouse/setup-ffmpeg@v1
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
-    - name: Run Maven build
-      run: |
-        ./mvnw clean verify -Dquarkus.test.profile=test -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
-      env:
-        TESTCONTAINERS_RYUK_DISABLED: true
-        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
-        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME }}
-        QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
-        NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
-        CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: dashboard/package-lock.json
 
-    - name: Restore node packages
-      run: npm install
-      working-directory: dashboard
-    
-    - name: Run dashboard tests
-      run: npm run test
-      working-directory: dashboard
+      - name: Setup FFmpeg
+        uses: AnimMouse/setup-ffmpeg@v1
 
-    - name: Package dashboard 
-      run: npm run build
-      working-directory: dashboard
+      - name: Run Maven build
+        run: |
+          ./mvnw clean verify -Dquarkus.test.profile=test -Dquarkus.container-image.tag=1.0.0-${{ github.sha }}
+        env:
+          TESTCONTAINERS_RYUK_DISABLED: true
+          QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
+          QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME }}
+          QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
+          NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
+          CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
-    - name: Build dashboard docker image
-      run: docker build -t ${{ secrets.CONTAINER_REGISTRY }}/newscast/dashboard:1.0.0-${{ github.sha }} .
-      working-directory: dashboard
+      - name: Restore node packages
+        run: npm install
+        working-directory: apps/dashboard
 
-    - name: Login to container registry
-      if:  ${{ github.ref == 'refs/heads/main' }}
-      uses: docker/login-action@v3
-      with:
-        registry: ${{ secrets.CONTAINER_REGISTRY }}
-        username: ${{ secrets.AZURE_CLIENT_ID }}
-        password: ${{ secrets.AZURE_CLIENT_SECRET }}
+      - name: Run dashboard tests
+        run: npm run test
+        working-directory: apps/dashboard
 
-    - name: Push dashboard container image
-      if: github.ref == 'refs/heads/main'
-      working-directory: dashboard
-      run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/dashboard:1.0.0-${{ github.sha }}
+      - name: Package dashboard
+        run: npm run build
+        working-directory: apps/dashboard
 
-    - name: Push content-api container image
-      if: github.ref == 'refs/heads/main'
-      working-directory: content-api
-      run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/content-api:1.0.0-${{ github.sha }}
+      - name: Build dashboard docker image
+        run: docker build -t ${{ secrets.CONTAINER_REGISTRY }}/newscast/dashboard:1.0.0-${{ github.sha }} .
+        working-directory: dashboard
 
-    - name: Push reader-api container image
-      if:  ${{ github.ref == 'refs/heads/main' }}
-      working-directory: reader-api
-      run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/reader-api:1.0.0-${{ github.sha }}
-    
-    - name: Push podcast-api container image
-      if:  ${{ github.ref == 'refs/heads/main' }}
-      working-directory: podcast-api
-      run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/podcast-api:1.0.0-${{ github.sha }}
+      - name: Login to container registry
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.CONTAINER_REGISTRY }}
+          username: ${{ secrets.AZURE_CLIENT_ID }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+      - name: Push dashboard container image
+        if: github.ref == 'refs/heads/main'
+        working-directory: dashboard
+        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/dashboard:1.0.0-${{ github.sha }}
+
+      - name: Push content-api container image
+        if: github.ref == 'refs/heads/main'
+        working-directory: content-api
+        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/content-api:1.0.0-${{ github.sha }}
+
+      - name: Push reader-api container image
+        if: ${{ github.ref == 'refs/heads/main' }}
+        working-directory: reader-api
+        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/reader-api:1.0.0-${{ github.sha }}
+
+      - name: Push podcast-api container image
+        if: ${{ github.ref == 'refs/heads/main' }}
+        working-directory: podcast-api
+        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/podcast-api:1.0.0-${{ github.sha }}
 
   deploy-to-test:
-    if:  ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     name: Deploy to Azure Test Environment
     runs-on: ubuntu-latest
     needs: build-and-test
