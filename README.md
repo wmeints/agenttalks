@@ -15,31 +15,17 @@ and Langchain4J. Enjoy!
 
 ## Getting started
 
-You can run the application locally with the Quarkus CLI or by using a maven target.
-It works best if you run each of the services in a separate terminal pane/window from
-their directory as listed below. For the Quarkus developer CLI use the following
-command to start the service:
+You can run the application locally with the Quarkus CLI or by using the npm script provided
+with the module. Please find the run commands for each service in the following table:
 
-```bash
-quarkus dev
-```
-
-Alternatively you can use this command:
-
-```bash
-./mvnw quarkus:dev
-```
-
-The following services can be started this way:
-
-| Service Name | Directory          |
-| ------------ | ------------------ |
-| Content API  | `apps/content-api` |
-| Reader API   | `apps/reader-api`  |
-| Podcast API  | `apps/podcast-api` |
-
-For the frontend use the command `npm run dev` from the `apps/dahboard` directory.
+| Module      | Location           | Run command   |
+| ----------- | ------------------ | ------------- |
+| Content API | `apps/content-api` | `quarkus dev` |
+| Reader API  | `apps/reader-api`  | `quarkus dev` |
+| Podcast API | `apps/podcast-api` | `quarkus dev` |
+| Dashboard   | `apps/dashboard`   | `npm run dev` |
 
 ## Documentation
 
-* [Architecture documentation](docs/architecture/README.md)
+- [Product documentation](docs/product/README.md)
+- [Architecture documentation](docs/architecture/README.md)
