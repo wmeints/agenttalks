@@ -15,10 +15,7 @@
 		mobileMenuOpen = !mobileMenuOpen;
 	}
 	
-	function handleSubmitContent() {
-		// Implement submit content logic
-		console.log('Submit content clicked');
-	}
+
 	
 	// Close mobile menu when route changes
 	$effect(() => {
@@ -64,12 +61,12 @@
 			<div class="hidden md:flex md:items-center md:space-x-4">
 				{#if isLoggedIn}
 					<div class="flex items-center space-x-3">
-						<button
-							onclick={handleSubmitContent}
+						<a
+							href="/submit"
 							class="flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
 						>
 							<span>Submit Content</span>
-						</button>
+						</a>
 
 						<SignOut>
 							<div slot="submitButton" class="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
@@ -125,6 +122,14 @@
 					class:bg-blue-50={$page.url.pathname === '/content'}
 				>
 					Content Items
+				</a>
+				<a
+					href="/submit"
+					class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+					class:text-blue-600={$page.url.pathname === '/submit'}
+					class:bg-blue-50={$page.url.pathname === '/submit'}
+				>
+					Submit Content
 				</a>
 			</div>
 			
