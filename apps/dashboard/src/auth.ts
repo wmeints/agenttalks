@@ -7,5 +7,5 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
         issuer: KEYCLOAK_ISSUER,
         clientId: KEYCLOAK_CLIENT_ID,
         clientSecret: KEYCLOAK_CLIENT_SECRET,
-    })],
+    })]
 });
