@@ -135,7 +135,7 @@
 </script>
 
 <svelte:head>
-	<title>Content Items - Newscast Dashboard</title>
+	<title>Content Items - Agenttalks Dashboard</title>
 </svelte:head>
 
 <div class="container mx-auto p-6 pt-8">

@@ -53,7 +53,7 @@
 </script>
 
 <svelte:head>
-	<title>Podcast Episodes - Newscast Dashboard</title>
+	<title>Podcast Episodes - Agenttalks Dashboard</title>
 </svelte:head>
 
 <div class="container mx-auto p-6 pt-8">
