@@ -9,36 +9,28 @@
 			title: "Tech News Weekly #47",
 			description: "AI developments, climate tech, and space exploration updates",
 			status: "published",
-			publishDate: new Date('2025-06-26'),
-			duration: "25:30",
-			downloads: 1250
+			publishDate: new Date('2025-06-26')
 		},
 		{
 			id: 2,
 			title: "Tech News Weekly #46",
 			description: "Economic trends and renewable energy breakthroughs",
 			status: "published",
-			publishDate: new Date('2025-06-19'),
-			duration: "22:45",
-			downloads: 1180
+			publishDate: new Date('2025-06-19')
 		},
 		{
 			id: 3,
 			title: "Tech News Weekly #45",
 			description: "Medical AI and healthcare innovation spotlight",
 			status: "published",
-			publishDate: new Date('2025-06-12'),
-			duration: "28:15",
-			downloads: 1320
+			publishDate: new Date('2025-06-12')
 		},
 		{
 			id: 4,
 			title: "Tech News Weekly #48",
 			description: "Upcoming episode - Financial markets and tech policy",
 			status: "draft",
-			publishDate: new Date('2025-07-03'),
-			duration: "TBD",
-			downloads: 0
+			publishDate: new Date('2025-07-03')
 		}
 	];
 
@@ -75,12 +67,7 @@
 		{#each episodes as episode}
 			<Card class="hover:shadow-lg transition-shadow duration-200">
 				<CardHeader>
-					<div class="flex items-start justify-between">
-						<CardTitle class="text-lg">{episode.title}</CardTitle>
-						<Badge class={getStatusColor(episode.status)}>
-							{episode.status}
-						</Badge>
-					</div>
+					<CardTitle class="text-lg">{episode.title}</CardTitle>
 					<CardDescription>{episode.description}</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -89,37 +76,9 @@
 							<span>Publish Date:</span>
 							<span>{formatDate(episode.publishDate)}</span>
 						</div>
-						<div class="flex justify-between text-sm text-gray-600 dark:text-gray-400">
-							<span>Duration:</span>
-							<span>{episode.duration}</span>
-						</div>
-						{#if episode.status === 'published'}
-							<div class="flex justify-between text-sm text-gray-600 dark:text-gray-400">
-								<span>Downloads:</span>
-								<span>{episode.downloads.toLocaleString()}</span>
-							</div>
-						{/if}
-						<div class="pt-3">
-							{#if episode.status === 'published'}
-								<button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-									View Analytics
-								</button>
-							{:else}
-								<button class="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-									Edit Episode
-								</button>
-							{/if}
-						</div>
 					</div>
 				</CardContent>
 			</Card>
 		{/each}
-	</div>
-
-	<!-- Add New Episode Button -->
-	<div class="mt-8 text-center">
-		<button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200">
-			+ Create New Episode
-		</button>
 	</div>
 </div>
