@@ -17,7 +17,7 @@ export const actions: Actions = {
         // Check if user is authenticated
         const session = await locals.auth();
         if (!session?.user) {
-            throw redirect(302, '/signin');
+            throw redirect(302, '/auth/signin/keycloak');
         }
 
         const data = await request.formData();
