@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -113,20 +112,20 @@ public class ContentGraphTest {
     public void canCreatePodcastEpisode() {
         // Arrange
         PodcastEpisode expectedEpisode = new PodcastEpisode(
-                "Test Episode", 
-                "src/test/resources/audio/joop-fragment-01.mp3", 
+                "Test Episode",
+                "src/test/resources/audio/joop-fragment-01.mp3",
                 1,
-                "Test show notes", 
+                "Test show notes",
                 "Test description");
-        
+
         when(contentSubmissions.createPodcastEpisode(
                 anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(expectedEpisode);
 
         CreatePodcastEpisode input = new CreatePodcastEpisode(
-                "src/test/resources/audio/joop-fragment-01.mp3", 
-                "Test Episode", 
-                "Test show notes", 
+                "src/test/resources/audio/joop-fragment-01.mp3",
+                "Test Episode",
+                "Test show notes",
                 "Test description");
 
         // Act
@@ -135,9 +134,9 @@ public class ContentGraphTest {
         // Assert
         assertEquals(expectedEpisode, result);
         verify(contentSubmissions).createPodcastEpisode(
-                "src/test/resources/audio/joop-fragment-01.mp3", 
-                "Test Episode", 
-                "Test show notes", 
+                "src/test/resources/audio/joop-fragment-01.mp3",
+                "Test Episode",
+                "Test show notes",
                 "Test description");
     }
 }
