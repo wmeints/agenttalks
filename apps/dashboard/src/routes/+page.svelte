@@ -111,7 +111,7 @@
 	<div class="mb-8">
 		<h1 class="text-4xl font-bold tracking-tight mb-2">Dashboard</h1>
 		<p class="text-muted-foreground text-lg">
-			Welcome to your newscast content management dashboard
+			Welcome to the agenttalks content management dashboard
 		</p>
 	</div>
 
@@ -120,7 +120,7 @@
 		<!-- Content Items This Week Card -->
 		<Card class="relative overflow-hidden">
 			<CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-				<CardTitle class="text-sm font-medium">Content Items Collected</CardTitle>
+				<CardTitle class="text-sm font-medium">Content Items Submitted</CardTitle>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
@@ -140,7 +140,7 @@
 			<CardContent>
 				<div class="text-2xl font-bold">{metrics.contentItemsThisWeek}</div>
 				<p class="text-xs text-muted-foreground">
-					Items collected since {formatDate(weekStart)}
+					Submissions collected since {formatDate(weekStart)}
 				</p>
 				<div class="mt-4">
 					<Badge variant="secondary" class="text-xs">
