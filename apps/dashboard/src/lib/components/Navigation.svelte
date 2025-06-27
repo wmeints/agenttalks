@@ -9,7 +9,7 @@
 	let mobileMenuOpen = $state(false);
 	
 	// Derive isLoggedIn from session
-	let isLoggedIn = $derived(!!session);
+	$: isLoggedIn = !!session;
 	
 	function toggleMobileMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
