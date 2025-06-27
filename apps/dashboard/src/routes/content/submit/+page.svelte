@@ -47,7 +47,7 @@
 </script>
 
 <svelte:head>
-	<title>Submit Content - Newscast Dashboard</title>
+	<title>Submit Content - Agenttalks Dashboard</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8 max-w-2xl">
