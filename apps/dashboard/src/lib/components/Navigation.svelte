@@ -32,7 +32,7 @@
 			<div class="flex items-center">
 				<a href="/" class="flex-shrink-0 flex items-center">
 					<span class="text-xl font-bold text-gray-900 dark:text-white">
-						Newscast Dashboard
+						Agenttalks Dashboard
 					</span>
 				</a>
 			</div>
@@ -53,7 +53,7 @@
 					class:text-blue-600={$page.url.pathname === '/content'}
 					class:dark:text-blue-400={$page.url.pathname === '/content'}
 				>
-					Content Items
+					Content Submissions
 				</a>
 			</div>
 
@@ -62,7 +62,7 @@
 				{#if isLoggedIn}
 					<div class="flex items-center space-x-3">
 						<a
-							href="/submit"
+							href="/content/submit"
 							class="flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
 						>
 							<span>Submit Content</span>
@@ -121,7 +121,7 @@
 					class:text-blue-600={$page.url.pathname === '/content'}
 					class:bg-blue-50={$page.url.pathname === '/content'}
 				>
-					Content Items
+					Content Submissions
 				</a>
 				<a
 					href="/submit"
