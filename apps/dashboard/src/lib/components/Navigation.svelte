@@ -76,7 +76,7 @@
 						</SignOut>
 					</div>
 				{:else}	
-				<SignIn>
+				<SignIn provider="keycloak">
 					<div slot="submitButton" class="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
 						<LogIn size={16} />
 						<span>Login</span>
@@ -143,7 +143,7 @@
 						</div>
 					</SignOut>
 				{:else}
-					<SignIn>
+					<SignIn provider="keycloak">
 						<div slot="submitButton" class="flex items-center justify-center space-x-2 w-full text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">
 							<LogIn size={16} />
 							<span>Login</span>
