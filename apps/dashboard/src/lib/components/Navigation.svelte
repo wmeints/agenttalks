@@ -1,24 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+    import { SignIn, SignOut } from '@auth/sveltekit/components';
 	import { Menu, X, User, LogOut, LogIn } from 'lucide-svelte';
+	import type { Session } from '@auth/sveltekit';
+	
+	let { session }: { session: Session | null } = $props();
 	
 	let mobileMenuOpen = $state(false);
-	let isLoggedIn = $state(false); // This would come from your auth store in a real app
+	
+	// Derive isLoggedIn from session
+	let isLoggedIn = $derived(!!session);
 	
 	function toggleMobileMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
-	}
-	
-	function handleLogin() {
-		// Implement login logic
-		isLoggedIn = true;
-		console.log('Login clicked');
-	}
-	
-	function handleLogout() {
-		// Implement logout logic
-		isLoggedIn = false;
-		console.log('Logout clicked');
 	}
 	
 	function handleSubmitContent() {
@@ -76,22 +70,21 @@
 						>
 							<span>Submit Content</span>
 						</button>
-						<button
-							onclick={handleLogout}
-							class="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-						>
-							<LogOut size={16} />
-							<span>Logout</span>
-						</button>
+
+						<SignOut>
+							<div slot="submitButton" class="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+								<LogOut size={16} />
+								<span>Logout</span>
+							</div>
+						</SignOut>
 					</div>
-				{:else}
-					<button
-						onclick={handleLogin}
-						class="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-					>
+				{:else}	
+				<SignIn>
+					<div slot="submitButton" class="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
 						<LogIn size={16} />
 						<span>Login</span>
-					</button>
+					</div>
+				</SignIn>
 				{/if}
 			</div>
 
@@ -138,29 +131,19 @@
 			<!-- Mobile Auth -->
 			<div class="px-2 py-3 border-t border-gray-200 dark:border-gray-700">
 				{#if isLoggedIn}
-					<div class="space-y-2">
-						<button
-							onclick={handleSubmitContent}
-							class="flex items-center justify-center space-x-2 w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-base font-medium transition-colors duration-200"
-						>
-							<span>Submit Content</span>
-						</button>
-						<button
-							onclick={handleLogout}
-							class="flex items-center space-x-2 w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-						>
+					<SignOut>
+						<div slot="submitButton" class="flex items-center justify-center space-x-2 w-full text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">
 							<LogOut size={16} />
 							<span>Logout</span>
-						</button>
-					</div>
+						</div>
+					</SignOut>
 				{:else}
-					<button
-						onclick={handleLogin}
-						class="flex items-center justify-center space-x-2 w-full text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-					>
-						<LogIn size={16} />
-						<span>Login</span>
-					</button>
+					<SignIn>
+						<div slot="submitButton" class="flex items-center justify-center space-x-2 w-full text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200">
+							<LogIn size={16} />
+							<span>Login</span>
+						</div>
+					</SignIn>
 				{/if}
 			</div>
 		</div>
