@@ -124,10 +124,10 @@
 					Content Submissions
 				</a>
 				<a
-					href="/submit"
+					href="/content/submit"
 					class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
-					class:text-blue-600={$page.url.pathname === '/submit'}
-					class:bg-blue-50={$page.url.pathname === '/submit'}
+					class:text-blue-600={$page.url.pathname === '/content/submit'}
+					class:bg-blue-50={$page.url.pathname === '/content/submit'}
 				>
 					Submit Content
 				</a>
