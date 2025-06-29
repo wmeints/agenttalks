@@ -6,8 +6,10 @@ import io.quarkus.panache.common.Sort;
 import jakarta.persistence.*;
 import org.eclipse.microprofile.graphql.Type;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 @Type
@@ -83,8 +85,15 @@ public class ContentSubmission extends PanacheEntityBase {
                 Sort.by("dateCreated"), queryParams);
     }
 
+    public static List<ContentSubmission> findRecentlySubmitted() {
+        var startOfWeek = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        var queryParams = Parameters.with("startDate", startOfWeek.atStartOfDay());
+
+        return list("dateCreated >= :startDate", Sort.by("dateCreated").descending(), queryParams);
+    }
+
     public static long countSubmissionsSinceStartOfWeek() {
-        var startOfWeek = LocalDate.now().with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
+        var startOfWeek = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         var queryParams = Parameters.with("startDate", startOfWeek.atStartOfDay());
 
         return find("dateCreated >= :startDate", queryParams).count();
