@@ -9,6 +9,11 @@ Used to specify the role required to execute a given field or operation.
 """
 directive @rolesAllowed(value: String) on FIELD_DEFINITION
 
+type ApplicationStatistics {
+  submissionsLastWeek: Int!
+  totalEpisodes: Int!
+}
+
 """Scalar for BigDecimal"""
 scalar BigDecimal
 
@@ -80,6 +85,7 @@ type Query {
     """ISO-8601"""
     startDate: Date
   ): [ContentSubmission]
+  statistics: ApplicationStatistics
   submissions: [ContentSubmission]
 }
 

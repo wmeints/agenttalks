@@ -1,21 +1,14 @@
 package nl.infosupport.agenttalks.content.model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.eclipse.microprofile.graphql.Type;
-
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.eclipse.microprofile.graphql.Type;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Type
 @Entity(name = "content_submission")
@@ -72,10 +65,7 @@ public class ContentSubmission extends PanacheEntityBase {
 
     @Override
     public String toString() {
-        return "ContentSubmission{" +
-                "id=" + id +
-                ", url=" + url +
-                ", status=" + status.toString() + "}";
+        return "ContentSubmission{" + "id=" + id + ", url=" + url + ", status=" + status.toString() + "}";
 
     }
 
@@ -83,11 +73,20 @@ public class ContentSubmission extends PanacheEntityBase {
         var startDateTime = startDate.atStartOfDay();
         var endDateTime = endDate.atStartOfDay().plusDays(1);
 
-        Parameters queryParams = Parameters.with("startDate", startDateTime)
-                .and("endDate", endDateTime).and("status", SubmissionStatus.SUMMARIZED);
+        Parameters queryParams = Parameters
+                .with("startDate", startDateTime)
+                .and("endDate", endDateTime)
+                .and("status", SubmissionStatus.SUMMARIZED);
 
         return list(
                 "dateCreated >= :startDate and dateCreated < :endDate and status = :status",
                 Sort.by("dateCreated"), queryParams);
+    }
+
+    public static long countSubmissionsSinceStartOfWeek() {
+        var startOfWeek = LocalDate.now().with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
+        var queryParams = Parameters.with("startDate", startOfWeek.atStartOfDay());
+
+        return find("dateCreated >= :startDate", queryParams).count();
     }
 }
