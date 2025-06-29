@@ -36,6 +36,11 @@ public class ContentGraph {
     }
 
     @Query
+    public List<ContentSubmission> recentSubmissions() {
+        return contentSubmissions.findRecentSubmissions();
+    }
+
+    @Query
     public List<ContentSubmission> findProcessableSubmissions(LocalDate startDate, LocalDate endDate) {
         return contentSubmissions.findProcessableSubmissions(startDate, endDate);
     }
@@ -62,7 +67,8 @@ public class ContentGraph {
     @Mutation
     @Transactional
     public PodcastEpisode createPodcastEpisode(CreatePodcastEpisode input) {
-        return contentSubmissions.createPodcastEpisode(input.audioFile, input.title, input.showNotes, input.description);
+        return contentSubmissions.createPodcastEpisode(input.audioFile, input.title, input.showNotes,
+                input.description);
     }
 
     @Mutation

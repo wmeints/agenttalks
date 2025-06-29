@@ -19,5 +19,7 @@ public interface ContentSubmissions {
 
     List<ContentSubmission> findProcessableSubmissions(LocalDate startDate, LocalDate endDate);
 
+    List<ContentSubmission> findRecentSubmissions();
+
     PodcastEpisode createPodcastEpisode(String audioFilePath, String title, String showNotes, String description);
 }
