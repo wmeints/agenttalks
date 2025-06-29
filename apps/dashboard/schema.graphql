@@ -85,6 +85,7 @@ type Query {
     """ISO-8601"""
     startDate: Date
   ): [ContentSubmission]
+  recentSubmissions: [ContentSubmission]
   statistics: ApplicationStatistics
   submissions: [ContentSubmission]
 }

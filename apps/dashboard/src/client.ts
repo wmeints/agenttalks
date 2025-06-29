@@ -1,8 +1,8 @@
 import { HoudiniClient } from '$houdini';
-import { CONTENT_API_URL } from '$env/static/private';
+import { PUBLIC_CONTENT_API_URL } from '$env/static/public';
 
 export default new HoudiniClient({
-    url: CONTENT_API_URL,
+    url: PUBLIC_CONTENT_API_URL,
     fetchParams({ session }) {
         return {
             headers: {
