@@ -2,9 +2,8 @@
 	import { page } from '$app/stores';
     import { SignIn, SignOut } from '@auth/sveltekit/components';
 	import { Menu, X, User, LogOut, LogIn } from 'lucide-svelte';
-	import type { Session } from '@auth/sveltekit';
 	
-	let { session }: { session: Session | null } = $props();
+	let { session }: { session: App.Session | null } = $props();
 	
 	let mobileMenuOpen = $state(false);
 	
