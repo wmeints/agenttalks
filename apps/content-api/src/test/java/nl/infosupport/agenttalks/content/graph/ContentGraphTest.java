@@ -56,7 +56,7 @@ public class ContentGraphTest {
         submission2.persistAndFlush();
 
         // Act
-        List<ContentSubmission> result = contentGraph.submissions();
+        List<ContentSubmission> result = contentGraph.submissions(0, 10);
 
         // Assert
         assertNotNull(result);
