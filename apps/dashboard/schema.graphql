@@ -97,7 +97,7 @@ type Query {
   statistics: ApplicationStatistics
 
   """Finds all content submissions"""
-  submissions: [ContentSubmission]
+  submissions(pageIndex: Int!, pageSize: Int!): [ContentSubmission]
 }
 
 enum SubmissionStatus {

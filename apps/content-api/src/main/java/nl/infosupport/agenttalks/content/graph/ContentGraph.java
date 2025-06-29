@@ -31,8 +31,8 @@ public class ContentGraph {
 
     @Query
     @Description("Finds all content submissions")
-    public List<ContentSubmission> submissions() {
-        return ContentSubmission.findAll(Sort.by("dateCreated").descending()).list();
+    public List<ContentSubmission> submissions(int pageIndex, int pageSize) {
+        return ContentSubmission.findAll(Sort.by("dateCreated").descending()).page(pageIndex, pageSize).list();
     }
 
     @Query
