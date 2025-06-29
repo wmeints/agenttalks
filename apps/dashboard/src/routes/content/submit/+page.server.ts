@@ -15,15 +15,15 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-    submit: async ({ request, locals }) => {
+    submit: async (event) => {
         // Check if user is authenticated
-        const session = await locals.auth();
+        const session = await event.locals.auth();
 
         if (!session) {
             throw redirect(302, '/auth/signin/keycloak');
         }
 
-        const data = await request.formData();
+        const data = await event.request.formData();
         const url = data.get('url')?.toString();
 
         if (!url) {
@@ -41,6 +41,6 @@ export const actions: Actions = {
         }
 
         const submitContent = new SubmitContentStore();
-        await submitContent.mutate({ url });
+        await submitContent.mutate({ url }, { event });
     }
 };
