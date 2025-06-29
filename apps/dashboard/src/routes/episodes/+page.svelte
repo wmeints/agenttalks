@@ -1,55 +1,17 @@
 <script lang="ts">
-	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
-	import { Badge } from '$lib/components/ui/badge';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle,
+	} from "$lib/components/ui/card";
+	import type { PageProps } from "./$houdini";
+	import { formatDate } from "@/date-utils";
 
-	// Mock podcast episodes data
-	let episodes = [
-		{
-			id: 1,
-			title: "Tech News Weekly #47",
-			description: "AI developments, climate tech, and space exploration updates",
-			status: "published",
-			publishDate: new Date('2025-06-26')
-		},
-		{
-			id: 2,
-			title: "Tech News Weekly #46",
-			description: "Economic trends and renewable energy breakthroughs",
-			status: "published",
-			publishDate: new Date('2025-06-19')
-		},
-		{
-			id: 3,
-			title: "Tech News Weekly #45",
-			description: "Medical AI and healthcare innovation spotlight",
-			status: "published",
-			publishDate: new Date('2025-06-12')
-		},
-		{
-			id: 4,
-			title: "Tech News Weekly #48",
-			description: "Upcoming episode - Financial markets and tech policy",
-			status: "draft",
-			publishDate: new Date('2025-07-03')
-		}
-	];
-
-	function formatDate(date: Date) {
-		return date.toLocaleDateString('en-US', { 
-			year: 'numeric', 
-			month: 'long', 
-			day: 'numeric' 
-		});
-	}
-
-	function getStatusColor(status: string) {
-		switch (status) {
-			case 'published': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-			case 'draft': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
-			case 'scheduled': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
-			default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
-		}
-	}
+	let { data }: PageProps = $props();
+	let { episodes } = $derived(data);
+	let items = $episodes.data?.episodes || [];
 </script>
 
 <svelte:head>
@@ -58,27 +20,59 @@
 
 <div class="container mx-auto p-6 pt-8">
 	<div class="mb-8">
-		<h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Podcast Episodes</h1>
-		<p class="text-gray-600 dark:text-gray-400">Manage your podcast episodes and track performance</p>
+		<h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+			Podcast Episodes
+		</h1>
+		<p class="text-gray-600 dark:text-gray-400">
+			Manage your podcast episodes and track performance
+		</p>
 	</div>
 
 	<!-- Episodes Grid -->
 	<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-		{#each episodes as episode}
+		{#each items as episode}
 			<Card class="hover:shadow-lg transition-shadow duration-200">
 				<CardHeader>
-					<CardTitle class="text-lg">{episode.title}</CardTitle>
-					<CardDescription>{episode.description}</CardDescription>
+					<CardTitle class="text-lg">{episode!.title}</CardTitle>
+					<CardDescription>{episode!.description}</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<div class="space-y-3">
-						<div class="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+						<div
+							class="flex justify-between text-sm text-gray-600 dark:text-gray-400"
+						>
 							<span>Publish Date:</span>
-							<span>{formatDate(episode.publishDate)}</span>
+							<span>{formatDate(episode!.dateCreated)}</span>
 						</div>
 					</div>
 				</CardContent>
 			</Card>
 		{/each}
 	</div>
+
+	{#if items.length === 0}
+		<Card>
+			<CardContent>
+				<div class="text-center py-16 text-muted-foreground">
+					<svg
+						class="w-16 h-16 mx-auto mb-4 opacity-50"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<polygon points="11 5,6 9,2 9,2 15,6 15,11 19,11 5"></polygon>
+						<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+						<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+					</svg>
+					<h3 class="text-lg font-medium mb-2">No episodes yet</h3>
+					<p class="text-sm">
+						Hmm, no episodes yet...
+					</p>
+					<p class="text-xs mt-1">
+						Start collecting content and we'll create an episode next Friday!
+					</p>
+				</div>
+			</CardContent>
+		</Card>
+	{/if}
 </div>
