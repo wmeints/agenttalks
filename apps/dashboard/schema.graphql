@@ -10,8 +10,8 @@ Used to specify the role required to execute a given field or operation.
 directive @rolesAllowed(value: String) on FIELD_DEFINITION
 
 type ApplicationStatistics {
-  submissionsLastWeek: Int!
-  totalEpisodes: Int!
+  submissionsLastWeek: BigInteger!
+  totalEpisodes: BigInteger!
 }
 
 """Scalar for BigDecimal"""
@@ -40,9 +40,6 @@ input CreatePodcastEpisodeInput {
   title: String
 }
 
-"""Scalar for Date"""
-scalar Date
-
 """Scalar for DateTime"""
 scalar DateTime
 
@@ -56,10 +53,19 @@ input MarkForProcessingInput {
 
 """Mutation root"""
 type Mutation {
+  """Creates a new podcast episode"""
   createPodcastEpisode(input: CreatePodcastEpisodeInput): PodcastEpisode
+
+  """Marks a content submission as processed"""
   markAsProcessed(input: MarkAsProcessedInput): ContentSubmission
+
+  """Marks a content submission for processing"""
   markForProcessing(input: MarkForProcessingInput): ContentSubmission
+
+  """Submits content for processing"""
   submitContent(input: SubmitContentInput): ContentSubmission
+
+  """Updates a content submission with a summary"""
   summarizeContent(input: SummarizeContentInput): ContentSubmission
 }
 
@@ -78,15 +84,19 @@ type PodcastEpisode {
 
 """Query root"""
 type Query {
-  findProcessableSubmissions(
-    """ISO-8601"""
-    endDate: Date
+  """Finds all podcast episodes"""
+  episodes: [PodcastEpisode]
 
-    """ISO-8601"""
-    startDate: Date
-  ): [ContentSubmission]
+  """Finds processable content submissions for the current week"""
+  processableSubmissions: [ContentSubmission]
+
+  """Finds the content submissions that were created during the week"""
   recentSubmissions: [ContentSubmission]
+
+  """Get statistics about the application"""
   statistics: ApplicationStatistics
+
+  """Finds all content submissions"""
   submissions: [ContentSubmission]
 }
 
