@@ -42,7 +42,7 @@
 							class="flex justify-between text-sm text-gray-600 dark:text-gray-400"
 						>
 							<span>Publish Date:</span>
-							<span>{formatDate(episode!.dateCreated)}</span>
+							<span>{formatDate(episode!.dateCreated || new Date())}</span>
 						</div>
 					</div>
 				</CardContent>
