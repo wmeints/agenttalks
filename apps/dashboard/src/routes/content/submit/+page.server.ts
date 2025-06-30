@@ -1,18 +1,6 @@
-import type { Actions, PageServerLoad } from './$types';
+import type { Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { SubmitContentStore } from '$houdini';
-
-export const load: PageServerLoad = async ({ locals }) => {
-    const session = await locals.auth();
-
-    if (!session) {
-        throw redirect(302, '/auth/signin/keycloak');
-    }
-
-    return {
-        session
-    };
-};
 
 export const actions: Actions = {
     submit: async (event) => {
