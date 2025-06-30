@@ -3,7 +3,7 @@
 [![Continuous integration](https://github.com/wmeints/quarkus-newscast/actions/workflows/ci.yml/badge.svg)](https://github.com/wmeints/quarkus-newscast/actions/workflows/ci.yml)
 
 Welcome to the agenttalks application! This is the AI-driven weekly podcast generator
-developed by @joopsnijder and @wmeints!
+developed by [joopsnijder](https://github.com/joopsnijder) and [wmeints](https://github.com/wmeints)!
 
 The purpose of the agenttalks application is to help us gain insights into what's happening in
 AI without having to read all the content that's available to us. The application will summarize
