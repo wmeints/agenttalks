@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
+import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Query;
 
 import io.quarkus.panache.common.Sort;
@@ -30,35 +31,38 @@ public class ContentGraph {
     EventPublisher eventPublisher;
 
     @Query
+    @NonNull
     @Description("Finds all content submissions")
-    public List<ContentSubmission> submissions(int pageIndex, int pageSize) {
+    public List<@NonNull ContentSubmission> submissions(int pageIndex, int pageSize) {
         return ContentSubmission.findAll(Sort.by("dateCreated").descending()).page(pageIndex, pageSize).list();
     }
 
     @Query
+    @NonNull
     @Transactional
     @Description("Finds all podcast episodes")
-    public List<PodcastEpisode> episodes() {
+    public List<@NonNull PodcastEpisode> episodes() {
         return PodcastEpisode.findAll().list();
     }
 
     @Query
     @Transactional
     @Description("Finds the content submissions that were created during the week")
-    public List<ContentSubmission> recentSubmissions() {
+    public List<@NonNull ContentSubmission> recentSubmissions() {
         return ContentSubmission.findRecentlySubmitted().list();
     }
 
     @Query
     @Transactional
     @Description("Finds processable content submissions for the current week")
-    public List<ContentSubmission> processableSubmissions() {
+    public List<@NonNull ContentSubmission> processableSubmissions() {
         return ContentSubmission.findProcessable().list();
     }
 
     @Query
     @Transactional
     @Description("Get statistics about the application")
+    @NonNull
     public ApplicationStatistics statistics() {
         var podcasts = PodcastEpisode.count();
         var submissions = ContentSubmission.findRecentlySubmitted().count();

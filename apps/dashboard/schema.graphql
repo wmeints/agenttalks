@@ -22,15 +22,15 @@ scalar BigInteger
 
 type ContentSubmission {
   """ISO-8601"""
-  dateCreated: DateTime
+  dateCreated: DateTime!
 
   """ISO-8601"""
   dateModified: DateTime
   id: BigInteger!
-  status: SubmissionStatus
+  status: SubmissionStatus!
   summary: String
   title: String
-  url: String
+  url: String!
 }
 
 input CreatePodcastEpisodeInput {
@@ -85,19 +85,19 @@ type PodcastEpisode {
 """Query root"""
 type Query {
   """Finds all podcast episodes"""
-  episodes: [PodcastEpisode]
+  episodes: [PodcastEpisode!]!
 
   """Finds processable content submissions for the current week"""
-  processableSubmissions: [ContentSubmission]
+  processableSubmissions: [ContentSubmission!]!
 
   """Finds the content submissions that were created during the week"""
-  recentSubmissions: [ContentSubmission]
+  recentSubmissions: [ContentSubmission!]!
 
   """Get statistics about the application"""
-  statistics: ApplicationStatistics
+  statistics: ApplicationStatistics!
 
   """Finds all content submissions"""
-  submissions(pageIndex: Int!, pageSize: Int!): [ContentSubmission]
+  submissions(pageIndex: Int!, pageSize: Int!): [ContentSubmission!]!
 }
 
 enum SubmissionStatus {
