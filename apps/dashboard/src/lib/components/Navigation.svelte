@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
     import { SignIn, SignOut } from '@auth/sveltekit/components';
 	import { Menu, X, User, LogOut, LogIn } from 'lucide-svelte';
+    import { buttonVariants } from './ui/button';
 	
 	let { session }: { session: App.Session | null } = $props();
 	
@@ -62,7 +63,7 @@
 					<div class="flex items-center space-x-3">
 						<a
 							href="/content/submit"
-							class="flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+							class={buttonVariants({ })}
 						>
 							<span>Submit Content</span>
 						</a>

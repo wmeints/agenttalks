@@ -5,6 +5,8 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Parameters;
 import io.quarkus.panache.common.Sort;
 import jakarta.persistence.*;
+
+import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
 import java.time.DayOfWeek;
@@ -19,6 +21,7 @@ public class ContentSubmission extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
 
+    @NonNull
     @Column(name = "url", nullable = false, columnDefinition = "varchar(1000)")
     public String url;
 
@@ -28,12 +31,14 @@ public class ContentSubmission extends PanacheEntityBase {
     @Column(name = "summary", columnDefinition = "text", nullable = true)
     public String summary;
 
+    @NonNull
     @Column(name = "date_created", columnDefinition = "timestamp", nullable = false)
     public LocalDateTime dateCreated;
 
     @Column(name = "date_modified", columnDefinition = "timestamp", nullable = true)
     public LocalDateTime dateModified;
 
+    @NonNull
     @Column(name = "submission_status", columnDefinition = "varchar(50)")
     @Enumerated(EnumType.STRING)
     public SubmissionStatus status;
