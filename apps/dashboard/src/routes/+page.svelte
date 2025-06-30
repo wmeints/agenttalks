@@ -6,11 +6,16 @@
 	import { getWeekStart, formatDate } from "$lib/date-utils";
 	import type { PageProps } from "./$houdini";
 	import { Button, buttonVariants } from "@/components/ui/button";
+    import { Plus } from "lucide-svelte";
 
 	let { data }: PageProps = $props();
 	let { dashboard } = $derived(data);
 
-	let statistics = $dashboard.data?.statistics;
+	let statistics = $dashboard.data?.statistics || { 
+		submissionsLastWeek: 0,
+		totalEpisodes: 0,
+	};
+
 	let contentItems = $dashboard.data?.recentSubmissions || [];
 	let lastUpdated = new Date();
 
@@ -28,40 +33,19 @@
 			Welcome to the agenttalks content management dashboard
 		</p>
 	</div>
-
-	<!-- Mobile Submit Content Button -->
 	<div class="md:hidden mb-6">
 		<a href="/content/submit" class={`${buttonVariants({ size: "lg" })} w-full`}>
-			<svg
-				class="w-6 h-6 mr-2"
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M12 4v16m8-8H4"
-				></path>
-			</svg>
+			<Plus />
 			Submit Content
 		</a>
 	</div>
-
-	<!-- Metrics Grid -->
 	<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
-		<!-- Content Items This Week Card -->
 		<ContentItemsWeekCard
-			submissionsLastWeek={statistics?.submissionsLastWeek || 0}
+			submissionsLastWeek={statistics.submissionsLastWeek}
 			{weekStart}
 		/>
-
-		<!-- Podcast Episodes Created Card -->
-		<PodcastEpisodesCard episodeCount={statistics?.totalEpisodes || 0} />
+		<PodcastEpisodesCard episodeCount={statistics.totalEpisodes} />
 	</div>
-
-	<!-- Content Items List -->
 	<div class="mt-8">
 		<DashboardContentItemsList {contentItems} {lastUpdated} />
 	</div>
