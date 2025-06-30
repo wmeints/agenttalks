@@ -2,9 +2,12 @@
 
 [![Continuous integration](https://github.com/wmeints/quarkus-newscast/actions/workflows/ci.yml/badge.svg)](https://github.com/wmeints/quarkus-newscast/actions/workflows/ci.yml)
 
-This repository contains a full Quarkus implementation for an AI-driven podcast generator.
-You can use this to run your own AI-driven podcast or as a sample on how to use Quarkus
-and Langchain4J. Enjoy!
+The purpose of the agenttalks application is to help us gain insights into what's happening in
+AI without having to read all the content that's available to us. The application will summarize
+content for us and produce a weekly podcast for us to listen to, so we get a quick overview of
+about 6 minutes rather than reading for multiple hours. We'll provide sources with
+the podcast to access the complete information if we want to learn more
+about a particular article.
 
 ## System requirements
 
