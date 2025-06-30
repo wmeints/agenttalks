@@ -33,6 +33,29 @@
 		</p>
 	</div>
 
+	<!-- Mobile Submit Content Button -->
+	<div class="md:hidden mb-6">
+		<a
+			href="/content/submit"
+			class="flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-lg text-lg font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl"
+		>
+			<svg
+				class="w-6 h-6 mr-2"
+				fill="none"
+				stroke="currentColor"
+				viewBox="0 0 24 24"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M12 4v16m8-8H4"
+				></path>
+			</svg>
+			Submit Content
+		</a>
+	</div>
+
 	<!-- Metrics Grid -->
 	<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
 		<!-- Content Items This Week Card -->
@@ -183,7 +206,7 @@
 										</svg>
 										<span
 											>{getRelativeDate(
-												item!.dateCreated,
+												item!.dateCreated || new Date(),
 											)}</span
 										>
 									</span>
@@ -222,9 +245,9 @@
 						<p class="text-xs text-muted-foreground">
 							Last updated: {lastUpdated.toLocaleTimeString()}
 						</p>
-						<button class="text-xs text-primary hover:underline">
+						<a href="/content" class="text-xs text-primary hover:underline">
 							View all content →
-						</button>
+						</a>
 					</div>
 				</div>
 			</CardContent>
