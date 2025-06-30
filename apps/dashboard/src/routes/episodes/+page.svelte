@@ -2,12 +2,10 @@
 	import {
 		Card,
 		CardContent,
-		CardDescription,
-		CardHeader,
-		CardTitle,
 	} from "$lib/components/ui/card";
+	import EpisodeCard from "$lib/components/EpisodeCard.svelte";
 	import type { PageProps } from "./$houdini";
-	import { formatDate } from "@/date-utils";
+    import { Volume2 } from "lucide-svelte";
 
 	let { data }: PageProps = $props();
 	let { episodes } = $derived(data);
@@ -31,22 +29,7 @@
 	<!-- Episodes Grid -->
 	<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 		{#each items as episode}
-			<Card class="hover:shadow-lg transition-shadow duration-200">
-				<CardHeader>
-					<CardTitle class="text-lg">{episode!.title}</CardTitle>
-					<CardDescription>{episode!.description}</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<div class="space-y-3">
-						<div
-							class="flex justify-between text-sm text-gray-600 dark:text-gray-400"
-						>
-							<span>Publish Date:</span>
-							<span>{formatDate(episode!.dateCreated || new Date())}</span>
-						</div>
-					</div>
-				</CardContent>
-			</Card>
+			<EpisodeCard {episode} />
 		{/each}
 	</div>
 
@@ -54,16 +37,9 @@
 		<Card>
 			<CardContent>
 				<div class="text-center py-16 text-muted-foreground">
-					<svg
-						class="w-16 h-16 mx-auto mb-4 opacity-50"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<polygon points="11 5,6 9,2 9,2 15,6 15,11 19,11 5"></polygon>
-						<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-						<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-					</svg>
+					<div class="justify-center flex flex-row">
+						<Volume2 class="w-16 h-16 opacity-50" />
+					</div>
 					<h3 class="text-lg font-medium mb-2">No episodes yet</h3>
 					<p class="text-sm">
 						Hmm, no episodes yet...
