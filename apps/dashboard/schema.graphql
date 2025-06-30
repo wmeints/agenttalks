@@ -70,16 +70,16 @@ type Mutation {
 }
 
 type PodcastEpisode {
-  audioFilePath: String
+  audioFilePath: String!
 
   """ISO-8601"""
-  dateCreated: DateTime
-  description: String
+  dateCreated: DateTime!
+  description: String!
   episodeNumber: Int!
   id: BigInteger!
-  script: String
-  showNotes: String
-  title: String
+  script: String!
+  showNotes: String!
+  title: String!
 }
 
 """Query root"""
