@@ -1,6 +1,6 @@
 import { SvelteKitAuth, type DefaultSession } from '@auth/sveltekit';
 import Keycloak from '@auth/sveltekit/providers/keycloak';
-import { KEYCLOAK_ISSUER, KEYCLOAK_CLIENT_ID, KEYCLOAK_CLIENT_SECRET } from '$env/static/private';
+import { getKeycloakConfig } from '$lib/server/config';
 
 declare module '@auth/core/types' {
     interface Session extends DefaultSession {
@@ -8,11 +8,13 @@ declare module '@auth/core/types' {
     }
 }
 
+const keycloakConfig = getKeycloakConfig();
+
 export const { handle, signIn, signOut } = SvelteKitAuth({
     providers: [Keycloak({
-        issuer: KEYCLOAK_ISSUER,
-        clientId: KEYCLOAK_CLIENT_ID,
-        clientSecret: KEYCLOAK_CLIENT_SECRET,
+        issuer: keycloakConfig.issuer,
+        clientId: keycloakConfig.clientId,
+        clientSecret: keycloakConfig.clientSecret,
     })],
     callbacks: {
         async jwt({ token, account }) {

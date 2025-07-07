@@ -1,9 +1,13 @@
 import { HoudiniClient } from '$houdini';
-import { PUBLIC_CONTENT_API_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
+import type { Session } from '@auth/core/types';
+
+// Get configuration from environment (now supports runtime values)
+const contentApiUrl = env.PUBLIC_CONTENT_API_URL || 'http://localhost:8080/graphql';
 
 export default new HoudiniClient({
-    url: PUBLIC_CONTENT_API_URL,
-    fetchParams({ session }) {
+    url: contentApiUrl,
+    fetchParams({ session }: { session?: Session }) {
         return {
             headers: {
                 Authorization: session?.accessToken ? `Bearer ${session?.accessToken}` : '',
