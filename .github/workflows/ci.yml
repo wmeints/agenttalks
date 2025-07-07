@@ -4,19 +4,19 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - "content-api/**"
-      - "podcast-api/**"
-      - "reader-api/**"
-      - "dashboard/**"
+      - "apps/content-api/**"
+      - "apps/podcast-api/**"
+      - "apps/reader-api/**"
+      - "apps/dashboard/**"
       - "infra/**"
       - ".github/workflows/ci.yml"
   pull_request:
     branches: [main, develop]
     paths:
-      - "content-api/**"
-      - "podcast-api/**"
-      - "reader-api/**"
-      - "dashboard/**"
+      - "apps/content-api/**"
+      - "apps/podcast-api/**"
+      - "apps/reader-api/**"
+      - "apps/dashboard/**"
       - "infra/**"
       - ".github/workflows/ci.yml"
 permissions:
@@ -80,7 +80,7 @@ jobs:
 
       - name: Build dashboard docker image
         run: docker build -t ${{ secrets.CONTAINER_REGISTRY }}/newscast/dashboard:1.0.0-${{ github.sha }} .
-        working-directory: dashboard
+        working-directory: apps/dashboard
 
       - name: Login to container registry
         if: ${{ github.ref == 'refs/heads/main' }}
@@ -97,17 +97,17 @@ jobs:
 
       - name: Push content-api container image
         if: github.ref == 'refs/heads/main'
-        working-directory: content-api
+        working-directory: apps/content-api
         run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/content-api:1.0.0-${{ github.sha }}
 
       - name: Push reader-api container image
         if: ${{ github.ref == 'refs/heads/main' }}
-        working-directory: reader-api
+        working-directory: apps/reader-api
         run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/reader-api:1.0.0-${{ github.sha }}
 
       - name: Push podcast-api container image
         if: ${{ github.ref == 'refs/heads/main' }}
-        working-directory: podcast-api
+        working-directory: apps/podcast-api
         run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/podcast-api:1.0.0-${{ github.sha }}
 
   deploy-to-test:
