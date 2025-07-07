@@ -35,6 +35,43 @@ In development mode, the API will:
 - Start with an in-memory H2 database for testing
 - Offer the Quarkus Dev UI at `http://localhost:8081/q/dev/`
 
+## Configuration
+
+### Azure OpenAI Configuration (Reader API)
+
+The Reader API uses LangChain4J with Azure OpenAI for content summarization. Configure the following properties in your `apps/reader-api/src/main/resources/application.properties`:
+
+```properties
+# Azure OpenAI Configuration
+quarkus.langchain4j.azure-openai.api-key=${AZURE_OPENAI_API_KEY}
+quarkus.langchain4j.azure-openai.endpoint=${AZURE_OPENAI_ENDPOINT}
+quarkus.langchain4j.azure-openai.deployment-name=${AZURE_OPENAI_DEPLOYMENT_NAME}
+
+# Chat Model Configuration
+quarkus.langchain4j.azure-openai.chat-model.temperature=0.3
+quarkus.langchain4j.azure-openai.chat-model.max-tokens=2048
+quarkus.langchain4j.azure-openai.chat-model.timeout=30s
+```
+
+#### Environment Variables
+
+Set the following environment variables:
+
+```bash
+export AZURE_OPENAI_API_KEY="your-azure-openai-api-key"
+export AZURE_OPENAI_ENDPOINT="https://your-resource-name.openai.azure.com/"
+export AZURE_OPENAI_DEPLOYMENT_NAME="gpt-4o-mini"
+```
+
+#### Configuration Properties
+
+- `api-key`: Your Azure OpenAI API key
+- `endpoint`: Your Azure OpenAI service endpoint URL
+- `deployment-name`: The name of your deployed model (e.g., "gpt-4o-mini", "gpt-4o")
+- `temperature`: Controls randomness in responses (0.0 = deterministic, 1.0 = very random)
+- `max-tokens`: Maximum number of tokens in the response
+- `timeout`: Request timeout duration
+
 ## Running Tests
 
 To run all tests including unit and integration tests:
