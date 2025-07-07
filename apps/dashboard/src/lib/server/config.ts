@@ -12,13 +12,9 @@ export interface AppConfig {
 }
 
 export function getKeycloakConfig(): KeycloakConfig {
-    const issuer = env.KEYCLOAK_ISSUER || process.env.KEYCLOAK_ISSUER;
-    const clientId = env.KEYCLOAK_CLIENT_ID || process.env.KEYCLOAK_CLIENT_ID;
-    const clientSecret = env.KEYCLOAK_CLIENT_SECRET || process.env.KEYCLOAK_CLIENT_SECRET;
-
-    if (!issuer || !clientId || !clientSecret) {
-        throw new Error('Missing required Keycloak configuration. Please set KEYCLOAK_ISSUER, KEYCLOAK_CLIENT_ID, and KEYCLOAK_CLIENT_SECRET environment variables.');
-    }
+    const issuer = env.KEYCLOAK_ISSUER || process.env.KEYCLOAK_ISSUER || 'http://localhost:8180/realms/agenttalks';
+    const clientId = env.KEYCLOAK_CLIENT_ID || process.env.KEYCLOAK_CLIENT_ID || 'dashboard';
+    const clientSecret = env.KEYCLOAK_CLIENT_SECRET || process.env.KEYCLOAK_CLIENT_SECRET || 'default-secret';
 
     return {
         issuer,
