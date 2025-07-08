@@ -96,12 +96,6 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
               value: 'rabbitmq-app'
             }
           ]
-          volumeMounts: [
-            {
-              mountPath: '/opt/secrets'
-              volumeName: 'app-secrets-volume'
-            }
-          ]
         }
       ]
       scale: {
