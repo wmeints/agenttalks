@@ -46,6 +46,10 @@ resource postgresServer 'Microsoft.DBforPostgreSQL/flexibleServers@2025-01-01-pr
     name: 'temporal_visibility'
   }
 
+  resource keycloakDatabase 'databases' = {
+    name: 'keycloak'
+  }
+
   resource allowInternalAddressess 'firewallRules' = {
     name: 'AllowInternalAddresses'
     properties: {

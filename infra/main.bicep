@@ -19,6 +19,11 @@ param dashboardImageName string
 param gmailServiceAccountCredentials string
 param buzzsproutApiKey string
 param buzzsproutPodcastId string
+@secure()
+param keycloakAdminPassword string
+param keycloakAdminUsername string = 'admin'
+@secure()
+param keycloakDashboardClientSecret string
 
 var tags = {
   'env-name': environmentName
@@ -160,6 +165,24 @@ module dashboardApp './app/dashboard.bicep' = {
     imageName: dashboardImageName
     serviceName: 'dashboard'
     name: 'dashboard'
+    location: location
+    tags: tags
+    keycloakUrl: keycloakApp.outputs.url
+    keycloakClientSecret: keycloakDashboardClientSecret
+    contentApiUrl: 'https://${contentApi.outputs.fqdn}/graphql'
+  }
+}
+
+module keycloakApp './app/keycloak.bicep' = {
+  name: 'keycloak-app'
+  params: {
+    containerAppsEnvironmentName: containerAppsEnvironmentName
+    databaseServerDomainName: databaseServer.outputs.domainName
+    databaseServerAdminUsername: databaseServerAdminLogin
+    databaseServerAdminPassword: databaseServerAdminPassword
+    keycloakAdminPassword: keycloakAdminPassword
+    keycloakAdminUsername: keycloakAdminUsername
+    name: 'keycloak'
     location: location
     tags: tags
   }

@@ -17,6 +17,9 @@ param databaseServerAdminPassword = readEnvironmentVariable('DATABASE_ADMIN_PASS
 param gmailServiceAccountCredentials = readEnvironmentVariable('GMAIL_SERVICE_ACCOUNT_CREDENTIALS') 
 param buzzsproutApiKey = readEnvironmentVariable('BUZZSPROUT_API_KEY')
 param buzzsproutPodcastId = readEnvironmentVariable('BUZZSPROUT_PODCAST_ID')
+param keycloakAdminPassword = readEnvironmentVariable('KEYCLOAK_ADMIN_PASSWORD')
+param keycloakAdminUsername = readEnvironmentVariable('KEYCLOAK_ADMIN_USERNAME', 'admin')
+param keycloakDashboardClientSecret = readEnvironmentVariable('KEYCLOAK_DASHBOARD_CLIENT_SECRET')
 
 // The image names are derived from the container registry and a GIT hash that we set in the CI/CD pipeline.
 param contentApiImageName = '${containerRegistryName}.azurecr.io/newscast/content-api:1.0.0-${imageHash}'
