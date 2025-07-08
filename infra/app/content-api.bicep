@@ -63,6 +63,17 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           value: gmailServiceAccountCredentials
         }
       ]
+      ingress: {
+        external: true
+        targetPort: 8080
+        allowInsecure: false
+        traffic: [
+          {
+            weight: 100
+            latestRevision: true
+          }
+        ]
+      }
     }
     template: {
       containers: [
@@ -117,3 +128,6 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
     }
   }
 }
+
+output name string = applicationService.name
+output fqdn string = applicationService.properties.configuration.ingress.fqdn

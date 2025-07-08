@@ -6,6 +6,10 @@ param containerRegistryName string
 param containerRegistryResourceGroupName string
 param containerAppsEnvironmentName string
 param serviceName string = 'dashboard'
+param keycloakUrl string
+@secure()
+param keycloakClientSecret string
+param contentApiUrl string
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-preview' existing = {
   name: containerAppsEnvironmentName
@@ -45,6 +49,23 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           identity: applicationIdentity.id
         }
       ]
+      secrets: [
+        {
+          name: 'keycloak-client-secret'
+          value: keycloakClientSecret
+        }
+      ]
+      ingress: {
+        external: true
+        targetPort: 3000
+        allowInsecure: false
+        traffic: [
+          {
+            weight: 100
+            latestRevision: true
+          }
+        ]
+      }
     }
     template: {
       containers: [
@@ -55,6 +76,24 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             cpu: 1
             memory: '2Gi'
           }
+          env: [
+            {
+              name: 'KEYCLOAK_ISSUER'
+              value: '${keycloakUrl}/realms/agenttalks'
+            }
+            {
+              name: 'KEYCLOAK_CLIENT_ID'
+              value: 'dashboard'
+            }
+            {
+              name: 'KEYCLOAK_CLIENT_SECRET'
+              secretRef: 'keycloak-client-secret'
+            }
+            {
+              name: 'PUBLIC_CONTENT_API_URL'
+              value: contentApiUrl
+            }
+          ]
         }
       ]
       scale: {
