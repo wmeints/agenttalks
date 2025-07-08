@@ -35,6 +35,24 @@ In development mode, the API will:
 - Start with an in-memory H2 database for testing
 - Offer the Quarkus Dev UI at `http://localhost:8081/q/dev/`
 
+## Configuration
+
+### Azure OpenAI Configuration (Reader API)
+
+The Reader API uses LangChain4J with Azure OpenAI for content summarization.
+Configure the following properties in your `apps/reader-api/.env` file:
+
+```properties
+# Azure OpenAI Configuration
+quarkus.langchain4j.azure-openai.api-key=<api-key>
+quarkus.langchain4j.azure-openai.resource-name=<resource-name>
+quarkus.langchain4j.azure-openai.deployment-name=<deployment-name>
+```
+
+In production you can use corresponding environment variables, by replacing
+the dots in the config variables with underscores and uppercasing the letters
+in the variable names.
+
 ## Running Tests
 
 To run all tests including unit and integration tests:
