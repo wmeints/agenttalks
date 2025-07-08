@@ -53,6 +53,7 @@ public class GeneratePodcastWorkflowImplTest {
         when(generatePodcastAudioActivities.mixPodcastEpisode(any())).thenReturn("data/mixed.mp3");
         when(contentMetadataActivities.savePodcastEpisode(any(), any(), any()))
                 .thenReturn(new PodcastEpisode());
+
         when(buzzsproutActivities.publishPodcastEpisode(anyInt(), anyInt(), any(), any(), any(), any()))
                 .thenReturn("12345");
 
@@ -104,10 +105,12 @@ public class GeneratePodcastWorkflowImplTest {
         when(generatePodcastAudioActivities.generateSpeech(any())).thenReturn("data/test.mp3");
         when(generatePodcastAudioActivities.concatenateAudioFragments(any())).thenReturn("data/final.mp3");
         when(generatePodcastAudioActivities.mixPodcastEpisode(any())).thenReturn("data/mixed.mp3");
+
         when(contentMetadataActivities.savePodcastEpisode(any(), any(), any()))
                 .thenReturn(new PodcastEpisode("Test Title",
                         "https://test.blob.core.windows.net/episodes/test.mp3",
                         "Test show notes", "Test description"));
+
         when(buzzsproutActivities.publishPodcastEpisode(anyInt(), anyInt(), any(), any(), any(), any()))
                 .thenReturn("12345");
 
