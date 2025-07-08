@@ -61,6 +61,10 @@
             <artifactId>quarkus-messaging-rabbitmq</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkiverse.tika</groupId>
             <artifactId>quarkus-tika</artifactId>
             <version>2.1.0</version>
