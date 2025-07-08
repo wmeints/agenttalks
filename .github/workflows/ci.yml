@@ -92,7 +92,7 @@ jobs:
 
       - name: Push dashboard container image
         if: github.ref == 'refs/heads/main'
-        working-directory: dashboard
+        working-directory: apps/dashboard
         run: docker push ${{ secrets.CONTAINER_REGISTRY }}/newscast/dashboard:1.0.0-${{ github.sha }}
 
       - name: Push content-api container image
