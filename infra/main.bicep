@@ -15,13 +15,11 @@ param contentApiImageName string
 param readerApiImageName string
 param podcastApiImageName string
 param dashboardImageName string
-@secure()
-param gmailServiceAccountCredentials string
 param buzzsproutApiKey string
 param buzzsproutPodcastId string
 @secure()
 param keycloakAdminPassword string
-param keycloakAdminUsername string = 'admin'
+param keycloakAdminUsername string
 @secure()
 param keycloakDashboardClientSecret string
 
@@ -89,7 +87,6 @@ module contentApi './app/content-api.bicep' = {
     databaseServerAdminPassword: databaseServerAdminPassword
     databaseServerAdminUsername: databaseServerAdminLogin
     databaseServerDomainName: databaseServer.outputs.domainName
-    gmailServiceAccountCredentials: gmailServiceAccountCredentials
     serviceName: 'content-api'
     name: 'content-api'
     location: location
@@ -187,3 +184,4 @@ module keycloakApp './app/keycloak.bicep' = {
     tags: tags
   }
 }
+

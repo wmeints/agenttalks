@@ -10,8 +10,6 @@ param databaseServerDomainName string
 param databaseServerAdminUsername string
 @secure()
 param databaseServerAdminPassword string
-@secure()
-param gmailServiceAccountCredentials string
 
 var databaseUrl = 'jdbc:postgresql://${databaseServerDomainName}:5432/content?sslmode=require'
 
@@ -58,10 +56,6 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           name: 'database-password'
           value: databaseServerAdminPassword
         }
-        {
-          name: 'gmail-credentials'
-          value: gmailServiceAccountCredentials
-        }
       ]
       ingress: {
         external: true
@@ -106,17 +100,6 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             {
               mountPath: '/opt/secrets'
               volumeName: 'app-secrets-volume'
-            }
-          ]
-        }
-      ]
-      volumes: [
-        {
-          name: 'app-secrets-volume'
-          secrets: [
-            {
-              path: 'gmail-credentials.json'
-              secretRef: 'gmail-credentials'
             }
           ]
         }
