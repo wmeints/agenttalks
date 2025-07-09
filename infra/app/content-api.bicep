@@ -10,6 +10,7 @@ param databaseServerDomainName string
 param databaseServerAdminUsername string
 @secure()
 param databaseServerAdminPassword string
+param applicationInsightsConnectionString string
 
 var databaseUrl = 'jdbc:postgresql://${databaseServerDomainName}:5432/content?sslmode=require'
 
@@ -94,6 +95,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             {
               name: 'RABBITMQ_HOST'
               value: 'rabbitmq-app'
+            }
+            {
+              name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+              value: applicationInsightsConnectionString
             }
           ]
         }

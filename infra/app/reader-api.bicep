@@ -7,6 +7,7 @@ param containerRegistryResourceGroupName string
 param containerAppsEnvironmentName string
 param serviceName string = 'reader-api'
 param azureOpenAIAccountName string
+param applicationInsightsConnectionString string
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-preview' existing = {
   name: containerAppsEnvironmentName
@@ -78,6 +79,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             {
               name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY'
               secretRef: 'openai-api-key'
+            }
+            {
+              name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+              value: applicationInsightsConnectionString
             }
           ]
         }

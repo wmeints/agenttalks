@@ -87,6 +87,7 @@ module contentApi './app/content-api.bicep' = {
     databaseServerAdminPassword: databaseServerAdminPassword
     databaseServerAdminUsername: databaseServerAdminLogin
     databaseServerDomainName: databaseServer.outputs.domainName
+    applicationInsightsConnectionString: monitor.outputs.applicationInsightsConnectionString
     serviceName: 'content-api'
     name: 'content-api'
     location: location
@@ -102,6 +103,7 @@ module readerApi './app/reader-api.bicep' = {
     containerRegistryResourceGroupName: containerRegistryResourceGroupName
     containerAppsEnvironmentName: containerAppsEnvironmentName
     azureOpenAIAccountName: azureOpenAIAccountName
+    applicationInsightsConnectionString: monitor.outputs.applicationInsightsConnectionString
     serviceName: 'reader-api'
     name: 'reader-api'
     location: location
@@ -123,6 +125,7 @@ module podcastApi './app/podcast-api.bicep' = {
     storageAccountName: storageAccount.outputs.name
     buzzsproutApiKey: buzzsproutApiKey
     buzzsproutPodcastId: buzzsproutPodcastId
+    applicationInsightsConnectionString: monitor.outputs.applicationInsightsConnectionString
     serviceName: 'podcast-api'
     name: 'podcast-api'
     location: location
