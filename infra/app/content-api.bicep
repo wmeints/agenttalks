@@ -10,6 +10,7 @@ param databaseServerDomainName string
 param databaseServerAdminUsername string
 @secure()
 param databaseServerAdminPassword string
+@secure()
 param applicationInsightsConnectionString string
 param keycloakUrl string
 
