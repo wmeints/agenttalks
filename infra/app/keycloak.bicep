@@ -56,6 +56,8 @@ resource keycloakApp 'Microsoft.App/containerApps@2025-01-01' = {
           }
           args: [
             'start'
+            '--proxy-headers'
+            'forward'
           ]
           env: [
             {
