@@ -110,12 +110,8 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
               value: 'temporal-app:7233'
             }
             {
-              name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME'
-              value: cognitiveServicesAccount.name
-            }
-            {
-              name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME'
-              value: 'chatcompletions'
+              name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_ENDPOINT'
+              value: 'https://${cognitiveServicesAccount.properties.endpoint}/openai/deployments/chatcompletions'
             }
             {
               name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY'
