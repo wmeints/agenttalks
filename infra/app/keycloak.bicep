@@ -56,8 +56,6 @@ resource keycloakApp 'Microsoft.App/containerApps@2025-01-01' = {
           }
           args: [
             'start'
-            '--proxy-headers'
-            'forward'
           ]
           env: [
             {
@@ -73,8 +71,8 @@ resource keycloakApp 'Microsoft.App/containerApps@2025-01-01' = {
               value: 'true'
             }
             {
-              name: 'KC_PROXY'
-              value: 'edge'
+              name: 'KC_PROXY_HEADERS'
+              value: 'xforwarded'
             }
             {
               name: 'KC_DB'
