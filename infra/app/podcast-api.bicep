@@ -15,6 +15,7 @@ param storageAccountName string
 @secure()
 param buzzsproutApiKey string
 param buzzsproutPodcastId string
+@secure()
 param applicationInsightsConnectionString string
 
 var databaseUrl = 'jdbc:postgresql://${databaseServerDomainName}:5432/podcasts?sslmode=require'
