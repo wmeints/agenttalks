@@ -147,7 +147,7 @@ module podcastApi './app/podcast-api.bicep' = {
     location: location
     tags: tags
     imageName: podcastApiImageName
-    temporalUrl: 'https://${temporalApp.outputs.fqdn}:7233'
+    temporalServiceUrl: 'https://${temporalApp.outputs.fqdn}:7233'
   }
 }
 
@@ -189,5 +189,3 @@ module dashboardApp './app/dashboard.bicep' = {
     contentApiUrl: 'https://${contentApi.outputs.fqdn}/graphql'
   }
 }
-
-
