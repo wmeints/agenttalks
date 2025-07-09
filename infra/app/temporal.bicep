@@ -35,6 +35,17 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           value: databaseServerAdminPassword
         }
       ]
+      ingress: {
+        external: false
+        targetPort: 7233
+        allowInsecure: false
+        traffic: [
+          {
+            weight: 100
+            latestRevision: true
+          }
+        ]
+      }
     }
     template: {
       containers: [
@@ -96,3 +107,6 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
     }
   }
 }
+
+output name string = applicationService.name
+output fqdn string = applicationService.properties.configuration.ingress.fqdn

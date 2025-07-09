@@ -144,6 +144,7 @@ module podcastApi './app/podcast-api.bicep' = {
     location: location
     tags: tags
     imageName: podcastApiImageName
+    temporalUrl: 'https://${temporalApp.outputs.fqdn}:7233'
   }
 }
 

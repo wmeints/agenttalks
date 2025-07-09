@@ -15,6 +15,7 @@ param storageAccountName string
 @secure()
 param buzzsproutApiKey string
 param buzzsproutPodcastId string
+param temporalUrl string
 
 var databaseUrl = 'jdbc:postgresql://${databaseServerDomainName}:5432/podcasts?sslmode=require'
 
@@ -107,7 +108,7 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             }
             {
               name: 'QUARKUS_TEMPORAL_CONNECTION_TARGET'
-              value: 'temporal-app:7233'
+              value: temporalUrl
             }
             {
               name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_ENDPOINT'
