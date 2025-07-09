@@ -107,37 +107,11 @@ resource keycloakApp 'Microsoft.App/containerApps@2025-01-01' = {
               value: 'true'
             }
           ]
-          probes: [
-            {
-              type: 'Liveness'
-              httpGet: {
-                path: '/health/live'
-                port: 8080
-                scheme: 'HTTP'
-              }
-              initialDelaySeconds: 60
-              periodSeconds: 30
-              timeoutSeconds: 10
-              failureThreshold: 3
-            }
-            {
-              type: 'Readiness'
-              httpGet: {
-                path: '/health/ready'
-                port: 8080
-                scheme: 'HTTP'
-              }
-              initialDelaySeconds: 30
-              periodSeconds: 10
-              timeoutSeconds: 5
-              failureThreshold: 3
-            }
-          ]
         }
       ]
       scale: {
         minReplicas: 1
-        maxReplicas: 2
+        maxReplicas: 1
       }
     }
   }
