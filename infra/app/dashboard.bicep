@@ -9,6 +9,8 @@ param serviceName string = 'dashboard'
 param keycloakUrl string
 @secure()
 param keycloakClientSecret string
+@secure()
+param authenticationSecret string
 param contentApiUrl string
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-preview' existing = {
@@ -54,6 +56,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           name: 'keycloak-client-secret'
           value: keycloakClientSecret
         }
+        {
+          name: 'auth-secret'
+          value: authenticationSecret
+        }
       ]
       ingress: {
         external: true
@@ -96,6 +102,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             {
               name: 'AUTH_TRUST_HOST'
               value: 'true'
+            }
+            {
+              name: 'AUTH_SECRET'
+              secretRef: 'auth-secret'
             }
           ]
         }

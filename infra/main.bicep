@@ -22,6 +22,8 @@ param keycloakAdminPassword string
 param keycloakAdminUsername string
 @secure()
 param keycloakDashboardClientSecret string
+@secure()
+param frontendAuthenticationSecret string
 
 var tags = {
   'env-name': environmentName
@@ -187,5 +189,6 @@ module dashboardApp './app/dashboard.bicep' = {
     keycloakUrl: keycloakApp.outputs.url
     keycloakClientSecret: keycloakDashboardClientSecret
     contentApiUrl: 'https://${contentApi.outputs.fqdn}/graphql'
+    authenticationSecret: frontendAuthenticationSecret
   }
 }

@@ -19,6 +19,7 @@ param buzzsproutPodcastId = readEnvironmentVariable('BUZZSPROUT_PODCAST_ID')
 param keycloakAdminPassword = readEnvironmentVariable('KEYCLOAK_ADMIN_PASSWORD')
 param keycloakAdminUsername = readEnvironmentVariable('KEYCLOAK_ADMIN_USERNAME', 'admin')
 param keycloakDashboardClientSecret = readEnvironmentVariable('KEYCLOAK_DASHBOARD_CLIENT_SECRET')
+param frontendAuthenticationSecret = readEnvironmentVariable('FRONTEND_AUTHENTICATION_SECRET')
 
 // The image names are derived from the container registry and a GIT hash that we set in the CI/CD pipeline.
 param contentApiImageName = '${containerRegistryName}.azurecr.io/agenttalks/content-api:1.0.0-${imageHash}'
