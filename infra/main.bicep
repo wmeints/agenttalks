@@ -78,6 +78,21 @@ module storageAccount './core/storage/storage.bicep' = {
   }
 }
 
+module keycloakApp './app/keycloak.bicep' = {
+  name: 'keycloak-app'
+  params: {
+    containerAppsEnvironmentName: containerAppsEnvironmentName
+    databaseServerDomainName: databaseServer.outputs.domainName
+    databaseServerAdminUsername: databaseServerAdminLogin
+    databaseServerAdminPassword: databaseServerAdminPassword
+    keycloakAdminPassword: keycloakAdminPassword
+    keycloakAdminUsername: keycloakAdminUsername
+    name: 'keycloak'
+    location: location
+    tags: tags
+  }
+}
+
 module contentApi './app/content-api.bicep' = {
   name: 'content-api'
   params: {
@@ -93,6 +108,7 @@ module contentApi './app/content-api.bicep' = {
     location: location
     tags: tags
     imageName: contentApiImageName
+    keycloakUrl: '${keycloakApp.outputs.url}/realms/agenttalks'
   }
 }
 
@@ -173,18 +189,4 @@ module dashboardApp './app/dashboard.bicep' = {
   }
 }
 
-module keycloakApp './app/keycloak.bicep' = {
-  name: 'keycloak-app'
-  params: {
-    containerAppsEnvironmentName: containerAppsEnvironmentName
-    databaseServerDomainName: databaseServer.outputs.domainName
-    databaseServerAdminUsername: databaseServerAdminLogin
-    databaseServerAdminPassword: databaseServerAdminPassword
-    keycloakAdminPassword: keycloakAdminPassword
-    keycloakAdminUsername: keycloakAdminUsername
-    name: 'keycloak'
-    location: location
-    tags: tags
-  }
-}
 
