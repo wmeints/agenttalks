@@ -77,6 +77,10 @@
             <artifactId>opentelemetry-extension-trace-propagators</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-jdbc</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-observability-devservices-lgtm</artifactId>
             <scope>provided</scope>
