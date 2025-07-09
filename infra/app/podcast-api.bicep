@@ -16,6 +16,8 @@ param storageAccountName string
 param buzzsproutApiKey string
 param buzzsproutPodcastId string
 param temporalServiceUrl string
+@secure()
+param applicationInsightsConnectionString string
 
 var databaseUrl = 'jdbc:postgresql://${databaseServerDomainName}:5432/podcasts?sslmode=require'
 
@@ -133,6 +135,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             {
               name: 'BUZZSPROUT_PODCAST_ID'
               value: buzzsproutPodcastId
+            }
+            {
+              name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+              value: applicationInsightsConnectionString
             }
           ]
         }
