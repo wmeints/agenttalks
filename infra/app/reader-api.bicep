@@ -7,6 +7,7 @@ param containerRegistryResourceGroupName string
 param containerAppsEnvironmentName string
 param serviceName string = 'reader-api'
 param azureOpenAIAccountName string
+@secure()
 param applicationInsightsConnectionString string
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-preview' existing = {
