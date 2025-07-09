@@ -1,6 +1,6 @@
+import { getKeycloakConfig } from "$lib/config";
 import { SvelteKitAuth } from "@auth/sveltekit";
 import Keycloak from "@auth/sveltekit/providers/keycloak";
-import { getKeycloakConfig } from "$lib/config";
 
 declare module "@auth/core/types" {
   interface Session extends DefaultSession {
@@ -11,6 +11,7 @@ declare module "@auth/core/types" {
 const keycloakConfig = getKeycloakConfig();
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
+  trustHost: true, // We run behind a reverse proxy, so this is mandatory.
   providers: [
     Keycloak({
       issuer: keycloakConfig.issuer,
