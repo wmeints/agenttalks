@@ -93,6 +93,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
               name: 'PUBLIC_CONTENT_API_URL'
               value: contentApiUrl
             }
+            {
+              name: 'AUTH_TRUST_HOST'
+              value: 'true'
+            }
           ]
         }
       ]
