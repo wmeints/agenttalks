@@ -85,7 +85,7 @@ jobs:
           registry: ${{ secrets.CONTAINER_REGISTRY }}
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
-          
+
       - name: Build dashboard docker image
         run: docker build -t ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/dashboard:1.0.0-${{ github.sha }} .
         working-directory: apps/dashboard
@@ -152,3 +152,4 @@ jobs:
           KEYCLOAK_DASHBOARD_CLIENT_SECRET: ${{ secrets.KEYCLOAK_DASHBOARD_CLIENT_SECRET}}
           KEYCLOAK_ADMIN_PASSWORD: ${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}
           KEYCLOAK_ADMIN_USERNAME: ${{ secrets.KEYCLOAK_ADMIN_USERNAME }}
+          FRONTEND_AUTHENTICATION_SECRET: ${{ secrets.FRONTEND_AUTHENTICATION_SECRET }}
