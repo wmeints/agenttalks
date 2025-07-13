@@ -23,6 +23,19 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
   }
   properties: {
     managedEnvironmentId: containerAppsEnvironment.id
+    configuration: {
+      ingress: {
+        external: false
+        targetPort: 5672
+        allowInsecure: true
+        traffic: [
+          {
+            weight: 100
+            latestRevision: true
+          }
+        ]
+      }
+    }
     template: {
       containers: [
         {
