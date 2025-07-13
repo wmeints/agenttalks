@@ -1,1 +1,4 @@
 .azure
+
+# Quarkus CLI cache
+.quarkus/cli/plugins/

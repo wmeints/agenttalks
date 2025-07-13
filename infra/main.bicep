@@ -149,22 +149,9 @@ module podcastApi './app/podcast-api.bicep' = {
     location: location
     tags: tags
     imageName: podcastApiImageName
-    temporalServiceUrl: 'https://${temporalApp.outputs.fqdn}:7233'
   }
 }
 
-module temporalApp './app/temporal.bicep' = {
-  name: 'temporal-app'
-  params: {
-    containerAppsEnvironmentName: containerAppsEnvironmentName
-    databaseServerAdminPassword: databaseServerAdminPassword
-    databaseServerAdminUsername: databaseServerAdminLogin
-    databaseServerDomainName: databaseServer.outputs.domainName
-    name: 'temporal-app'
-    location: location
-    tags: tags
-  }
-}
 
 module rabbitmqApp './app/rabbitmq.bicep' = {
   name: 'rabbitmq-app'
