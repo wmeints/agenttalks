@@ -1,24 +1,19 @@
 package nl.infosupport.agenttalks.podcast.service;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import org.jboss.logging.Logger;
 
 import io.quarkus.scheduler.Scheduled;
-import io.temporal.client.WorkflowClient;
-import io.temporal.client.WorkflowOptions;
 import jakarta.inject.Inject;
 import nl.infosupport.agenttalks.podcast.clients.content.ContentClient;
-import nl.infosupport.agenttalks.podcast.workflow.GeneratePodcastWorkflow;
-import nl.infosupport.agenttalks.podcast.workflow.GeneratePodcastWorkflowInput;
 
 public class PodcastGenerationProcess {
     @Inject
     ContentClient contentClient;
 
     @Inject
-    WorkflowClient workflowClient;
+    PodcastOrchestrator podcastOrchestrator;
 
     Logger logger = Logger.getLogger(PodcastGenerationProcess.class);
 
@@ -38,16 +33,12 @@ public class PodcastGenerationProcess {
                     "Triggering podcast generation for submissions from %s to %s",
                     startDate, currentDate);
 
-            var workflowInput = new GeneratePodcastWorkflowInput(startDate, currentDate, processableSubmissions);
-
-            var workflowOptions = WorkflowOptions.newBuilder()
-                    .setTaskQueue("<default>")
-                    .setWorkflowId(UUID.randomUUID().toString())
-                    .build();
-
-            var workflow = workflowClient.newWorkflowStub(GeneratePodcastWorkflow.class, workflowOptions);
-
-            WorkflowClient.start(workflow::generatePodcast, workflowInput);
+            try {
+                podcastOrchestrator.generatePodcast(startDate, currentDate, processableSubmissions);
+                logger.info("Podcast generation completed successfully");
+            } catch (Exception e) {
+                logger.errorf(e, "Podcast generation failed for period %s to %s", startDate, currentDate);
+            }
         }
     }
 }

@@ -107,9 +107,8 @@
             <version>1.0.0</version>
         </dependency>
         <dependency>
-            <groupId>io.quarkiverse.temporal</groupId>
-            <artifactId>quarkus-temporal</artifactId>
-            <version>0.1.1</version>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkiverse.azureservices</groupId>
@@ -143,12 +142,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-panache-mock</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkiverse.temporal</groupId>
-            <artifactId>quarkus-temporal-test</artifactId>
-            <version>0.1.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>

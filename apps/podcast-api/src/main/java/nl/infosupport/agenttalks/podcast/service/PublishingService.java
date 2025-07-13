@@ -1,15 +1,18 @@
-package nl.infosupport.agenttalks.podcast.workflow;
+package nl.infosupport.agenttalks.podcast.service;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import nl.infosupport.agenttalks.podcast.clients.buzzsprout.BuzzsproutClient;
 import nl.infosupport.agenttalks.podcast.clients.buzzsprout.model.CreateEpisodeRequest;
 import nl.infosupport.agenttalks.podcast.clients.buzzsprout.model.CreateEpisodeResponse;
 
-public class BuzzsproutActivitiesImpl implements BuzzsproutActivities {
+@ApplicationScoped
+public class PublishingService {
 
     @Inject
     @RestClient
@@ -18,12 +21,13 @@ public class BuzzsproutActivitiesImpl implements BuzzsproutActivities {
     @ConfigProperty(name = "buzzsprout.podcast-id")
     String podcastId;
 
-    Logger logger = Logger.getLogger(BuzzsproutActivitiesImpl.class);
+    private static final Logger logger = Logger.getLogger(PublishingService.class);
 
-    @Override
+    @Retry(maxRetries = 3)
     public String publishPodcastEpisode(int seasonNumber, int episodeNumber, String title, String description,
             String showNotes, String audioFileUrl) {
-        logger.infof("Publishing podcast episode to Buzzsprout: %s", title);
+        logger.infof("Publishing podcast episode to Buzzsprout: %s (Season %d, Episode %d)", 
+                    title, seasonNumber, episodeNumber);
 
         try {
             CreateEpisodeRequest request = new CreateEpisodeRequest(

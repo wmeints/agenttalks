@@ -7,8 +7,8 @@ import nl.infosupport.agenttalks.podcast.model.PodcastScript;
 
 @RegisterAiService
 public interface PodcastScriptGenerator {
-    @SystemMessage(fromResource = "prompts/prompt-script/system-instructions.txt")
-    @UserMessage(fromResource = "prompts/prompt-script/user-instructions.txt")
+    @SystemMessage(fromResource = "prompts/podcast-script/system-instructions.txt")
+    @UserMessage(fromResource = "prompts/podcast-script/user-instructions.txt")
     PodcastScript generatePodcastScript(
             String firstHostName,
             String secondHostName,
