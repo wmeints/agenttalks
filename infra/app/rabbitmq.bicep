@@ -27,7 +27,6 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
       ingress: {
         external: false
         targetPort: 5672
-        allowInsecure: true
         transport: 'tcp'
         exposedPort: 5672
         additionalPortMappings: [
