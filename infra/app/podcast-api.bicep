@@ -15,7 +15,6 @@ param storageAccountName string
 @secure()
 param buzzsproutApiKey string
 param buzzsproutPodcastId string
-param temporalServiceUrl string
 @secure()
 param applicationInsightsConnectionString string
 
@@ -107,10 +106,6 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
             {
               name: 'QUARKUS_DATASOURCE_PASSWORD'
               secretRef: 'database-password'
-            }
-            {
-              name: 'QUARKUS_TEMPORAL_CONNECTION_TARGET'
-              value: temporalServiceUrl
             }
             {
               name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_ENDPOINT'
