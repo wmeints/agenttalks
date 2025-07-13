@@ -41,3 +41,5 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
     }
   }
 }
+
+output fqdn string = applicationService.properties.configuration.ingress.fqdn

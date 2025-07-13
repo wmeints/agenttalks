@@ -111,6 +111,7 @@ module contentApi './app/content-api.bicep' = {
     tags: tags
     imageName: contentApiImageName
     keycloakUrl: '${keycloakApp.outputs.url}/realms/agenttalks'
+    eventBusServiceUrl: rabbitmqApp.outputs.fqdn
   }
 }
 
@@ -127,6 +128,7 @@ module readerApi './app/reader-api.bicep' = {
     location: location
     tags: tags
     imageName: readerApiImageName
+    eventBusServiceUrl: rabbitmqApp.outputs.fqdn
   }
 }
 

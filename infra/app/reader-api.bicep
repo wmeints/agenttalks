@@ -9,6 +9,7 @@ param serviceName string = 'reader-api'
 param azureOpenAIAccountName string
 @secure()
 param applicationInsightsConnectionString string
+param eventBusServiceUrl string
 
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2025-02-02-preview' existing = {
   name: containerAppsEnvironmentName
@@ -71,7 +72,7 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
           env: [
             {
               name: 'RABBITMQ_HOST'
-              value: 'rabbitmq-app'
+              value: eventBusServiceUrl
             }
             {
               name: 'QUARKUS_LANGCHAIN4J_AZURE_OPENAI_ENDPOINT'
