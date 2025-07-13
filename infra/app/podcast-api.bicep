@@ -135,6 +135,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
               name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
               value: applicationInsightsConnectionString
             }
+            {
+              name: 'NEWSCAST_LOCATIONS_FFMPEG'
+              value: '/usr/bin/ffmpeg'
+            }
           ]
         }
       ]
