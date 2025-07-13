@@ -99,12 +99,4 @@ public class AudioProcessor {
         return outputFile.getPath();
     }
 
-    public String mixPodcastEpisode(String contentAudioFile) {
-        logger.infof("Mixing podcast episode with content audio: %s", contentAudioFile);
-        
-        // TODO: Implement mixing logic with intro/outro
-        // For now, just return the content audio file
-        logger.warn("Podcast episode mixing not yet implemented, returning content audio file as-is");
-        return contentAudioFile;
-    }
 }

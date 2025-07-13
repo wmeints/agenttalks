@@ -102,15 +102,4 @@ class AudioProcessorTest {
         assertTrue(path.endsWith(".mp3"));
     }
 
-    @Test
-    void mixPodcastEpisode_returnsContentAudioFileAsIs() {
-        // Arrange
-        String contentAudioFile = "/test/path/content.mp3";
-        
-        // Act
-        String result = audioProcessor.mixPodcastEpisode(contentAudioFile);
-        
-        // Assert
-        assertEquals(contentAudioFile, result);
-    }
 }

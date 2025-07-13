@@ -2,10 +2,7 @@ package nl.infosupport.agenttalks.podcast.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -15,15 +12,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import jakarta.ws.rs.core.Response;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.panache.mock.PanacheMock;
 import io.quarkus.test.junit.QuarkusTest;
 import nl.infosupport.agenttalks.podcast.clients.content.model.ContentSubmission;
-import nl.infosupport.agenttalks.podcast.clients.content.model.PodcastEpisode;
 import nl.infosupport.agenttalks.podcast.model.PodcastFragment;
 import nl.infosupport.agenttalks.podcast.model.PodcastHost;
 import nl.infosupport.agenttalks.podcast.model.PodcastScript;
@@ -40,24 +34,23 @@ class PodcastOrchestratorTest {
     @BeforeEach
     void setUp() {
         mocks = PodcastTestFixtures.createMockSetup();
-        
+
         orchestrator = new PodcastOrchestrator();
         orchestrator.contentClient = mocks.contentClient;
         orchestrator.blobServiceClient = mocks.blobServiceClient;
         orchestrator.podcastScriptGenerator = mocks.scriptGenerator;
-        
-        // Create AudioProcessor and PublishingService with mocks
+
+        // Create AudioProcessor with mocks
         AudioProcessor audioProcessor = new AudioProcessor();
         audioProcessor.elevenLabsClient = mocks.elevenLabsClient;
         audioProcessor.audioConcatenation = mocks.audioConcatenation;
         audioProcessor.outputDirectoryPath = "/tmp/test";
         orchestrator.audioProcessor = audioProcessor;
-        
-        PublishingService publishingService = new PublishingService();
-        publishingService.buzzsproutClient = mocks.buzzsproutClient;
-        publishingService.podcastId = "test-podcast-id";
-        orchestrator.publishingService = publishingService;
-        
+
+        // Set Buzzsprout client directly on orchestrator
+        orchestrator.buzzsproutClient = mocks.buzzsproutClient;
+        orchestrator.podcastId = "test-podcast-id";
+
         // Setup Panache mocks for PodcastHost
         PanacheMock.mock(PodcastHost.class);
         when(PodcastHost.findByIndex(1)).thenReturn(
@@ -79,7 +72,8 @@ class PodcastOrchestratorTest {
         script.title = "Test Episode";
         script.sections = Arrays.asList(createTestSection("Joop Snijder", "Fragment 1"));
 
-        when(mocks.scriptGenerator.generatePodcastScript(anyString(), anyString(), anyString(), anyString(), anyString()))
+        when(mocks.scriptGenerator.generatePodcastScript(anyString(), anyString(), anyString(), anyString(),
+                anyString()))
                 .thenReturn(script);
 
         // Mock audio generation with simpler setup
@@ -92,7 +86,8 @@ class PodcastOrchestratorTest {
 
         // Verify that orchestration started correctly
         verify(mocks.contentClient).markForProcessing(any());
-        verify(mocks.scriptGenerator).generatePodcastScript(anyString(), anyString(), anyString(), anyString(), anyString());
+        verify(mocks.scriptGenerator).generatePodcastScript(anyString(), anyString(), anyString(), anyString(),
+                anyString());
     }
 
     @Test
@@ -104,7 +99,8 @@ class PodcastOrchestratorTest {
 
         // Mock script generation failure
         doThrow(new RuntimeException("Script generation failed"))
-                .when(mocks.scriptGenerator).generatePodcastScript(anyString(), anyString(), anyString(), anyString(), anyString());
+                .when(mocks.scriptGenerator)
+                .generatePodcastScript(anyString(), anyString(), anyString(), anyString(), anyString());
 
         // Execute & Verify
         assertThrows(PodcastOrchestrator.PodcastGenerationException.class,
@@ -112,7 +108,8 @@ class PodcastOrchestratorTest {
 
         // Verify content was locked but subsequent steps were not executed
         verify(mocks.contentClient, times(1)).markForProcessing(any());
-        verify(mocks.scriptGenerator).generatePodcastScript(anyString(), anyString(), anyString(), anyString(), anyString());
+        verify(mocks.scriptGenerator).generatePodcastScript(anyString(), anyString(), anyString(), anyString(),
+                anyString());
         verify(mocks.elevenLabsClient, times(0)).createSpeech(anyString(), anyString(), any());
     }
 
@@ -123,9 +120,11 @@ class PodcastOrchestratorTest {
         LocalDate endDate = LocalDate.of(2024, 1, 7);
         List<ContentSubmission> contentSubmissions = List.of(TestObjectFactory.createSummarizedSubmission());
 
-        // Mock publishing failure by throwing exception in script generation (simpler test)
+        // Mock publishing failure by throwing exception in script generation (simpler
+        // test)
         doThrow(new RuntimeException("Publishing failed"))
-                .when(mocks.scriptGenerator).generatePodcastScript(anyString(), anyString(), anyString(), anyString(), anyString());
+                .when(mocks.scriptGenerator)
+                .generatePodcastScript(anyString(), anyString(), anyString(), anyString(), anyString());
 
         // Execute & Verify
         assertThrows(PodcastOrchestrator.PodcastGenerationException.class,
@@ -133,7 +132,8 @@ class PodcastOrchestratorTest {
 
         // Verify content was locked but failed early
         verify(mocks.contentClient).markForProcessing(any());
-        verify(mocks.scriptGenerator).generatePodcastScript(anyString(), anyString(), anyString(), anyString(), anyString());
+        verify(mocks.scriptGenerator).generatePodcastScript(anyString(), anyString(), anyString(), anyString(),
+                anyString());
     }
 
     private PodcastSection createTestSection(String host, String content) {
