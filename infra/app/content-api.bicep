@@ -100,6 +100,10 @@ resource applicationService 'Microsoft.App/containerApps@2025-01-01' = {
               value: eventBusServiceUrl
             }
             {
+              name: 'RABBITMQ_PORT'
+              value: 5672
+            }
+            {
               name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
               value: applicationInsightsConnectionString
             }
