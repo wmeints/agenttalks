@@ -1,18 +1,15 @@
 package nl.infosupport.agenttalks.content.eventbus;
 
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import nl.infosupport.agenttalks.shared.eventbus.InternalEventPublisher;
 
 @ApplicationScoped
 public class EventPublisher {
     @Inject
-    @Channel("contentSubmissionCreated")
-    Emitter<ContentSubmissionCreated> contentSubmissionCreatedEmitter;
+    InternalEventPublisher internalEventPublisher;
 
     public void publishContentSubmissionCreated(ContentSubmissionCreated event) {
-        contentSubmissionCreatedEmitter.send(event);
+        internalEventPublisher.publishContentSubmissionCreated(event);
     }
 }

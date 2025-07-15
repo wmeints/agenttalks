@@ -11,10 +11,6 @@ import org.eclipse.microprofile.graphql.Query;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import nl.infosupport.agenttalks.content.eventbus.ContentSubmissionCreated;
-import nl.infosupport.agenttalks.content.eventbus.EventPublisher;
-import nl.infosupport.agenttalks.content.graph.errors.ContentSubmissionNotFoundException;
 import nl.infosupport.agenttalks.content.graph.input.CreatePodcastEpisode;
 import nl.infosupport.agenttalks.content.graph.input.MarkAsProcessed;
 import nl.infosupport.agenttalks.content.graph.input.MarkForProcessing;
@@ -23,12 +19,13 @@ import nl.infosupport.agenttalks.content.graph.input.SummarizeContent;
 import nl.infosupport.agenttalks.content.model.ApplicationStatistics;
 import nl.infosupport.agenttalks.content.model.ContentSubmission;
 import nl.infosupport.agenttalks.content.model.PodcastEpisode;
+import nl.infosupport.agenttalks.content.service.ContentService;
 
 @GraphQLApi
 @RequestScoped
 public class ContentGraph {
     @Inject
-    EventPublisher eventPublisher;
+    ContentService contentService;
 
     @Query
     @NonNull
@@ -38,113 +35,57 @@ public class ContentGraph {
     }
 
     @Query
-    @NonNull
-    @Transactional
     @Description("Finds all podcast episodes")
     public List<@NonNull PodcastEpisode> episodes() {
-        return PodcastEpisode.findAll().list();
+        return contentService.findAllEpisodes();
     }
 
     @Query
-    @Transactional
     @Description("Finds the content submissions that were created during the week")
     public List<@NonNull ContentSubmission> recentSubmissions() {
-        return ContentSubmission.findRecentlySubmitted().list();
+        return contentService.findRecentSubmissions();
     }
 
     @Query
-    @Transactional
     @Description("Finds processable content submissions for the current week")
     public List<@NonNull ContentSubmission> processableSubmissions() {
-        return ContentSubmission.findProcessable().list();
+        return contentService.findProcessableSubmissions(null, null);
     }
 
     @Query
-    @Transactional
     @Description("Get statistics about the application")
     @NonNull
     public ApplicationStatistics statistics() {
-        var podcasts = PodcastEpisode.count();
-        var submissions = ContentSubmission.findRecentlySubmitted().count();
-
-        return new ApplicationStatistics(podcasts, submissions);
+        return contentService.getStatistics();
     }
 
     @Mutation
-    @Transactional
     @Description("Submits content for processing")
     public ContentSubmission submitContent(SubmitContent input) {
-        ContentSubmission submission = new ContentSubmission(input.url);
-        submission.persistAndFlush();
-
-        eventPublisher.publishContentSubmissionCreated(
-                new ContentSubmissionCreated(
-                        submission.id,
-                        submission.url,
-                        submission.dateCreated));
-
-        return submission;
+        return contentService.submitContent(input.url);
     }
 
     @Mutation
-    @Transactional
     @Description("Creates a new podcast episode")
     public PodcastEpisode createPodcastEpisode(CreatePodcastEpisode input) {
-        var episode = new PodcastEpisode(
-                input.title, input.audioFile,
-                PodcastEpisode.getNextEpisodeNumber(),
-                input.showNotes, input.description);
-
-        episode.persistAndFlush();
-
-        return episode;
+        return contentService.createPodcastEpisode(input.title, input.audioFile, input.showNotes, input.description);
     }
 
     @Mutation
-    @Transactional
     @Description("Updates a content submission with a summary")
     public ContentSubmission summarizeContent(SummarizeContent input) {
-        ContentSubmission submission = ContentSubmission.findById(input.id);
-
-        if (submission == null) {
-            throw new ContentSubmissionNotFoundException(input.id);
-        }
-
-        submission.summarize(input.title, input.summary);
-        submission.persistAndFlush();
-
-        return submission;
+        return contentService.summarizeContent(input.id, input.title, input.summary);
     }
 
     @Mutation
-    @Transactional
     @Description("Marks a content submission for processing")
     public ContentSubmission markForProcessing(MarkForProcessing input) {
-        ContentSubmission submission = ContentSubmission.findById(input.id);
-
-        if (submission == null) {
-            throw new ContentSubmissionNotFoundException(input.id);
-        }
-
-        submission.markForProcessing();
-        submission.persistAndFlush();
-
-        return submission;
+        return contentService.markForProcessing(input.id);
     }
 
     @Mutation
-    @Transactional
     @Description("Marks a content submission as processed")
     public ContentSubmission markAsProcessed(MarkAsProcessed input) {
-        ContentSubmission submission = ContentSubmission.findById(input.id);
-
-        if (submission == null) {
-            throw new ContentSubmissionNotFoundException(input.id);
-        }
-
-        submission.markAsProcessed();
-        submission.persistAndFlush();
-
-        return submission;
+        return contentService.markAsProcessed(input.id);
     }
 }
