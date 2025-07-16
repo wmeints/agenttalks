@@ -13,21 +13,18 @@ import org.apache.http.impl.client.HttpClients;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
-import io.quarkus.vertx.ConsumeEvent;
-import io.smallrye.mutiny.Uni;
 import org.jboss.logging.Logger;
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import io.quarkus.tika.TikaParser;
-
+import io.quarkus.vertx.ConsumeEvent;
+import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.json.jackson.DatabindCodec;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.control.ActivateRequestContext;
 import jakarta.inject.Inject;
 import nl.infosupport.agenttalks.content.service.ContentService;
-
 import nl.infosupport.agenttalks.reader.exceptions.ContentDownloadFailedException;
 import nl.infosupport.agenttalks.reader.model.ContentSubmissionCreated;
 import nl.infosupport.agenttalks.reader.model.ContentSummarizationData;
