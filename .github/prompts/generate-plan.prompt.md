@@ -7,7 +7,7 @@ tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFile
 # Generate Implementation Plan
 
 Generate a complete requirements document for feature implementation based on thorough
-research. **Start by reading the TASK.md file** to understand what needs to be done, how
+research. **Start by reading issue  ${input:issueNumber}** to understand what needs to be done, how
 examples provided help, and any other considerations.
 
 **Important**: The implementation plan will be used by another AI agent for
