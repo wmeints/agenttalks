@@ -1,12 +1,12 @@
 ---
 mode: "agent"
 description: "Implement features based on comprehensive requirements documents"
-tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runNotebooks', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'runCommands', 'runNotebooks', 'runTasks', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'github', 'get_issue', 'get_issue_comments']
 ---
 
 # Implement Requirements
 
-Implement a feature based on the planning document provided as input.
+Implement a feature based on the implementation plan provided in the comments of GitHub issue ${input:issue}.
 
 **Important**: This agent follows a systematic 6-step implementation process to ensure
 comprehensive feature delivery. The requirements document contains all necessary context
@@ -21,7 +21,7 @@ instructions in the requirements document completely.
 
 ### 1. Load the Requirements Document
 
-- Read the specified requirements document thoroughly
+- Read the implementation plan posted in the comments of the GitHub issue ${input:issue}
 - Understand the context, constraints, and all requirements
 - Follow all instructions in the requirements document exactly
 - Ensure you have all needed context to implement the requirements fully

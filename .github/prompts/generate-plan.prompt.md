@@ -1,13 +1,13 @@
 ---
 mode: "agent"
 description: "Generate comprehensive requirements document through systematic research"
-tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'readCellOutput', 'runCommands', 'runNotebooks', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'usages', 'vscodeAPI']
+tools: ['codebase', 'fetch', 'findTestFiles', 'githubRepo', 'runCommands', 'search', 'searchResults', 'usages', 'github', 'add_issue_comment', 'get_issue', 'get_issue_comments', 'list_issues', 'search_issues', 'update_issue']
 ---
 
 # Generate Implementation Plan
 
 Generate a complete requirements document for feature implementation based on thorough
-research. **Start by reading issue  ${input:issueNumber}** to understand what needs to be done, how
+research. **Start by reading issue  ${input:issue}** to understand what needs to be done, how
 examples provided help, and any other considerations.
 
 **Important**: The implementation plan will be used by another AI agent for
@@ -19,7 +19,7 @@ capabilities, so include specific URLs and code references.
 
 ### 0. Task Analysis
 
-- Read and analyze the TASK.md file in the project root
+- Read the referenced issue ${input:issue} in `wmeints/agenttalks` GitHub repository in the project root
 - Extract the feature description, examples, documentation references, and considerations
 - Use this as the foundation for all subsequent research
 
@@ -72,9 +72,8 @@ Define specific commands and criteria for validation:
 
 ## Output Requirements
 
-Save the requirements document as: `docs/implementation-plans/{feature-name}.md`
-
-The document should be comprehensive enough for autonomous implementation without additional clarification.
+Append the implementation plan to the issue as a comment. The plan should be structured, clear, and
+detailed enough for another AI agent to implement without needing further clarification.
 
 ## Quality Checklist
 
