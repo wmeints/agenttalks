@@ -70,8 +70,7 @@ jobs:
 
       - name: Push content-api container image
         if: github.ref == 'refs/heads/main'
-        working-directory: apps/content-api
-        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/content-api:1.0.0-${{ github.sha }}
+        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/agenttalks-app:1.0.0-${{ github.sha }}
 
   deploy-to-test:
     if: ${{ github.ref == 'refs/heads/main' }}
