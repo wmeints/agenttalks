@@ -66,18 +66,6 @@ jobs:
           NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
           CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
 
-      - name: Restore node packages
-        run: npm install
-        working-directory: apps/dashboard
-
-      - name: Run dashboard tests
-        run: npm run test
-        working-directory: apps/dashboard
-
-      - name: Package dashboard
-        run: npm run build
-        working-directory: apps/dashboard
-
       - name: Login to container registry
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: docker/login-action@v3
@@ -86,29 +74,10 @@ jobs:
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      - name: Build dashboard docker image
-        run: docker build -t ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/dashboard:1.0.0-${{ github.sha }} .
-        working-directory: apps/dashboard
-
-      - name: Push dashboard container image
-        if: github.ref == 'refs/heads/main'
-        working-directory: apps/dashboard
-        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/dashboard:1.0.0-${{ github.sha }}
-
       - name: Push content-api container image
         if: github.ref == 'refs/heads/main'
         working-directory: apps/content-api
         run: docker push ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/content-api:1.0.0-${{ github.sha }}
-
-      - name: Push reader-api container image
-        if: ${{ github.ref == 'refs/heads/main' }}
-        working-directory: apps/reader-api
-        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/reader-api:1.0.0-${{ github.sha }}
-
-      - name: Push podcast-api container image
-        if: ${{ github.ref == 'refs/heads/main' }}
-        working-directory: apps/podcast-api
-        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/podcast-api:1.0.0-${{ github.sha }}
 
   deploy-to-test:
     if: ${{ github.ref == 'refs/heads/main' }}
