@@ -50,7 +50,7 @@ jobs:
         with:
           node-version: "22"
           cache: "npm"
-          cache-dependency-path: apps/dashboard/package-lock.json
+          cache-dependency-path: apps/content-api/src/main/webui/package-lock.json
 
       - name: Setup FFmpeg
         uses: AnimMouse/setup-ffmpeg@v1
