@@ -4,13 +4,13 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - "apps/content-api/**"
+      - "src/**"
       - "infra/**"
       - ".github/workflows/ci.yml"
   pull_request:
     branches: [main, develop]
     paths:
-      - "apps/content-api/**"
+      - "src/**"
       - "infra/**"
       - ".github/workflows/ci.yml"
 permissions:
@@ -44,7 +44,7 @@ jobs:
         with:
           node-version: "22"
           cache: "npm"
-          cache-dependency-path: apps/content-api/src/main/webui/package-lock.json
+          cache-dependency-path: src/main/webui/package-lock.json
 
       - name: Setup FFmpeg
         uses: AnimMouse/setup-ffmpeg@v1

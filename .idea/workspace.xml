@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c86c3373-b914-4a3a-be77-0bcdb917ba2c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/model/ContentSubmissionCreated.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentDownloadStep.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentSummarizationStep.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentDownloaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentDownloaderTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +110,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1752730465984</updated>
-      <workItem from="1752730467579" duration="1548000" />
+      <workItem from="1752730467579" duration="1882000" />
     </task>
     <servers />
   </component>
