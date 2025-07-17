@@ -1,5 +1,0 @@
-Summarize the content provided below.
-
-<|article_content|>
-{{content}}
-<|end_article_content|>
