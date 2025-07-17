@@ -2,7 +2,7 @@
 
 export default {
     watchSchema: {
-        url: 'http://localhost:8080/graphql/',
+        url: 'http://localhost:8080/graphql',  // Use relative URL for proxy
     },
     runtimeDir: '.houdini',
     plugins: {
