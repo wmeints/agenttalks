@@ -5,18 +5,12 @@ on:
     branches: [main, develop]
     paths:
       - "apps/content-api/**"
-      - "apps/podcast-api/**"
-      - "apps/reader-api/**"
-      - "apps/dashboard/**"
       - "infra/**"
       - ".github/workflows/ci.yml"
   pull_request:
     branches: [main, develop]
     paths:
       - "apps/content-api/**"
-      - "apps/podcast-api/**"
-      - "apps/reader-api/**"
-      - "apps/dashboard/**"
       - "infra/**"
       - ".github/workflows/ci.yml"
 permissions:
