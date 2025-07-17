@@ -3,7 +3,7 @@ import { env } from '$env/dynamic/public';
 import type { Session } from '@auth/core/types';
 
 // Get configuration from environment (now supports runtime values)
-const contentApiUrl = env.PUBLIC_CONTENT_API_URL || 'http://localhost:8080/graphql';
+const contentApiUrl = env.PUBLIC_API_URL!;
 
 export default new HoudiniClient({
     url: contentApiUrl,
