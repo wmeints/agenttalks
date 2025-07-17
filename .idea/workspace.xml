@@ -5,157 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c86c3373-b914-4a3a-be77-0bcdb917ba2c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/.mvn/wrapper/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/docker/Dockerfile.jvm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/docker/Dockerfile.jvm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/docker/Dockerfile.legacy-jar" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/docker/Dockerfile.legacy-jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/docker/Dockerfile.native" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/docker/Dockerfile.native" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/docker/Dockerfile.native-micro" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/docker/Dockerfile.native-micro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/eventbus/ContentSubmissionCreated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/eventbus/ContentSubmissionCreated.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/eventbus/EventPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/eventbus/EventPublisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/graph/ContentGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/graph/ContentGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/graph/errors/ContentSubmissionNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/graph/errors/ContentSubmissionNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/graph/input/CreatePodcastEpisode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/graph/input/CreatePodcastEpisode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/graph/input/MarkAsProcessed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/graph/input/MarkAsProcessed.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/graph/input/MarkForProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/graph/input/MarkForProcessing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/graph/input/SubmitContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/graph/input/SubmitContent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/graph/input/SummarizeContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/graph/input/SummarizeContent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/model/ApplicationStatistics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/model/ApplicationStatistics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/model/ContentSubmission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/model/ContentSubmission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/model/PodcastEpisode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/model/PodcastEpisode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/model/SubmissionStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/model/SubmissionStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/content/service/ContentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/content/service/ContentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/clients/buzzsprout/BuzzsproutClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/clients/buzzsprout/BuzzsproutClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/clients/buzzsprout/model/CreateEpisodeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/clients/buzzsprout/model/CreateEpisodeRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/clients/buzzsprout/model/CreateEpisodeResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/clients/buzzsprout/model/CreateEpisodeResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/clients/elevenlabs/ElevenLabsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/clients/elevenlabs/ElevenLabsClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/clients/elevenlabs/model/CreateSpeechRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/clients/elevenlabs/model/CreateSpeechRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastEpisodeData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastEpisodeData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastHost.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastHost.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/model/PodcastSection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/service/AudioConcatenation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/service/AudioConcatenation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/service/AudioProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/service/AudioProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/service/PodcastGenerationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/service/PodcastGenerationException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/service/PodcastOrchestrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/service/PodcastOrchestrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/podcast/service/PodcastScriptGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/podcast/service/PodcastScriptGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/exceptions/ContentDownloadFailedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/exceptions/ContentDownloadFailedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/model/ContentDownload.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/model/ContentDownload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/model/ContentSubmissionCreated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/model/ContentSubmissionCreated.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/model/ContentSummarizationData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/model/ContentSummarizationData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/model/ContentSummary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/model/ContentSummary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentDownloadStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentDownloadStep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentSummarizationStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentSummarizationStep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/service/ContentSummarizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/service/ContentSummarizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/reader/shared/ApplicationObjectMapperCustomizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/shared/ApplicationObjectMapperCustomizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/java/nl/infosupport/agenttalks/shared/eventbus/InternalEventPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/shared/eventbus/InternalEventPublisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/db/migration/V1__CreateInitialDatabaseStructure.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1__CreateInitialDatabaseStructure.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/db/migration/V2__AddPodcastEpisodeMetadata.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V2__AddPodcastEpisodeMetadata.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/db/migration/V3__AddEpisodeNumberSequence.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V3__AddEpisodeNumberSequence.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/db/migration/V4__MergePodcastApiTables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V4__MergePodcastApiTables.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/keycloak/realm-export.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/keycloak/realm-export.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/prompts/podcast-script/system-instructions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/prompts/podcast-script/system-instructions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/prompts/podcast-script/user-instructions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/prompts/podcast-script/user-instructions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/prompts/summarizer/system-instructions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/prompts/summarizer/system-instructions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/resources/prompts/summarizer/user-instructions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/prompts/summarizer/user-instructions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/.graphqlrc.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/.graphqlrc.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/.npmrc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/.npmrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/components.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/components.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/eslint.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/eslint.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/houdini.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/houdini.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/schema.graphql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/app.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/app.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/app.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/demo.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/demo.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/hooks.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/hooks.server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ContentItem.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ContentItem.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ContentItemPager.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ContentItemPager.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ContentItemsWeekCard.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ContentItemsWeekCard.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/DashboardContentItemsList.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/DashboardContentItemsList.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/EmptyContentList.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/EmptyContentList.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/EpisodeCard.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/EpisodeCard.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/Navigation.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/Navigation.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/PodcastEpisodesCard.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/PodcastEpisodesCard.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/badge/badge.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/badge/badge.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/badge/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/badge/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/button/button.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/button/button.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/button/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/button/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/card/card-action.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/card/card-action.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/card/card-content.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/card/card-content.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/card/card-description.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/card/card-description.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/card/card-footer.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/card/card-footer.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/card/card-header.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/card/card-header.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/card/card-title.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/card/card-title.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/card/card.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/card/card.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/components/ui/card/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/components/ui/card/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/date-utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/date-utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/mutations/SubmitContent.gql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/mutations/SubmitContent.gql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/text-utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/text-utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/lib/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/lib/utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/+layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/+layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/+layout.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/+layout.server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/+layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/+layout.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/+page.gql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/+page.gql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/content/+page.gql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/content/+page.gql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/content/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/content/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/content/+page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/content/+page.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/content/submit/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/content/submit/+page.server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/content/submit/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/content/submit/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/episodes/+page.gql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/episodes/+page.gql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/episodes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/episodes/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/signout/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/signout/+page.server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/src/routes/signout/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/src/routes/signout/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/static/favicon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/static/favicon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/svelte.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/svelte.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/main/webui/vitest-setup-client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webui/vitest-setup-client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/content/graph/ContentGraphTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/content/graph/ContentGraphTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/content/graph/TestObjectFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/content/graph/TestObjectFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/content/model/ContentSubmissionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/content/model/ContentSubmissionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/podcast/service/AudioProcessorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/podcast/service/AudioProcessorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/podcast/service/PodcastOrchestratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/podcast/service/PodcastOrchestratorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/podcast/shared/PodcastTestFixtures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/podcast/shared/PodcastTestFixtures.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/podcast/shared/TestObjectFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/podcast/shared/TestObjectFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentDownloaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentDownloaderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentSubmissionUpdaterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentSubmissionUpdaterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentSummarizerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentSummarizerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/resources/audio/joop-fragment-01.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/audio/joop-fragment-01.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/content-api/src/test/resources/audio/willem-fragment-01.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/audio/willem-fragment-01.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/model/ContentSubmissionCreated.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentDownloadStep.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nl/infosupport/agenttalks/reader/processing/ContentSummarizationStep.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentDownloaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nl/infosupport/agenttalks/reader/processing/ContentDownloaderTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -247,7 +114,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1752730465984</updated>
-      <workItem from="1752730467579" duration="345000" />
+      <workItem from="1752730467579" duration="1548000" />
     </task>
     <servers />
   </component>
