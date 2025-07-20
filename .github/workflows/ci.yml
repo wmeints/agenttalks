@@ -4,13 +4,13 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - "apps/content-api/**"
+      - "src/**"
       - "infra/**"
       - ".github/workflows/ci.yml"
   pull_request:
     branches: [main, develop]
     paths:
-      - "apps/content-api/**"
+      - "src/**"
       - "infra/**"
       - ".github/workflows/ci.yml"
 permissions:
@@ -44,7 +44,7 @@ jobs:
         with:
           node-version: "22"
           cache: "npm"
-          cache-dependency-path: apps/content-api/src/main/webui/package-lock.json
+          cache-dependency-path: src/main/webui/package-lock.json
 
       - name: Setup FFmpeg
         uses: AnimMouse/setup-ffmpeg@v1
@@ -70,8 +70,7 @@ jobs:
 
       - name: Push content-api container image
         if: github.ref == 'refs/heads/main'
-        working-directory: apps/content-api
-        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/content-api:1.0.0-${{ github.sha }}
+        run: docker push ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/agenttalks-app:1.0.0-${{ github.sha }}
 
   deploy-to-test:
     if: ${{ github.ref == 'refs/heads/main' }}

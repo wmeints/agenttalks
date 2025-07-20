@@ -6,17 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="podcast-api" />
-        <module name="content-api" />
-        <module name="reader-api" />
+        <module name="agenttalks" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="content-api" options="-parameters" />
-      <module name="podcast-api" options="-parameters" />
-      <module name="reader-api" options="-parameters" />
+      <module name="agenttalks" options="-parameters" />
     </option>
   </component>
 </project>

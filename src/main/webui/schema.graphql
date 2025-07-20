@@ -1,0 +1,104 @@
+"""Indicates a Bean Validation constraint"""
+directive @constraint(format: String, max: BigInteger, maxFloat: BigDecimal, maxLength: Int, min: BigInteger, minFloat: BigDecimal, minLength: Int, pattern: String) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+"""Indicates an Input Object is a OneOf Input Object."""
+directive @oneOf on INPUT_OBJECT
+
+"""
+Used to specify the role required to execute a given field or operation.
+"""
+directive @rolesAllowed(value: String) on FIELD_DEFINITION
+
+"""Scalar for BigDecimal"""
+scalar BigDecimal
+
+"""Scalar for BigInteger"""
+scalar BigInteger
+
+type ContentSubmission {
+  """ISO-8601"""
+  dateCreated: DateTime!
+
+  """ISO-8601"""
+  dateModified: DateTime
+  id: BigInteger!
+  instructions: String
+  status: SubmissionStatus!
+  summary: String
+  title: String
+  url: String!
+}
+
+type ContentSubmissionResultSet {
+  items: [ContentSubmission]!
+  pageIndex: Int!
+  pageSize: Int!
+  totalItems: Int!
+  totalPages: Int!
+}
+
+"""Scalar for DateTime"""
+scalar DateTime
+
+"""Mutation root"""
+type Mutation {
+  """Submits content for processing"""
+  submitContent(input: SubmitContentRequestInput): ContentSubmission
+}
+
+type PodcastEpisode {
+  audioFilePath: String!
+
+  """ISO-8601"""
+  dateCreated: DateTime!
+  description: String!
+  episodeNumber: Int!
+  id: BigInteger!
+  script: PodcastScript!
+  summary: String!
+  title: String!
+}
+
+type PodcastEpisodeResultSet {
+  items: [PodcastEpisode]!
+  pageIndex: Int!
+  pageSize: Int!
+  totalItems: Int!
+  totalPages: Int!
+}
+
+type PodcastFragment {
+  content: String
+  host: String
+}
+
+type PodcastScript {
+  sections: [PodcastSection]
+  title: String
+}
+
+type PodcastSection {
+  fragments: [PodcastFragment]
+  title: String
+}
+
+"""Query root"""
+type Query {
+  """Finds all podcast episodes"""
+  episodes(pageIndex: Int!, pageSize: Int!): PodcastEpisodeResultSet!
+
+  """Finds all content submissions"""
+  submissions(pageIndex: Int!, pageSize: Int!): ContentSubmissionResultSet!
+}
+
+enum SubmissionStatus {
+  PROCESSED
+  PROCESSING
+  SUBMITTED
+  SUMMARIZED
+}
+
+input SubmitContentRequestInput {
+  instructions: String
+  url: String
+}
