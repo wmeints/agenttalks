@@ -1,18 +1,21 @@
 package nl.infosupport.agenttalks.content;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
-import io.quarkus.panache.common.Parameters;
-import io.quarkus.panache.common.Sort;
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 import org.eclipse.microprofile.graphql.NonNull;
 import org.eclipse.microprofile.graphql.Type;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Parameters;
+import io.quarkus.panache.common.Sort;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Type
 @Entity(name = "content_submission")
@@ -65,7 +68,7 @@ public class ContentSubmission extends PanacheEntityBase {
     }
 
     public void markForProcessing() {
-        if(status != SubmissionStatus.SUMMARIZED) {
+        if (status != SubmissionStatus.SUMMARIZED) {
             throw new IllegalStateException("Can only mark for processing after summarizing");
         }
 
@@ -74,7 +77,7 @@ public class ContentSubmission extends PanacheEntityBase {
     }
 
     public void markAsProcessed() {
-        if(status != SubmissionStatus.PROCESSING) {
+        if (status != SubmissionStatus.PROCESSING) {
             throw new IllegalStateException("Can only mark as processed after processing");
         }
 

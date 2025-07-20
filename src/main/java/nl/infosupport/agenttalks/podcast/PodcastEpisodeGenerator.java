@@ -1,19 +1,17 @@
 package nl.infosupport.agenttalks.podcast;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.jboss.logging.Logger;
+
 import io.quarkus.scheduler.Scheduled;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import nl.infosupport.agenttalks.content.ContentSubmission;
 import nl.infosupport.agenttalks.podcast.buzzsprout.BuzzsproutClient;
 import nl.infosupport.agenttalks.podcast.buzzsprout.CreateEpisodeRequest;
-
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.jboss.logging.Logger;
-
-import java.util.List;
 
 public class PodcastEpisodeGenerator {
     private static final Logger logger = Logger.getLogger(PodcastEpisodeGenerator.class);
