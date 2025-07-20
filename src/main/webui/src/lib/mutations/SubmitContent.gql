@@ -1,5 +1,0 @@
-mutation SubmitContent($url: String!) {
-  submitContent(input: { url: $url }) {
-    id
-  }
-}

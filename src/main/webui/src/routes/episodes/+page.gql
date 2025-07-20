@@ -1,8 +1,0 @@
-query episodes {
-    episodes {
-        id
-        title
-        description
-        dateCreated
-    }
-}
