@@ -11,6 +11,7 @@
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.35.3",
     "@tanstack/react-router": "^1.128.8",
     "@tanstack/router-plugin": "^1.128.8",
     "class-variance-authority": "^0.7.1",

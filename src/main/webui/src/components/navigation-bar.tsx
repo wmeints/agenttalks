@@ -11,6 +11,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 const navigationLinks = [
   { href: "/", label: "Home", active: true },
@@ -102,9 +108,19 @@ export default function Component() {
         </div>
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm" className="text-sm">
-            <a href="#">Sign In</a>
-          </Button>
+          <SignedIn>
+            <Button asChild variant="ghost" size="sm" className="text-sm">
+              <a href="/submissions/new">New Submission</a>
+            </Button>
+            <UserButton />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton>
+              <Button variant="ghost" size="sm" className="text-sm">
+                Sign In
+              </Button>
+            </SignInButton>
+          </SignedOut>
         </div>
       </div>
     </header>
