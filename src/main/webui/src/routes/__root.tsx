@@ -1,8 +1,13 @@
-import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import NavigationBar from "@/components/navigation-bar";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-export const Route = createRootRoute({
-  component: RootComponent,
+
+interface ApplicationRouterContext {
+  isSignedIn: boolean;
+}
+
+export const Route = createRootRouteWithContext<ApplicationRouterContext>()({
+  component: () => <RootComponent />,
 });
 
 function RootComponent() {

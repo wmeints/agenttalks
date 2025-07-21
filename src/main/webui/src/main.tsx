@@ -5,10 +5,15 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 import "./index.css";
-import { ClerkProvider } from "@clerk/clerk-react";
+import { ClerkProvider, useUser } from "@clerk/clerk-react";
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context: {
+    isSignedIn: false,
+  },
+});
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
@@ -26,12 +31,17 @@ if (!PUBLISHABLE_KEY) {
 
 const rootElement = document.getElementById("root")!;
 
+function AppWithContext() {
+  const { isSignedIn } = useUser();
+  return <RouterProvider router={router} context={{ isSignedIn }} />;
+}
+
 if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
     <StrictMode>
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-        <RouterProvider router={router} />
+        <AppWithContext />
       </ClerkProvider>
     </StrictMode>,
   );
