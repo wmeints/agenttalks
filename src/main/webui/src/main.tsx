@@ -5,7 +5,7 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 import "./index.css";
-import { ClerkProvider, useUser } from "@clerk/clerk-react";
+import { ClerkProvider } from "@clerk/clerk-react";
 
 // Create a new router instance
 const router = createRouter({
@@ -31,17 +31,12 @@ if (!PUBLISHABLE_KEY) {
 
 const rootElement = document.getElementById("root")!;
 
-function AppWithContext() {
-  const { isSignedIn } = useUser();
-  return <RouterProvider router={router} context={{ isSignedIn }} />;
-}
-
 if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
     <StrictMode>
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-        <AppWithContext />
+        <RouterProvider router={router} />
       </ClerkProvider>
     </StrictMode>,
   );
