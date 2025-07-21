@@ -1,4 +1,4 @@
-import { RedirectToSignIn, useUser } from "@clerk/clerk-react";
+import { RedirectToSignIn, useAuth } from "@clerk/clerk-react";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_auth")({
@@ -6,7 +6,7 @@ export const Route = createFileRoute("/_auth")({
 });
 
 function RouteComponent() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn } = useAuth();
 
   if (!isSignedIn) {
     return <RedirectToSignIn />;
