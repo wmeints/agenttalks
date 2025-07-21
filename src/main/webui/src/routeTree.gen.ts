@@ -11,7 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SubmissionsIndexRouteImport } from './routes/submissions/index'
+import { Route as AuthSubmissionsIndexRouteImport } from './routes/_auth/submissions/index'
+import { Route as AuthEpisodesIndexRouteImport } from './routes/_auth/episodes/index'
 import { Route as AuthSubmissionsNewRouteImport } from './routes/_auth/submissions/new'
 
 const AuthRoute = AuthRouteImport.update({
@@ -23,10 +24,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SubmissionsIndexRoute = SubmissionsIndexRouteImport.update({
+const AuthSubmissionsIndexRoute = AuthSubmissionsIndexRouteImport.update({
   id: '/submissions/',
   path: '/submissions/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthEpisodesIndexRoute = AuthEpisodesIndexRouteImport.update({
+  id: '/episodes/',
+  path: '/episodes/',
+  getParentRoute: () => AuthRoute,
 } as any)
 const AuthSubmissionsNewRoute = AuthSubmissionsNewRouteImport.update({
   id: '/submissions/new',
@@ -36,33 +42,41 @@ const AuthSubmissionsNewRoute = AuthSubmissionsNewRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/submissions': typeof SubmissionsIndexRoute
   '/submissions/new': typeof AuthSubmissionsNewRoute
+  '/episodes': typeof AuthEpisodesIndexRoute
+  '/submissions': typeof AuthSubmissionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/submissions': typeof SubmissionsIndexRoute
   '/submissions/new': typeof AuthSubmissionsNewRoute
+  '/episodes': typeof AuthEpisodesIndexRoute
+  '/submissions': typeof AuthSubmissionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteWithChildren
-  '/submissions/': typeof SubmissionsIndexRoute
   '/_auth/submissions/new': typeof AuthSubmissionsNewRoute
+  '/_auth/episodes/': typeof AuthEpisodesIndexRoute
+  '/_auth/submissions/': typeof AuthSubmissionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/submissions' | '/submissions/new'
+  fullPaths: '/' | '/submissions/new' | '/episodes' | '/submissions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/submissions' | '/submissions/new'
-  id: '__root__' | '/' | '/_auth' | '/submissions/' | '/_auth/submissions/new'
+  to: '/' | '/submissions/new' | '/episodes' | '/submissions'
+  id:
+    | '__root__'
+    | '/'
+    | '/_auth'
+    | '/_auth/submissions/new'
+    | '/_auth/episodes/'
+    | '/_auth/submissions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRouteWithChildren
-  SubmissionsIndexRoute: typeof SubmissionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -81,12 +95,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/submissions/': {
-      id: '/submissions/'
+    '/_auth/submissions/': {
+      id: '/_auth/submissions/'
       path: '/submissions'
       fullPath: '/submissions'
-      preLoaderRoute: typeof SubmissionsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthSubmissionsIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/episodes/': {
+      id: '/_auth/episodes/'
+      path: '/episodes'
+      fullPath: '/episodes'
+      preLoaderRoute: typeof AuthEpisodesIndexRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/_auth/submissions/new': {
       id: '/_auth/submissions/new'
@@ -100,10 +121,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthRouteChildren {
   AuthSubmissionsNewRoute: typeof AuthSubmissionsNewRoute
+  AuthEpisodesIndexRoute: typeof AuthEpisodesIndexRoute
+  AuthSubmissionsIndexRoute: typeof AuthSubmissionsIndexRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthSubmissionsNewRoute: AuthSubmissionsNewRoute,
+  AuthEpisodesIndexRoute: AuthEpisodesIndexRoute,
+  AuthSubmissionsIndexRoute: AuthSubmissionsIndexRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -111,7 +136,6 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRouteWithChildren,
-  SubmissionsIndexRoute: SubmissionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
