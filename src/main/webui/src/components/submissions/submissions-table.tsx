@@ -1,7 +1,7 @@
 import { graphql } from "@/gql";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import LoadingCard from "../loading-card";
+import LoadingCard from "../cards/loading-card";
 import { Card, CardContent } from "../ui/card";
 import Pager from "../pager";
 import {
@@ -12,8 +12,8 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import ErrorCard from "../error-card";
-import NoDataCard from "../no-data-card";
+import ErrorCard from "../cards/error-card";
+import NoDataCard from "../cards/no-data-card";
 
 const fetchSubmissionsQuery = graphql(`
   query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {

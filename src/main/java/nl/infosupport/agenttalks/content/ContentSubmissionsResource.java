@@ -30,6 +30,13 @@ public class ContentSubmissionsResource {
         return new ContentSubmissionResultSet(items, totalItems, pageIndex, pageSize);
     }
 
+    @Query
+    @NonNull
+    @Description("Finds all pending content submissions")
+    public List<ContentSubmission> pendingSubmissions() {
+        return ContentSubmission.findPending().list();
+    }
+
     @Mutation
     @Description("Submits content for processing")
     public ContentSubmission submitContent(SubmitContentRequest input) {

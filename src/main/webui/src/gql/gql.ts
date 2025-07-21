@@ -15,11 +15,15 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  */
 type Documents = {
     "\n  query fetchEpisodesQuery($pageIndex: Int!, $pageSize: Int!) {\n    episodes(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n      }\n    }\n  }\n": typeof types.FetchEpisodesQueryDocument,
+    "\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n    }\n  }\n": typeof types.FetchPendingSubmissionsQueryDocument,
     "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n      }\n    }\n  }\n": typeof types.FetchSubmissionsQueryDocument,
+    "\n  query fetchStatisticsQuery {\n    statistics {\n      pendingSubmissions\n      totalEpisodes\n    }\n  }\n": typeof types.FetchStatisticsQueryDocument,
 };
 const documents: Documents = {
     "\n  query fetchEpisodesQuery($pageIndex: Int!, $pageSize: Int!) {\n    episodes(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n      }\n    }\n  }\n": types.FetchEpisodesQueryDocument,
+    "\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n    }\n  }\n": types.FetchPendingSubmissionsQueryDocument,
     "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n      }\n    }\n  }\n": types.FetchSubmissionsQueryDocument,
+    "\n  query fetchStatisticsQuery {\n    statistics {\n      pendingSubmissions\n      totalEpisodes\n    }\n  }\n": types.FetchStatisticsQueryDocument,
 };
 
 /**
@@ -43,7 +47,15 @@ export function graphql(source: "\n  query fetchEpisodesQuery($pageIndex: Int!, 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n    }\n  }\n"): (typeof documents)["\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n      }\n    }\n  }\n"): (typeof documents)["\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query fetchStatisticsQuery {\n    statistics {\n      pendingSubmissions\n      totalEpisodes\n    }\n  }\n"): (typeof documents)["\n  query fetchStatisticsQuery {\n    statistics {\n      pendingSubmissions\n      totalEpisodes\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

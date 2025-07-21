@@ -20,7 +20,7 @@ export default function NoDataCard({
   icon,
 }: NoDataCardProps) {
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full">
       <CardContent className="flex flex-col items-center justify-center p-8 text-center">
         <div className="mb-4 p-3 rounded-full bg-muted">
           {icon || <Search className="h-8 w-8 text-muted-foreground" />}

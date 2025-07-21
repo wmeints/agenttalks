@@ -1,6 +1,6 @@
 package nl.infosupport.agenttalks.statistics;
 
-import io.micrometer.common.lang.NonNull;
+import org.eclipse.microprofile.graphql.NonNull;
 
 public class ApplicationStatistics {
     @NonNull

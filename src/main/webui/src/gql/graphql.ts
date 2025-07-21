@@ -22,6 +22,12 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type ApplicationStatistics = {
+  __typename?: 'ApplicationStatistics';
+  pendingSubmissions: Scalars['BigInteger']['output'];
+  totalEpisodes: Scalars['BigInteger']['output'];
+};
+
 export type ContentSubmission = {
   __typename?: 'ContentSubmission';
   /** ISO-8601 */
@@ -103,6 +109,9 @@ export type Query = {
   __typename?: 'Query';
   /** Finds all podcast episodes */
   episodes: PodcastEpisodeResultSet;
+  /** Finds all pending content submissions */
+  pendingSubmissions: Array<Maybe<ContentSubmission>>;
+  statistics: ApplicationStatistics;
   /** Finds all content submissions */
   submissions: ContentSubmissionResultSet;
 };
@@ -141,6 +150,11 @@ export type FetchEpisodesQueryQueryVariables = Exact<{
 
 export type FetchEpisodesQueryQuery = { __typename?: 'Query', episodes: { __typename?: 'PodcastEpisodeResultSet', totalPages: number, totalItems: number, items: Array<{ __typename?: 'PodcastEpisode', id: any, title: string } | null> } };
 
+export type FetchPendingSubmissionsQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FetchPendingSubmissionsQueryQuery = { __typename?: 'Query', pendingSubmissions: Array<{ __typename?: 'ContentSubmission', id: any, title?: string | null, url: string } | null> };
+
 export type FetchSubmissionsQueryQueryVariables = Exact<{
   pageIndex: Scalars['Int']['input'];
   pageSize: Scalars['Int']['input'];
@@ -149,6 +163,13 @@ export type FetchSubmissionsQueryQueryVariables = Exact<{
 
 export type FetchSubmissionsQueryQuery = { __typename?: 'Query', submissions: { __typename?: 'ContentSubmissionResultSet', totalPages: number, totalItems: number, items: Array<{ __typename?: 'ContentSubmission', id: any, title?: string | null, url: string } | null> } };
 
+export type FetchStatisticsQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FetchStatisticsQueryQuery = { __typename?: 'Query', statistics: { __typename?: 'ApplicationStatistics', pendingSubmissions: any, totalEpisodes: any } };
+
 
 export const FetchEpisodesQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fetchEpisodesQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageIndex"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"episodes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pageIndex"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageIndex"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalPages"}},{"kind":"Field","name":{"kind":"Name","value":"totalItems"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]} as unknown as DocumentNode<FetchEpisodesQueryQuery, FetchEpisodesQueryQueryVariables>;
+export const FetchPendingSubmissionsQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fetchPendingSubmissionsQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pendingSubmissions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]} as unknown as DocumentNode<FetchPendingSubmissionsQueryQuery, FetchPendingSubmissionsQueryQueryVariables>;
 export const FetchSubmissionsQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fetchSubmissionsQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageIndex"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"submissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pageIndex"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageIndex"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalPages"}},{"kind":"Field","name":{"kind":"Name","value":"totalItems"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]} as unknown as DocumentNode<FetchSubmissionsQueryQuery, FetchSubmissionsQueryQueryVariables>;
+export const FetchStatisticsQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fetchStatisticsQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"statistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pendingSubmissions"}},{"kind":"Field","name":{"kind":"Name","value":"totalEpisodes"}}]}}]}}]} as unknown as DocumentNode<FetchStatisticsQueryQuery, FetchStatisticsQueryQueryVariables>;
