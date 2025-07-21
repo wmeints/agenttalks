@@ -14,9 +14,11 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+    "\n  query fetchEpisodesQuery($pageIndex: Int!, $pageSize: Int!) {\n    episodes(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n      }\n    }\n  }\n": typeof types.FetchEpisodesQueryDocument,
     "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n      }\n    }\n  }\n": typeof types.FetchSubmissionsQueryDocument,
 };
 const documents: Documents = {
+    "\n  query fetchEpisodesQuery($pageIndex: Int!, $pageSize: Int!) {\n    episodes(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n      }\n    }\n  }\n": types.FetchEpisodesQueryDocument,
     "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n      }\n    }\n  }\n": types.FetchSubmissionsQueryDocument,
 };
 
@@ -34,6 +36,10 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query fetchEpisodesQuery($pageIndex: Int!, $pageSize: Int!) {\n    episodes(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n      }\n    }\n  }\n"): (typeof documents)["\n  query fetchEpisodesQuery($pageIndex: Int!, $pageSize: Int!) {\n    episodes(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
