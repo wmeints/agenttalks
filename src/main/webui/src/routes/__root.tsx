@@ -14,7 +14,9 @@ function RootComponent() {
   return (
     <>
       <NavigationBar />
-      <Outlet />
+      <div className="container mx-auto mt-6">
+        <Outlet />
+      </div>
       <TanStackRouterDevtools />
     </>
   );
