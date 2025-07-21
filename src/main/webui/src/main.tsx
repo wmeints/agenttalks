@@ -6,6 +6,7 @@ import { routeTree } from "./routeTree.gen";
 
 import "./index.css";
 import { ClerkProvider } from "@clerk/clerk-react";
+import BackendClientProvider from "@/providers/BackendClientProvider";
 
 // Create a new router instance
 const router = createRouter({
@@ -36,7 +37,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-        <RouterProvider router={router} />
+        <BackendClientProvider>
+          <RouterProvider router={router} />
+        </BackendClientProvider>
       </ClerkProvider>
     </StrictMode>,
   );

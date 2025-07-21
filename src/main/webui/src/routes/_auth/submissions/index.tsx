@@ -1,3 +1,4 @@
+import SubmissionsTable from '@/components/submissions/submissions-table'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth/submissions/')({
@@ -5,5 +6,9 @@ export const Route = createFileRoute('/_auth/submissions/')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/_auth/submissions/"!</div>
+  return (
+    <div className="container mx-auto">
+      <SubmissionsTable />
+    </div>
+  )
 }
