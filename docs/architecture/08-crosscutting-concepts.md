@@ -62,3 +62,78 @@ We manually verify that the installation succeeded on the staging environment.
 
 We use a manual approval for the staging environment. When the environment is approved,
 we deploy the application to the production environment.
+
+## Behavior-Driven Development (BDD) Testing
+
+The application uses Cucumber for BDD testing to ensure that business requirements are
+properly validated through executable specifications. This approach bridges the gap
+between business stakeholders and technical implementation by using natural language
+specifications.
+
+### Test Organization Structure
+
+```text
+features/
+├── submissions.feature
+└── episodes.feature
+
+src/test/java/nl/infosupport/agenttalks/
+└── bdd/
+    ├── SubmissionSteps.java
+    ├── EpisodeSteps.java
+    ├── SummarizationSteps.java
+    ├── AuthenticationSteps.java
+    ├── DatabaseSteps.java
+    └── CommonSteps.java
+```
+
+### Feature File Conventions
+
+- **One Feature Per File**: Each `.feature` file describes a single business capability
+- **Natural Language**: Written in Gherkin syntax using Given-When-Then format
+- **Business-Focused**: Scenarios describe user goals and system behavior, not implementation details
+- **Data-Driven**: Use scenario outlines and examples for comprehensive test coverage
+
+### Step Definition Organization
+
+Step definitions are organized following the feature slice architecture pattern:
+
+- **Feature Files**: Located in the root `features/` directory, organized by domain folders
+- **Step Definitions**: Located in `src/test/java/**/bdd/` within each feature slice package
+- **Shared Steps**: Common authentication, database setup, and utility steps in `src/test/java/**/shared/bdd/`
+- **Naming Convention**: Step definition classes end with `Steps.java` and match their corresponding feature area
+
+### Integration with Quarkus Testing
+
+BDD tests integrate seamlessly with the existing Quarkus testing infrastructure:
+
+```java
+@QuarkusTest
+@Cucumber
+public class BDDTestRunner {
+    // Cucumber test runner for Quarkus integration
+}
+```
+
+### Key BDD Testing Areas
+
+- **Content Submissions**: User story validation for content submission workflows and automatic AI summarization triggers
+- **Podcast Episodes**: Public-facing functionality for browsing and accessing published podcast episodes
+- **Authentication & Authorization**: User access control and permission validation
+- **Integration Scenarios**: Cross-feature workflows and event-driven processing validation
+
+### Shared Step Definitions
+
+Common step definitions handle cross-cutting concerns:
+
+- **Authentication Steps**: User login, token management, and role-based access
+- **Database Steps**: Test data setup, cleanup, and state verification
+- **Common Steps**: Shared assertions, time management, and utility operations
+
+### Benefits of BDD Approach
+
+- **Living Documentation**: Feature files serve as executable specifications that stay current
+- **Business Alignment**: Non-technical stakeholders can review and validate scenarios
+- **Test Maintainability**: Step definitions can be reused across multiple scenarios
+- **Integration Testing**: Validates complete user journeys across multiple features
+- **Regression Prevention**: Automated execution ensures business requirements remain satisfied
