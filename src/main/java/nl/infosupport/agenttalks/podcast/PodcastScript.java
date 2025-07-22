@@ -1,8 +1,9 @@
 package nl.infosupport.agenttalks.podcast;
 
-import com.google.common.base.Objects;
-
 import java.util.List;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class PodcastScript {
     public String title;
@@ -19,12 +20,24 @@ public class PodcastScript {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof PodcastScript that)) return false;
-        return Objects.equal(title, that.title) && Objects.equal(sections, that.sections);
+        if (!(o instanceof PodcastScript that))
+            return false;
+
+        if (this == o) {
+            return true;
+        }
+
+        return new EqualsBuilder()
+                .append(title, that.title)
+                .append(sections, that.sections)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(title, sections);
+        return new HashCodeBuilder()
+                .append(title)
+                .append(sections)
+                .toHashCode();
     }
 }

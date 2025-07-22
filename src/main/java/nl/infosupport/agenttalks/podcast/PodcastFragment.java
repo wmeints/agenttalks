@@ -1,6 +1,7 @@
 package nl.infosupport.agenttalks.podcast;
 
-import com.google.common.base.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class PodcastFragment {
     public String host;
@@ -17,12 +18,24 @@ public class PodcastFragment {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof PodcastFragment that)) return false;
-        return Objects.equal(host, that.host) && Objects.equal(content, that.content);
+        if (!(o instanceof PodcastFragment that))
+            return false;
+
+        if (o == this) {
+            return true;
+        }
+
+        return new EqualsBuilder()
+                .append(host, that.host)
+                .append(content, that.content)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(host, content);
+        return new HashCodeBuilder()
+                .append(host)
+                .append(content)
+                .toHashCode();
     }
 }
