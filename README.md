@@ -21,15 +21,20 @@ about a particular article.
 
 ## Getting started
 
-You can run the application locally with the Quarkus CLI or by using the npm script provided
-with the module. Please find the run commands for each service in the following table:
+Before running the application, make sure you have the following environment variables in the `.env` file:
 
-| Module      | Location           | Run command   |
-| ----------- | ------------------ | ------------- |
-| Content API | `apps/content-api` | `quarkus dev` |
-| Reader API  | `apps/reader-api`  | `quarkus dev` |
-| Podcast API | `apps/podcast-api` | `quarkus dev` |
-| Dashboard   | `apps/dashboard`   | `npm run dev` |
+| Variable Name                                    | Description                                           |
+| ------------------------------------------------ | ----------------------------------------------------- |
+| QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME   | The resource name for your Azure OpenAI resource      |
+| QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY         | The API key for the Azure OpenAI resource             |
+| QUARKUS_LANGCHAIN4J_AZURE_OPENAI_DEPLOYMENT_NAME | The name of the chat completion model you wish to use |
+| AGENTTALKS_BUZZSPROUT_PODCAST_ID                 | The Podcast ID used in buzzsprout                     |
+| AGENTTALKS_BUZZSPROUT_API_KEY                    | The API Key for buzzsprout                            |
+| AGENTTALKS_ELEVENLABS_API_KEY                    | The API Key for ElevenLabs                            |
+| AGENTTALKS_LOCATIONS_AUDIO_FILES                 | The directory where generated audio should be stored  |
+| AGENTTALKS_LOCATIONS_FFMPEG                      | The full path where the ffmpeg binary is located      |
+
+You can run the application locally with the Quarkus CLI using `quarkus dev`.
 
 ## Documentation
 
