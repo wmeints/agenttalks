@@ -11,6 +11,7 @@ import org.eclipse.microprofile.graphql.Query;
 import io.quarkus.panache.common.Sort;
 import io.vertx.core.eventbus.EventBus;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @GraphQLApi
 public class ContentSubmissionsResource {
@@ -38,8 +39,9 @@ public class ContentSubmissionsResource {
     }
 
     @Mutation
+    @Transactional
     @Description("Submits content for processing")
-    public ContentSubmission submitContent(SubmitContentRequest input) {
+    public ContentSubmission submitContent(@NonNull SubmitContentRequest input) {
         var submission = new ContentSubmission(input.url, input.instructions);
         submission.persistAndFlush();
 
