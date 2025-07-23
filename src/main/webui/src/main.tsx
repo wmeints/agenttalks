@@ -7,6 +7,7 @@ import { routeTree } from "./routeTree.gen";
 import "./index.css";
 import { ClerkProvider } from "@clerk/clerk-react";
 import BackendClientProvider from "@/providers/BackendClientProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 // Create a new router instance
 const router = createRouter({
