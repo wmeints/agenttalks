@@ -68,50 +68,6 @@ jobs:
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      - name: Push content-api container image
+      - name: Push container image
         if: github.ref == 'refs/heads/main'
         run: docker push ${{ secrets.CONTAINER_REGISTRY }}/agenttalks/agenttalks-app:1.0.0-${{ github.sha }}
-
-  deploy-to-test:
-    if: ${{ github.ref == 'refs/heads/main' }}
-    name: Deploy to Azure Test Environment
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    environment:
-      name: test
-    env:
-      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
-      AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
-
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          allow-no-subscriptions: true
-
-      - name: Provision Infrastructure
-        run: az deployment group create --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" --template-file infra/main.bicep --parameters infra/main.bicepparam
-        env:
-          GIT_HASH: ${{ github.sha }}
-          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
-          AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
-          DATABASE_ADMIN_USER: ${{ secrets.DATABASE_ADMIN_USER }}
-          DATABASE_ADMIN_PASSWORD: ${{ secrets.DATABASE_ADMIN_PASSWORD }}
-          GMAIL_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GMAIL_SERVICE_ACCOUNT_CREDENTIALS }}
-          BUZZSPROUT_API_KEY: ${{ secrets.BUZZSPROUT_API_KEY }}
-          BUZZSPROUT_PODCAST_ID: ${{ secrets.BUZZSPROUT_PODCAST_ID }}
-          KEYCLOAK_DASHBOARD_CLIENT_SECRET: ${{ secrets.KEYCLOAK_DASHBOARD_CLIENT_SECRET}}
-          KEYCLOAK_ADMIN_PASSWORD: ${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}
-          KEYCLOAK_ADMIN_USERNAME: ${{ secrets.KEYCLOAK_ADMIN_USERNAME }}
-          FRONTEND_AUTHENTICATION_SECRET: ${{ secrets.FRONTEND_AUTHENTICATION_SECRET }}

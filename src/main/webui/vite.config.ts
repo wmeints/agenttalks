@@ -1,37 +1,25 @@
-import houdini from "houdini/vite";
-import tailwindcss from '@tailwindcss/vite';
-import devtoolsJson from 'vite-plugin-devtools-json';
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
+import path from "path";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tanstackRouter from "@tanstack/router-plugin/vite";
 
+// https://vite.dev/config/
 export default defineConfig({
-	plugins: [houdini(), tailwindcss(), sveltekit(), devtoolsJson()],
-	test: {
-		projects: [
-			{
-				extends: './vite.config.ts',
-				test: {
-					name: 'client',
-					environment: 'browser',
-					browser: {
-						enabled: true,
-						provider: 'playwright',
-						instances: [{ browser: 'chromium' }]
-					},
-					include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
-					exclude: ['src/lib/server/**'],
-					setupFiles: ['./vitest-setup-client.ts']
-				}
-			},
-			{
-				extends: './vite.config.ts',
-				test: {
-					name: 'server',
-					environment: 'node',
-					include: ['src/**/*.{test,spec}.{js,ts}'],
-					exclude: ['src/**/*.svelte.{test,spec}.{js,ts}']
-				}
-			}
-		]
+	plugins: [
+		tanstackRouter({ target: "react", autoCodeSplitting: true }),
+		react(),
+		tailwindcss(),
+	],
+	resolve: {
+		alias: {
+			"@": path.resolve(__dirname, "./src/"),
+		},
+	},
+	optimizeDeps: {
+		exclude: ['@graphql-typed-document-node/core'],
+	},
+	build: {
+		chunkSizeWarningLimit: 750
 	}
 });
