@@ -2,14 +2,25 @@ package nl.infosupport.agenttalks.content;
 
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
+
 @QuarkusTest
 public class ContentSubmissionTests {
+    @BeforeEach
+    @Transactional
+    public void setUpTestCase() {
+        ContentSubmission.deleteAll();
+    }
+
     @Test
+    @TestTransaction
     public void testCanSummarizeContent() {
         var submission = new ContentSubmission("https://www.google.com", null);
         submission.summarize("Test", "Summary");
@@ -19,6 +30,7 @@ public class ContentSubmissionTests {
     }
 
     @Test
+    @TestTransaction
     public void testCanMarkForProcessing() {
         var submission = new ContentSubmission("https://www.google.com", null);
         submission.summarize("Test", "Summary");
@@ -28,12 +40,14 @@ public class ContentSubmissionTests {
     }
 
     @Test
+    @TestTransaction
     public void testCantMarkSubmittedContent() {
         var submission = new ContentSubmission("https://www.google.com", null);
         assertThrows(IllegalStateException.class, submission::markForProcessing);
     }
 
     @Test
+    @TestTransaction
     public void testCanMarkProcessedContent() {
         var submission = new ContentSubmission("https://www.google.com", null);
         submission.summarize("Test", "Summary");
@@ -44,6 +58,7 @@ public class ContentSubmissionTests {
     }
 
     @Test
+    @TestTransaction
     public void testCantMarkAsProcessedUnprocessedContent() {
         var submission = new ContentSubmission("https://www.google.com", null);
         submission.summarize("Test", "Summary");
