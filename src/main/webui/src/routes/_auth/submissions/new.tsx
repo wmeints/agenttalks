@@ -39,16 +39,18 @@ function RouteComponent() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await mutationFunction({
+    const saveContentSubmission = mutationFunction({
       variables: {
         url: values.url,
         instructions: values.instructions
       }
     })
 
-    toast('Content succesfully submitted', {
-      description: "Thanks for submitting your content. We're processing it right now for the next podcast. This process may take up to a minute",
-      duration: 30
+    form.reset();
+
+    toast.promise(saveContentSubmission, {
+      loading: "Submitting content...",
+      success: () => 'Content was succesfully submitted.'
     });
   }
 
