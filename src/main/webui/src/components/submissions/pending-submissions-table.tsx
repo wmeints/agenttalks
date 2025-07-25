@@ -1,10 +1,9 @@
 import { graphql } from "@/gql";
 import { useQuery } from "@apollo/client";
-import { Card, CardContent } from "../ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import NoDataCard from "../cards/no-data-card";
+import ContentSubmissionCard from "../cards/content-submission-card";
 import ErrorCard from "../cards/error-card";
 import LoadingCard from "../cards/loading-card";
+import NoDataCard from "../cards/no-data-card";
 
 const fetchPendingSubmissionsQuery = graphql(`
   query fetchPendingSubmissionsQuery {
@@ -12,6 +11,7 @@ const fetchPendingSubmissionsQuery = graphql(`
         id
         title
         url
+        summary
     }
   }
 `);
@@ -42,25 +42,8 @@ export default function PendingSubmissionsTable() {
     }
 
     return (
-        <Card>
-            <CardContent>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Title</TableHead>
-                            <TableHead>URL</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {data?.pendingSubmissions.map((submission) => (
-                            <TableRow>
-                                <TableCell>{submission?.title}</TableCell>
-                                <TableCell>{submission?.url}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </CardContent>
-        </Card>
+        <>
+            {data?.pendingSubmissions.filter(submission => submission).map(submission => (<ContentSubmissionCard submission={submission!} key={submission!.id} />))}
+        </>
     );
 }

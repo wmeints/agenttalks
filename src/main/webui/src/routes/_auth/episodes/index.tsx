@@ -8,6 +8,7 @@ export const Route = createFileRoute("/_auth/episodes/")({
 function RouteComponent() {
   return (
     <div className="container mx-auto">
+      <h1 className="text-3xl font-bold mb-6">Podcast Episodes</h1>
       <EpisodesTable />
     </div>
   );

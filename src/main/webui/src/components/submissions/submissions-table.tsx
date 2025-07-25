@@ -14,6 +14,7 @@ import {
 } from "../ui/table";
 import ErrorCard from "../cards/error-card";
 import NoDataCard from "../cards/no-data-card";
+import ContentSubmissionCard from "../cards/content-submission-card";
 
 const fetchSubmissionsQuery = graphql(`
   query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {
@@ -24,6 +25,7 @@ const fetchSubmissionsQuery = graphql(`
         id
         title
         url
+        summary
       }
     }
   }
@@ -58,27 +60,10 @@ export default function SubmissionsTable() {
   }
 
   return (
+
     <div className="space-y-6">
-      <Card>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>URL</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data?.submissions.items.map((submission) => (
-                <TableRow>
-                  <TableCell>{submission?.title}</TableCell>
-                  <TableCell>{submission?.url}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+      {data?.submissions.items.filter(submission => submission).map(submission => (<ContentSubmissionCard submission={submission!} key={submission!.id} />))}
+
       <Pager
         initialPage={currentPage}
         onPageChange={setCurrentPage}
