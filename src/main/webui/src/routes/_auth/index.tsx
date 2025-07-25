@@ -36,7 +36,7 @@ function RouteComponent() {
   }
 
   return (
-    <div className="container mx-auto space-y-4">
+    <div className="container mx-auto space-y-6 mb-6">
       <div className="grid md:grid-cols-2 gap-4">
         <MetricCard
           metric={data?.statistics?.pendingSubmissions}
