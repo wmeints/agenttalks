@@ -1,13 +1,12 @@
-package nl.infosupport.agenttalks.reader.processing;
+package nl.infosupport.agenttalks.reader;
 
 import io.quarkus.tika.TikaParser;
 import io.quarkus.vertx.ConsumeEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import nl.infosupport.agenttalks.content.ContentSubmission;
-import nl.infosupport.agenttalks.reader.exceptions.ContentDownloadFailedException;
-import nl.infosupport.agenttalks.reader.model.ContentSummarizationData;
-import nl.infosupport.agenttalks.reader.service.ContentSummarizer;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
@@ -34,7 +33,7 @@ public class ContentProcessor {
     @Inject
     ContentSummarizer summarizerAgent;
 
-    @ConsumeEvent(value = "content.submission.created", blocking = true)
+    @ConsumeEvent(value = "submissions.created", blocking = true)
     public void processContentSubmission(ContentSubmission contentSubmission) {
         logger.infof("Starting content processing for submission ID: %s from URL: %s",
                 contentSubmission.id, contentSubmission.url);
@@ -61,8 +60,7 @@ public class ContentProcessor {
     @Retry(maxRetries = 3, delay = 1000, jitter = 200)
     @Timeout(value = 30000) // 30-seconds timeout
     @CircuitBreaker(requestVolumeThreshold = 10, failureRatio = 0.5, delay = 5000)
-    ContentSummarizationData downloadContent(ContentSubmission contentSubmission)
-            throws IOException {
+    ContentSummarizationData downloadContent(ContentSubmission contentSubmission) throws IOException {
         logger.infof("Downloading content for submission ID: %s from URL: %s",
                 contentSubmission.id, contentSubmission.url);
 
@@ -98,17 +96,17 @@ public class ContentProcessor {
         return result;
     }
 
-    @Retry(maxRetries = 3, delay = 1000, jitter = 300)
-    @Timeout(value = 15000) // 15-seconds timeout for service calls
-    @CircuitBreaker(requestVolumeThreshold = 8, failureRatio = 0.4, delay = 5000)
+    @Transactional
     void updateContentSubmission(ContentSummarizationData data) {
         logger.infof("Updating content submission with ID: %d", data.contentSubmissionId);
 
         try {
-//            contentService.summarizeContent(data.contentSubmissionId, data.title, data.summary);
+            ContentSubmission submission = ContentSubmission.findById(data.contentSubmissionId);
+
+            submission.summarize(data.title, data.summary);
+            submission.persistAndFlush();
 
             logger.infof("Successfully updated content submission ID: %d", data.contentSubmissionId);
-
         } catch (Exception ex) {
             logger.errorf("Failed to update content submission ID: %d - %s",
                     data.contentSubmissionId, ex.getMessage());
@@ -136,7 +134,7 @@ public class ContentProcessor {
             }
 
             return response;
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             throw new ContentDownloadFailedException(
                     String.format("Failed to download content from %s", contentSubmission.url), ex);
         }

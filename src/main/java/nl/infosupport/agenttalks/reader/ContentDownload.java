@@ -1,4 +1,4 @@
-package nl.infosupport.agenttalks.reader.model;
+package nl.infosupport.agenttalks.reader;
 
 public class ContentDownload {
     public String contentType;

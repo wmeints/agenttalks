@@ -1,4 +1,4 @@
-package nl.infosupport.agenttalks.reader.shared;
+package nl.infosupport.agenttalks.shared;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

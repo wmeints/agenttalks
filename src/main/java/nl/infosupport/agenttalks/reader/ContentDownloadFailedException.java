@@ -1,4 +1,4 @@
-package nl.infosupport.agenttalks.reader.exceptions;
+package nl.infosupport.agenttalks.reader;
 
 public class ContentDownloadFailedException extends RuntimeException {
     public ContentDownloadFailedException(String message) {
