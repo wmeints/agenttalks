@@ -19,4 +19,7 @@ export default defineConfig({
 	optimizeDeps: {
 		exclude: ['@graphql-typed-document-node/core'],
 	},
+	build: {
+		chunkSizeWarningLimit: 750
+	}
 });
