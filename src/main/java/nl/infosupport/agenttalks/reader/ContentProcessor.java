@@ -4,17 +4,9 @@ import io.quarkus.tika.TikaParser;
 import io.quarkus.vertx.ConsumeEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-<<<<<<<< HEAD:src/main/java/nl/infosupport/agenttalks/reader/ContentProcessor.java
 import jakarta.transaction.Transactional;
 import nl.infosupport.agenttalks.content.ContentSubmission;
 
-========
-import nl.infosupport.agenttalks.content.model.ContentSubmission;
-import nl.infosupport.agenttalks.content.service.ContentService;
-import nl.infosupport.agenttalks.reader.exceptions.ContentDownloadFailedException;
-import nl.infosupport.agenttalks.reader.model.ContentSummarizationData;
-import nl.infosupport.agenttalks.reader.service.ContentSummarizer;
->>>>>>>> origin/main:src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
@@ -46,7 +38,6 @@ public class ContentProcessor {
         logger.infof("Starting content processing for submission ID: %s from URL: %s",
                 contentSubmission.id, contentSubmission.url);
 
-<<<<<<<< HEAD:src/main/java/nl/infosupport/agenttalks/reader/ContentProcessor.java
         try {
             // Step 1: Download and parse content
             ContentSummarizationData contentData = downloadContent(contentSubmission);
@@ -57,23 +48,6 @@ public class ContentProcessor {
             // Step 3: Update content submission
             updateContentSubmission(summarizedData);
 
-========
-    @ConsumeEvent(value = "content.submission.created", blocking = true)
-    public void processContentSubmission(ContentSubmission contentSubmission) {
-        logger.infof("Starting content processing for submission ID: %s from URL: %s",
-                contentSubmission.id, contentSubmission.url);
-
-        try {
-            // Step 1: Download and parse content
-            ContentSummarizationData contentData = downloadContent(contentSubmission);
-
-            // Step 2: Summarize content using AI
-            ContentSummarizationData summarizedData = summarizeContent(contentData);
-
-            // Step 3: Update content submission
-            updateContentSubmission(summarizedData);
-
->>>>>>>> origin/main:src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java
             logger.infof("Successfully processed content submission ID: %s",
                     contentSubmission.id);
         } catch (Exception ex) {
@@ -86,12 +60,7 @@ public class ContentProcessor {
     @Retry(maxRetries = 3, delay = 1000, jitter = 200)
     @Timeout(value = 30000) // 30-seconds timeout
     @CircuitBreaker(requestVolumeThreshold = 10, failureRatio = 0.5, delay = 5000)
-<<<<<<<< HEAD:src/main/java/nl/infosupport/agenttalks/reader/ContentProcessor.java
     ContentSummarizationData downloadContent(ContentSubmission contentSubmission) throws IOException {
-========
-    ContentSummarizationData downloadContent(ContentSubmission contentSubmission)
-            throws IOException {
->>>>>>>> origin/main:src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java
         logger.infof("Downloading content for submission ID: %s from URL: %s",
                 contentSubmission.id, contentSubmission.url);
 
@@ -127,13 +96,7 @@ public class ContentProcessor {
         return result;
     }
 
-<<<<<<<< HEAD:src/main/java/nl/infosupport/agenttalks/reader/ContentProcessor.java
     @Transactional
-========
-    @Retry(maxRetries = 3, delay = 1000, jitter = 300)
-    @Timeout(value = 15000) // 15-seconds timeout for service calls
-    @CircuitBreaker(requestVolumeThreshold = 8, failureRatio = 0.4, delay = 5000)
->>>>>>>> origin/main:src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java
     void updateContentSubmission(ContentSummarizationData data) {
         logger.infof("Updating content submission with ID: %d", data.contentSubmissionId);
 
@@ -171,11 +134,7 @@ public class ContentProcessor {
             }
 
             return response;
-<<<<<<<< HEAD:src/main/java/nl/infosupport/agenttalks/reader/ContentProcessor.java
         } catch (IOException ex) {
-========
-        } catch(IOException ex) {
->>>>>>>> origin/main:src/main/java/nl/infosupport/agenttalks/reader/processing/ContentProcessor.java
             throw new ContentDownloadFailedException(
                     String.format("Failed to download content from %s", contentSubmission.url), ex);
         }
