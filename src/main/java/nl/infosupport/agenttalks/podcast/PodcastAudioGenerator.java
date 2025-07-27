@@ -36,6 +36,8 @@ public class PodcastAudioGenerator {
     private static final String FORMAT = "mp3_44100_128";
 
     public String generatePodcastAudio(PodcastScript script) {
+        logger.info("Generating podcast audio");
+
         var fragments = script.sections.stream()
                 .flatMap(s -> s.fragments.stream())
                 .map(this::generateSpeechFragment)
