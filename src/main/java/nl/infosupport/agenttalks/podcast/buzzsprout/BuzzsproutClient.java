@@ -12,11 +12,11 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@RegisterRestClient(configKey = "buzzsprout")
+@RegisterRestClient(configKey = "buzzsprout", baseUri = "https://www.buzzsprout.com/api/")
 public interface BuzzsproutClient {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/podcasts/{podcastId}/episodes")
+    @Path("{podcastId}/episodes")
     @ClientHeaderParam(name = "Authorization", value = "Token token=${agenttalks.buzzsprout.api-key}")
     public CreateEpisodeResponse createEpisode(@PathParam("podcastId") String podcastId, CreateEpisodeRequest request);
 
