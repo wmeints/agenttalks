@@ -52,6 +52,7 @@ jobs:
       - name: Run Maven build
         run: |
           ./mvnw clean verify -Dquarkus.test.profile=test -Dquarkus.container-image.tag=1.0.0-${{ github.sha }} -Dquarkus.container-image.build=true
+          echo "Published image tag: 1.0.0-${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
         env:
           TESTCONTAINERS_RYUK_DISABLED: true
           QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_RESOURCE_NAME }}
