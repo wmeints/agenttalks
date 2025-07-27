@@ -59,6 +59,7 @@ jobs:
           QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY: ${{ secrets.QUARKUS_LANGCHAIN4J_AZURE_OPENAI_API_KEY }}
           NEWSCAST_LOCATIONS_FFMPEG: ffmpeg
           CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
+          VITE_CLERK_PUBLISHABLE_KEY: ${{ secrets.VITE_CLERK_PUBLISHABLE_KEY }}
 
       - name: Login to container registry
         if: ${{ github.ref == 'refs/heads/main' }}
