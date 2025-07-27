@@ -7,6 +7,10 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 import io.quarkus.scheduler.Scheduled;
+import io.smallrye.common.annotation.Blocking;
+import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.infrastructure.Infrastructure;
+import io.vertx.core.eventbus.EventBus;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import nl.infosupport.agenttalks.content.ContentSubmission;
@@ -34,31 +38,52 @@ public class PodcastEpisodeGenerator {
     @ConfigProperty(name = "agenttalks.buzzsprout.podcast-id")
     String podcastId;
 
-    @Transactional
+    @Inject
+    EventBus eventBus;
+
+    @Blocking
     @Scheduled(cron = "0 0 18 ? * FRI")
-    public void generatePodcastEpisode() {
+    public Uni<Void> generatePodcastEpisode() {
+        return Uni.createFrom().item(() -> {
+            internalGeneratePodcastEpisode();
+            return (Void) null;
+        }).runSubscriptionOn(Infrastructure.getDefaultWorkerPool());
+    }
+
+    void internalGeneratePodcastEpisode() {
         var pendingSubmissions = ContentSubmission.findPending().list();
 
         logger.infof("Processing %d pending submissions", pendingSubmissions.size());
 
-        lockContentSubmissions(pendingSubmissions);
         PodcastScript episodeScript = generatePodcastScript(pendingSubmissions);
         String audioFilePath = podcastAudioGenerator.generatePodcastAudio(episodeScript);
-        String formattedSubmissions = formatContentSubmissions(pendingSubmissions);
-        String formattedPodcastScript = formatPodcastScript(episodeScript);
-        String showNotes = showNotesGenerator.generateShowNotes(formattedPodcastScript, formattedSubmissions);
-        String episodeDescription = episodeSummaryGenerator.generateEpisodeDescription(
-                formattedPodcastScript,
-                formattedSubmissions);
+
+        // logger.info("Collecting data for show notes and episode description");
+
+        // String formattedSubmissions = formatContentSubmissions(pendingSubmissions);
+        // String formattedPodcastScript = formatPodcastScript(episodeScript);
+
+        // logger.info("Generating show notes");
+
+        // String showNotes = showNotesGenerator.generateShowNotes(
+        // formattedPodcastScript, formattedSubmissions);
+
+        // logger.info("Generating episode description");
+
+        // String episodeDescription =
+        // episodeSummaryGenerator.generateEpisodeDescription(
+        // formattedPodcastScript,
+        // formattedSubmissions);
 
         PodcastEpisode episode = new PodcastEpisode(
                 episodeScript,
                 audioFilePath,
                 PodcastEpisode.getNextEpisodeNumber(),
-                showNotes,
-                episodeDescription);
+                "NOT GENERATED YET",
+                "NOT GENERATED YET");
 
-        episode.persistAndFlush();
+        savePodcastEpisode(episode);
+        markContentSubmissionsAsProcessed(pendingSubmissions);
 
         buzzsproutClient.createEpisode(podcastId,
                 new CreateEpisodeRequest(
@@ -66,14 +91,17 @@ public class PodcastEpisodeGenerator {
                         episode.description,
                         episode.summary,
                         episode.audioFilePath));
-
-        unlockContentSubmissions(pendingSubmissions);
     }
 
-    private void unlockContentSubmissions(List<ContentSubmission> pendingSubmissions) {
-        for (var submission : pendingSubmissions) {
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    void savePodcastEpisode(PodcastEpisode episode) {
+        episode.persistAndFlush();
+    }
+
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    void markContentSubmissionsAsProcessed(List<ContentSubmission> submissions) {
+        for (ContentSubmission submission : submissions) {
             submission.markAsProcessed();
-            submission.persist();
         }
     }
 
@@ -94,6 +122,8 @@ public class PodcastEpisodeGenerator {
     }
 
     private PodcastScript generatePodcastScript(List<ContentSubmission> pendingSubmissions) {
+        logger.info("Generating podcast script");
+
         var firstHost = PodcastHost.findFirstHost();
         var secondHost = PodcastHost.findSecondHost();
 
@@ -115,12 +145,5 @@ public class PodcastEpisodeGenerator {
         }
 
         return outputBuilder.toString();
-    }
-
-    private void lockContentSubmissions(List<ContentSubmission> pendingSubmissions) {
-        for (var submission : pendingSubmissions) {
-            submission.markForProcessing();
-            submission.persist();
-        }
     }
 }
