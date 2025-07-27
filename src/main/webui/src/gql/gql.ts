@@ -15,15 +15,15 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  */
 type Documents = {
     "\n  query fetchEpisodesQuery($pageIndex: Int!, $pageSize: Int!) {\n    episodes(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n      }\n    }\n  }\n": typeof types.FetchEpisodesQueryDocument,
-    "\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n        summary\n    }\n  }\n": typeof types.FetchPendingSubmissionsQueryDocument,
-    "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n        summary\n      }\n    }\n  }\n": typeof types.FetchSubmissionsQueryDocument,
+    "\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n        summary\n        status\n    }\n  }\n": typeof types.FetchPendingSubmissionsQueryDocument,
+    "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n        summary\n        status\n      }\n    }\n  }\n": typeof types.FetchSubmissionsQueryDocument,
     "\n  query fetchStatisticsQuery {\n    statistics {\n      pendingSubmissions\n      totalEpisodes\n    }\n  }\n": typeof types.FetchStatisticsQueryDocument,
     "\n  mutation submitContentMutation ($url: String!, $instructions: String!) {\n    submitContent(input: {url: $url, instructions: $instructions }) {\n      id\n    }\n  }": typeof types.SubmitContentMutationDocument,
 };
 const documents: Documents = {
     "\n  query fetchEpisodesQuery($pageIndex: Int!, $pageSize: Int!) {\n    episodes(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n      }\n    }\n  }\n": types.FetchEpisodesQueryDocument,
-    "\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n        summary\n    }\n  }\n": types.FetchPendingSubmissionsQueryDocument,
-    "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n        summary\n      }\n    }\n  }\n": types.FetchSubmissionsQueryDocument,
+    "\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n        summary\n        status\n    }\n  }\n": types.FetchPendingSubmissionsQueryDocument,
+    "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n        summary\n        status\n      }\n    }\n  }\n": types.FetchSubmissionsQueryDocument,
     "\n  query fetchStatisticsQuery {\n    statistics {\n      pendingSubmissions\n      totalEpisodes\n    }\n  }\n": types.FetchStatisticsQueryDocument,
     "\n  mutation submitContentMutation ($url: String!, $instructions: String!) {\n    submitContent(input: {url: $url, instructions: $instructions }) {\n      id\n    }\n  }": types.SubmitContentMutationDocument,
 };
@@ -49,11 +49,11 @@ export function graphql(source: "\n  query fetchEpisodesQuery($pageIndex: Int!, 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n        summary\n    }\n  }\n"): (typeof documents)["\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n        summary\n    }\n  }\n"];
+export function graphql(source: "\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n        summary\n        status\n    }\n  }\n"): (typeof documents)["\n  query fetchPendingSubmissionsQuery {\n    pendingSubmissions {\n        id\n        title\n        url\n        summary\n        status\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n        summary\n      }\n    }\n  }\n"): (typeof documents)["\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n        summary\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n        summary\n        status\n      }\n    }\n  }\n"): (typeof documents)["\n  query fetchSubmissionsQuery($pageIndex: Int!, $pageSize: Int!) {\n    submissions(pageIndex: $pageIndex, pageSize: $pageSize) {\n      totalPages\n      totalItems\n      items {\n        id\n        title\n        url\n        summary\n        status\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -17,6 +17,7 @@ const fetchSubmissionsQuery = graphql(`
         title
         url
         summary
+        status
       }
     }
   }

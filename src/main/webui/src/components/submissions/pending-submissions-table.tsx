@@ -12,6 +12,7 @@ const fetchPendingSubmissionsQuery = graphql(`
         title
         url
         summary
+        status
     }
   }
 `);

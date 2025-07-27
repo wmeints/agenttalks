@@ -1,6 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
 import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 
 interface ContentSubmissionCardProps {
     submission: ContentSubmissionFields;
@@ -10,6 +11,7 @@ interface ContentSubmissionFields {
     url: string;
     title?: string | null;
     summary?: string | null;
+    status: string;
 }
 
 export default function ContentSubmissionCard({
@@ -37,12 +39,15 @@ export default function ContentSubmissionCard({
                 <span className="text-xs text-muted-foreground truncate flex-1 mr-4">
                     {submission.url}
                 </span>
-                <Button variant="ghost" asChild>
-                    <a href={submission.url} target="_blank">
-                        <ExternalLink />
-                        Open
-                    </a>
-                </Button>
+                <div className="flex flex-row space-x-4">
+                    <Badge variant="outline">{submission.status}</Badge>
+                    <Button variant="ghost" asChild>
+                        <a href={submission.url} target="_blank">
+                            <ExternalLink />
+                            Open
+                        </a>
+                    </Button>
+                </div>
             </CardFooter>
         </Card>
     );
