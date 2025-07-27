@@ -24,7 +24,7 @@ declare module "@tanstack/react-router" {
 }
 
 // Import your Publishable Key
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const PUBLISHABLE_KEY = 'pk_test_YWNjZXB0ZWQtZ29zaGF3ay05Ny5jbGVyay5hY2NvdW50cy5kZXYk';
 
 if (!PUBLISHABLE_KEY) {
   throw new Error("Add your Clerk Publishable Key to the .env file");
