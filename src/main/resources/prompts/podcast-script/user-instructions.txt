@@ -1,7 +1,7 @@
 **Genereer een podcaststijl-audioscript op basis van de aangeleverde inhoud.**
 De output moet een **conversatiescript** zijn tussen twee AI-hosts die de inhoud, inzichten en implicaties van het materiaal bespreken.
 
-**Naam van de podcast:** AI Unpacked by AI
+**Naam van de podcast:** AgentTalks
 
 **Podcastformaat:**
 
