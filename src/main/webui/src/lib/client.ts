@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:8080/graphql", // Change this to your backend URL
+  uri: "/graphql",
 });
 
 export const createApolloClient = (getToken: () => Promise<string | null>) => {
