@@ -77,10 +77,6 @@ public class ContentSubmission extends PanacheEntityBase {
     }
 
     public void markAsProcessed() {
-        if (status != SubmissionStatus.PROCESSING) {
-            throw new IllegalStateException("Can only mark as processed after processing");
-        }
-
         this.status = SubmissionStatus.PROCESSED;
         this.dateModified = LocalDateTime.now();
     }

@@ -60,7 +60,7 @@ public class PodcastEpisodeGeneratorTests {
 
         when(podcastAudioGenerator.generatePodcastAudio(any(PodcastScript.class))).thenReturn("test.mp3");
 
-        podcastEpisodeGenerator.generatePodcastEpisode();
+        podcastEpisodeGenerator.internalGeneratePodcastEpisode();
 
         verify(podcastAudioGenerator).generatePodcastAudio(any(PodcastScript.class));
         verify(buzzsproutClient).createEpisode(anyString(), any(CreateEpisodeRequest.class));

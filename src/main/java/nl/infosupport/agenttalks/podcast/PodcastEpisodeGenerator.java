@@ -50,7 +50,7 @@ public class PodcastEpisodeGenerator {
         }).runSubscriptionOn(Infrastructure.getDefaultWorkerPool());
     }
 
-    void internalGeneratePodcastEpisode() {
+    public void internalGeneratePodcastEpisode() {
         var pendingSubmissions = ContentSubmission.findPending().list();
 
         logger.infof("Processing %d pending submissions", pendingSubmissions.size());
