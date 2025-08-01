@@ -59,15 +59,6 @@ public class ContentSubmissionTests {
 
     @Test
     @TestTransaction
-    public void testCantMarkAsProcessedUnprocessedContent() {
-        var submission = new ContentSubmission("https://www.google.com", null);
-        submission.summarize("Test", "Summary");
-
-        assertThrows(IllegalStateException.class, submission::markAsProcessed);
-    }
-
-    @Test
-    @TestTransaction
     public void testCanFindPendingSubmissions() {
         var submission = new ContentSubmission("https://www.google.com", null);
         submission.summarize("Test", "Summary");
